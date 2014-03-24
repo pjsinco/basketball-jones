@@ -1,16 +1,16 @@
-// unix fu to grab schools from sports-reference
-// curl -A "Mozilla/5.0 (compatible; MSIE 7.01; Windows NT 5.0)" http://www.sports-reference.com/cbb/schools/?redir > ~/Desktop/search2.html
-// grep -o -E 'href=".*"' search2.html | cut -d'"' -f2 | grep '/cbb/schools/' | cut -d'/' -f4
-
 /*
-* Sports-ref schools list:
+* sports-ref schools list:
 * http://www.sports-reference.com/cbb/schools/?redir
 */
   
+/*
+* espn schools list:
+* http://espn.go.com/mens-college-basketball/standings
+*/
 console.log('hoya');
 
+// clean up team names from espn list
 d3.csv('../data/espn-ids.csv', function(error, data) {
-  //console.log(data);
 
   var teams = []
   data.forEach(function(d) {
