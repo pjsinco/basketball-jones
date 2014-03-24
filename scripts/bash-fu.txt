@@ -1,0 +1,5 @@
+/* GET LIST OF SCHOOLS FROM SPORTS-REF */
+curl -A "Mozilla/5.0 (compatible; MSIE 7.01; Windows NT 5.0)" http://www.sports-reference.com/cbb/schools/?redir > ~/Desktop/search2.html
+
+/* GREP THE SCHOOL IDS FROM RESULTING FILE */
+grep -o -E 'href=".*"' search2.html | cut -d'"' -f2 | grep '/cbb/schools/' | cut -d'/' -f4
