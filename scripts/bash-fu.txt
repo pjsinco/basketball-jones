@@ -1,5 +1,23 @@
+ ___ _ __   ___  _ __| |_ ___       _ __ ___ / _|
+/ __| '_ \ / _ \| '__| __/ __|_____| '__/ _ \ |_
+\__ \ |_) | (_) | |  | |_\__ \_____| | |  __/  _|
+|___/ .__/ \___/|_|   \__|___/     |_|  \___|_|
+    |_|
 /* GET LIST OF SCHOOLS FROM SPORTS-REF */
 curl -A "Mozilla/5.0 (compatible; MSIE 7.01; Windows NT 5.0)" http://www.sports-reference.com/cbb/schools/?redir > ~/Desktop/search2.html
 
 /* GREP THE SCHOOL IDS FROM RESULTING FILE */
 grep -o -E 'href=".*"' search2.html | cut -d'"' -f2 | grep '/cbb/schools/' | cut -d'/' -f4
+
+ _                                       _    _
+| |_ ___  __ _ _ __ ___  _ __ __ _ _ __ | | _(_)_ __   __ _ ___
+| __/ _ \/ _` | '_ ` _ \| '__/ _` | '_ \| |/ / | '_ \ / _` / __|
+| ||  __/ (_| | | | | | | | | (_| | | | |   <| | | | | (_| \__ \
+ \__\___|\__,_|_| |_| |_|_|  \__,_|_| |_|_|\_\_|_| |_|\__, |___/
+                                                      |___/
+/* GET LIST OF SCHOOLS FROM TEAMRANKINGS.COM */
+curl --data "type=chooser&league=ncb&season_id=&view_type=teams-chooser" http://www.teamrankings.com/ajax/league/v3/teams_controller.php > ~/Desktop/search3.html
+
+/* GREP THE SCHOOL IDS FROM RESULTING FILE */
+grep -o -E 'href=".*"' search2.html | cut -d'"' -f2 | grep 'ncaa-basketball/team/' | cut -d'/' -f4
+

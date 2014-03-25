@@ -7,6 +7,11 @@
 * espn schools list:
 * http://espn.go.com/mens-college-basketball/standings
 */
+
+/*
+ * teamrankings list:
+ * http://www.teamrankings.com/ncaa-basketball/team/njit
+ */
 console.log('hoya');
 
 // clean up team names from espn list
