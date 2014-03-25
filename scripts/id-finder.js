@@ -14,24 +14,33 @@
  */
 console.log('hoya');
 
-// clean up team names from espn list
-d3.csv('../data/espn-ids.csv', function(error, data) {
+// clean up team names 
+//d3.csv('../data/espn-ids.csv', function(error, data) {
+d3.csv('../data/teamrankings-ids.csv', function(error, data) {
+  d3.selectAll('p')
+    .data(data)
+    .enter()
+    .append('p')
+      .text(function(d) {
+        return d.teamrankings_id;
+      })
 
+  console.log(data);
   var teams = []
   data.forEach(function(d) {
     
-    var teamSplit = d.school.replace(/[.',()&]/g,'').split('-');
+    var teamSplit = d.teamrankings_id.replace(/[.',()&]/g,'').split('-');
     teamSplit.pop();
     var team = teamSplit.join('-');
     teams.push(team)
   }); // end data.forEach()
 
-  d3.selectAll('p')
-    .data(teams)
-    .enter()
-    .append('p')
-      .text(function(d) {
-        return d;
-      })
+//  d3.selectAll('p')
+//    .data(teams)
+//    .enter()
+//    .append('p')
+//      .text(function(d) {
+//        return d;
+//      })
       
 }); // end d3.csv()
