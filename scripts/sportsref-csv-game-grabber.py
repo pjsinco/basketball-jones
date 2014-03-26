@@ -3,10 +3,13 @@
 #selenium webdriver api
 #https://selenium-python.readthedocs.org/en/latest/api.html
 
-#work in progress
+####################
+# work in progress #
+####################
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+#from bs4 import BeautifulSoup
 
 #open firefox
 driver = webdriver.Firefox()
@@ -21,5 +24,10 @@ csv = driver.find_element_by_css_selector("span[tip$='comma-separated values']")
 csv.click()
 
 #scrape it
+pre = driver.find_element_by_tag_name('pre')
+text = pre.text
 
-#save it to a file
+#for now, show that we grabbed it
+print (text)
+
+#save scraped text to a file
