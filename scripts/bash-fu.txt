@@ -19,5 +19,5 @@ grep -o -E 'href=".*"' search2.html | cut -d'"' -f2 | grep '/cbb/schools/' | cut
 curl --data "type=chooser&league=ncb&season_id=&view_type=teams-chooser" http://www.teamrankings.com/ajax/league/v3/teams_controller.php > ~/Desktop/search3.html
 
 /* GREP THE SCHOOL IDS FROM RESULTING FILE */
-grep -o -E 'href=".*"' search2.html | cut -d'"' -f2 | grep 'ncaa-basketball/team/' | cut -d'/' -f4
+grep -o -E 'href=".*"' search3.html | cut -d'"' -f2 | grep 'ncaa-basketball/team/' | cut -d'/' -f4
 
