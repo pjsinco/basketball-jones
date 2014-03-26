@@ -12,11 +12,14 @@ var teams = {};
 var teamlines = [];
 var weeks = [];
 
+origStroke = 3;
+hoverStroke = 10;
+
 var svg = d3.select("body").append("svg");
 
 d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 	dataset = data;
-	console.log(dataset);
+	//console.log(dataset);
 
 	for (var i=0;i<dataset.length;i++) {
 		if (dataset[i].Wk === "Wk") {
@@ -64,7 +67,7 @@ d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 					diff.push(weeks[i]);
 				}
 			}
-			console.log(school, diff);
+			//console.log(school, diff);
 			diff.forEach(function(d) {
 				teams[school].push({"Wk": d, "Rk": "26"});
 			})
@@ -75,7 +78,7 @@ d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 		})
 	}
 
-	console.log(teams);
+	//console.log(teams);
 
 	xscale = d3.scale.linear().domain([1,20]).range([50,1600]);
 	yscale = d3.scale.linear().domain([1,25]).range([50,700]);
@@ -108,16 +111,20 @@ d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 	for (var school in teams) {
 		svg.append("path")
 			.attr("d", teamline(teams[school]))
+			//.classed(school, true)
+			.classed("teampath", true)
 			.style("fill", "none")
-			.style("stroke-width", 3)
+			.style("stroke-width", origStroke)
 			.style("stroke", searchColor(school))
 			.on("mouseover", function(d) {
 				var thepath = d3.select(this);
-				thepath.style("stroke-width", 10);
+				//thepath.style("stroke-width", hoverStroke);
+				return highlightPath(thepath);
 			})
 			.on("mouseout", function(d) {
-				var thepath = d3.select(this);
-				thepath.style("stroke-width", 3);
+				//var thepath = d3.select(this);
+				//thepath.style("stroke-width", origStroke);
+				return backToNormal();
 			})
 			.style("clip-path", "url(#clip)")
 		count++;
@@ -151,6 +158,22 @@ d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 
 	//console.log(dataset);
 })
+
+var allPaths;
+
+function highlightPath(thePath) {
+	d3.selectAll("path.teampath")
+			.style("opacity", 0.25)
+			.style("stroke-width", 1);
+	thePath.style("stroke-width", hoverStroke)
+			.style("opacity", 1);
+}
+
+function backToNormal() {
+	d3.selectAll("path.teampath")
+					.style("opacity", 1)
+					.style("stroke-width", origStroke);
+}
 
 </script>
 
