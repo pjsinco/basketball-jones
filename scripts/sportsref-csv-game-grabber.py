@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
+#selenium webdriver api
+#https://selenium-python.readthedocs.org/en/latest/api.html
+
 #work in progress
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
 
 #open firefox
 driver = webdriver.Firefox()
