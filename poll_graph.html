@@ -3,6 +3,7 @@
 <script src="libs/d3.v3.min.js"></script>
 <script src="scripts/teamcolors.js"></script>
 <script src="libs/jquery-1.10.1.js"></script>
+<script src="scripts/master-ids-load.js"></script>
 </head>
 <body>
 <script type="text/javascript">
@@ -111,7 +112,7 @@ d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 	for (var school in teams) {
 		svg.append("path")
 			.attr("d", teamline(teams[school]))
-			//.classed(school, true)
+			.classed(school, true)
 			.classed("teampath", true)
 			.style("fill", "none")
 			.style("stroke-width", origStroke)
@@ -136,6 +137,16 @@ d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 				.attr("dy", ".25em")
 				.attr("text-anchor", "start")
 				.style("fill", searchColor(school))
+				.on("mouseover", function() {
+					//thisSchool = this.indexOf
+					theSchool = this.innerHTML;
+					theSchool = theSchool.substring((theSchool.indexOf(" ")+1));
+					//console.log(theSchool);
+					return highlightPath(null,theSchool);
+				})
+				.on("mouseout", function() {
+					return backToNormal();
+				})
 				.text(lastRk + ": " + school);
 		}
 	}
@@ -161,12 +172,21 @@ d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 
 var allPaths;
 
-function highlightPath(thePath) {
+function highlightPath(thePath,school) {
+
 	d3.selectAll("path.teampath")
 			.style("opacity", 0.25)
 			.style("stroke-width", 1);
-	thePath.style("stroke-width", hoverStroke)
-			.style("opacity", 1);
+
+	if (thePath) {
+		thePath.style("stroke-width", hoverStroke)
+				.style("opacity", 1);
+	}
+	if (school) {
+		thePath = d3.select("path."+school);
+		thePath.style("stroke-width", hoverStroke)
+				.style("opacity", 1);
+	}
 }
 
 function backToNormal() {
