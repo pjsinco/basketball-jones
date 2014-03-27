@@ -35,8 +35,10 @@ for team in csv:
   team = team.strip('\n')
 
   #abilene-christian was not in div 1 in 2012-13
-  if team == 'abilene-christian': 
-    continue
+  if (team == 'abilene-christian') or (team == 'air-force') \
+    or (team == 'akron') or (team == 'alabama-am') \
+    or (team == 'alabama-birmingham'):
+      continue
 
   #make a team directory if one doesn't exist
   directory = '../data/' + team
@@ -114,6 +116,8 @@ http://www.sports-reference.com/cbb/boxscores/2012-12-22-air-force.html
 --sometimes teams play teams not in div 1
 
 
+//www.sports-reference.com/cbb/boxscores/2012-12-29-alabama-state.html
+'Unable to locate element: {"method":"xpath","selector":"//span[contains(@onclick, \\"table2csv(\'alabama-state\\")]"}'
 
 
 
