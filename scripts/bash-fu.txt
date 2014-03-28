@@ -28,11 +28,11 @@ grep -o -E 'href=".*"' search3.html | cut -d'"' -f2 | grep 'ncaa-basketball/team
           |_|
 ******** API **********
 /* ALL TEAMS */
-curl --request GET http://api.espn.com/v1//sports/basketball/mens-college-basketball/teams?apikey=5cuxz9nd7jb9nkebvf8t3g85
+curl --request GET http://api.espn.com/v1//sports/basketball/mens-college-basketball/teams?apikey=
 
 /* SPECIFIC TEAM */
-curl --request GET http://api.espn.com/v1//sports/basketball/mens-college-basketball/teams/85?apikey=5cuxz9nd7jb9nkebvf8t3g85
+curl --request GET http://api.espn.com/v1//sports/basketball/mens-college-basketball/teams/85?apikey=
 
 /* CONFERENCE INFO */
-curl --request GET http://api.espn.com/v1/sports/basketball/mens-college-basketball?apikey=5cuxz9nd7jb9nkebvf8t3g85
+curl --request GET http://api.espn.com/v1/sports/basketball/mens-college-basketball?apikey=
 
