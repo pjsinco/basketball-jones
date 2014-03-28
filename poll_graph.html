@@ -18,7 +18,13 @@ hoverStroke = 10;
 
 var svg = d3.select("body").append("svg");
 
-d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
+var polls = { "ap": "data/poll-data/2012-13-AP.csv", "coaches": "data/poll-data/2012-13-coaches.csv" };
+
+function displayPoll(thePoll) {
+	thePollPath = polls[thePoll];
+
+//d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
+d3.csv(thePollPath, function(error, data) {
 	dataset = data;
 	//console.log(dataset);
 
@@ -79,9 +85,11 @@ d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 		})
 	}
 
+	maxWk = d3.max(weeks, function(d) { return d; });
+
 	//console.log(teams);
 
-	xscale = d3.scale.linear().domain([1,20]).range([50,1600]);
+	xscale = d3.scale.linear().domain([1,maxWk]).range([50,1600]);
 	yscale = d3.scale.linear().domain([1,25]).range([50,700]);
 
 	xaxis = d3.svg.axis()
@@ -169,6 +177,7 @@ d3.csv("data/poll-data/2012-13-AP.csv", function(error, data) {
 
 	//console.log(dataset);
 })
+}
 
 var allPaths;
 
@@ -194,6 +203,8 @@ function backToNormal() {
 					.style("opacity", 1)
 					.style("stroke-width", origStroke);
 }
+
+displayPoll("coaches");
 
 </script>
 
