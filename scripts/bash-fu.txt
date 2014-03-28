@@ -21,3 +21,18 @@ curl --data "type=chooser&league=ncb&season_id=&view_type=teams-chooser" http://
 /* GREP THE SCHOOL IDS FROM RESULTING FILE */
 grep -o -E 'href=".*"' search3.html | cut -d'"' -f2 | grep 'ncaa-basketball/team/' | cut -d'/' -f4
 
+ ___  ___ _ __  _ __
+ / _ \/ __| '_ \| '_ \
+|  __/\__ \ |_) | | | |
+ \___||___/ .__/|_| |_|
+          |_|
+******** API **********
+/* ALL TEAMS */
+curl --request GET http://api.espn.com/v1//sports/basketball/mens-college-basketball/teams?apikey=5cuxz9nd7jb9nkebvf8t3g85
+
+/* SPECIFIC TEAM */
+curl --request GET http://api.espn.com/v1//sports/basketball/mens-college-basketball/teams/85?apikey=5cuxz9nd7jb9nkebvf8t3g85
+
+/* CONFERENCE INFO */
+curl --request GET http://api.espn.com/v1/sports/basketball/mens-college-basketball?apikey=5cuxz9nd7jb9nkebvf8t3g85
+
