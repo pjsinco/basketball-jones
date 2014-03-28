@@ -1,2 +1,5 @@
 *.swp
 *.swo
+play-*.py
+play-*.php
+play-*.js
