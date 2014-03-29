@@ -1,24 +1,23 @@
 $(document).ready(function() {
-  console.log('flyer');
 
   var plays = []; // hold all our play objects
   var play = null;
 
   var saveToFile = function(arrayOfLines, fileName) {
-    /* adds linebreaks at the end*/
-    var blob, blobText;
-    blobText = arrayOfLines.map(function(d) {
-      if (d.endsWith("\n")) {
-        return d;
-      } else {
-        return d + "\n";
-      }
-    });
-    blob = new Blob(blobText, {
-      type: "text/plain;charset=utf-8"
-    });
-    return saveAs(blob, fileName);
-  };
+      /* adds linebreaks at the end*/
+      var blob, blobText;
+      blobText = arrayOfLines.map(function(d) {
+        if (d.endsWith("\n")) {
+          return d;
+        } else {
+          return d + "\n";
+        }
+      });
+      blob = new Blob(blobText, {
+        type: "text/plain;charset=utf-8"
+      });
+      return saveAs(blob, fileName);
+    };
 
   
   $.ajax({
@@ -83,8 +82,38 @@ $(document).ready(function() {
         
       });
       
-      console.log(plays);
-      //saveToFile(plays, 'temp');
+      //var data = JSON.stringify(plays); // make JSON 
+      //var data = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(plays));
+      //$('body').append('<div>').attr('id', 'container');
+      //$('<a href="data:' + data + '" download="data.json">download JSON</a>').appendTo('#container');
+
+      //http://stackoverflow.com/questions/11257062/converting-json-object-to-csv-format-in-javascript
+      function convertToCSV(objArray) {
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+
+        var arrOfStr = []
+        arrOfStr.push('clock,away_play,score,home_play');
+        for (var i = 0; i < array.length; i++) {
+          var str = '';
+          var line = '';
+          for (var index in array[i]) {
+            if (line != '') {
+              line += ',';
+            }
+
+            line += array[i][index];
+          }
+
+          str += line + '\r\n';
+          arrOfStr.push(str);
+        }
+
+        return arrOfStr;
+      }
+
+      var csv = convertToCSV(plays);
+      saveToFile(csv, 'temp.csv'); // temp name for now
+
     } // end success
   }); // end $.ajax()
 }); 
