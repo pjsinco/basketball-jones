@@ -21,7 +21,8 @@ $(document).ready(function() {
 
   
   $.ajax({
-    url: 'http://espn.go.com/ncb/playbyplay?gameId=323152168',
+    url: 'http://espn.go.com/ncb/playbyplay?gameId=400502374',
+    //url: 'http://espn.go.com/ncb/playbyplay?gameId=323152168',
     type: 'GET',
     success: function(data, textStatus) {
 
