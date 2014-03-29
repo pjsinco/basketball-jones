@@ -3,3 +3,6 @@
 play-*.py
 play-*.php
 play-*.js
+play-*.html
+scraps/
+scraps/*
