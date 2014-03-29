@@ -30,9 +30,6 @@ $(document).ready(function() {
       var rows = $(data.responseText).find('.mod-data.mod-pbp tbody tr');
       var numRows = rows.length;
 
-      // grab all the TDs
-      var tds = $(rows).find('td');
-      
       // dynamically establish baseline number of TDs in each row
       var numTDsInRow = $(rows[0]).find('td').length;
 
