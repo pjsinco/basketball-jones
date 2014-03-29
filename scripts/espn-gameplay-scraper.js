@@ -5,7 +5,7 @@
   var play = null;
   
   $.ajax({
-    url: '../scraps/dayton-game.html',
+    url: '../scraps/espn-dayton-game.html',
     type: 'GET',
     success: function(request) {
       // grab all the rows
