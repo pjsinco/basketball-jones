@@ -4,25 +4,70 @@
 <script src="scripts/teamcolors.js"></script>
 <script src="libs/jquery-1.10.1.js"></script>
 <script src="scripts/master-ids-load.js"></script>
+<script src="libs/d3.slider.js"></script>
+<link rel="stylesheet" href="libs/d3.slider.css" />
 </head>
 <body>
+<table>
+<!-- <tr>
+<td> -->
+<!-- <form>
+<label><input type="radio" name="pollSelect" value="ap" onClick='displayPoll("ap")'> Associated Press</label>
+<label><input type="radio" name="pollSelect" value="coaches" onClick='displayPoll("coaches")'/> Coaches/USA Today</label>
+</form> -->
+<!-- </td>
+<td></td>
+</tr> -->
+<tr>
+<td>
 <form>
 <label><input type="radio" name="pollSelect" value="ap" onClick='displayPoll("ap")'> Associated Press</label>
 <label><input type="radio" name="pollSelect" value="coaches" onClick='displayPoll("coaches")'/> Coaches/USA Today</label>
+<label><input type="radio" name="pollSelect" value="rpi" onClick='displayPoll("rpi")'/> RPI</label>
 </form>
+<div id="pollgraph"></div></td>
+<td><div id="confBar"></div></td>
+</tr>
+</table>
 <script type="text/javascript">
+
+var margin = {
+	top:10,
+	right:150,
+	bottom:50,
+	left:30
+};
+
+var width1 = 1000 - margin.left - margin.right;
+
+var bbPoll = {
+	x: margin.left,
+	y: margin.top,
+	w: width1,
+	h: 600
+}
 
 var dataset;
 var teams = {};
 var teamlines = [];
 var weeks = [];
+var conferences = {};
 
 origStroke = 3;
 hoverStroke = 10;
 
-var svg = d3.select("body").append("svg");
+// var svg = d3.select("body").append("svg");
 
-var polls = { "ap": "data/poll-data/2012-13-AP.csv", "coaches": "data/poll-data/2012-13-coaches.csv" };
+var canvas = d3.select("#pollgraph").append("svg").attr({
+	width: bbPoll.w + margin.left + margin.right,
+	height: bbPoll.h + margin.top + margin.bottom
+});
+
+var svg = canvas.append("g").attr({
+	transform: "translate(" + margin.left + "," + margin.top + ")"
+});
+
+var polls = { "ap": "data/poll-data/2012-13-AP.csv", "coaches": "data/poll-data/2012-13-coaches.csv", "rpi": "data/rpi-ratings/2012-13-rpi.csv" };
 
 function displayPoll(thePoll) {
 	thePollPath = polls[thePoll];
@@ -50,7 +95,8 @@ var weeks = [];
 		}*/
 		line = dataset[i];
 		school = line.School;
-		week = parseInt(line.Wk);
+		strWeek = line.Wk;
+		week = parseInt(strWeek);
 		line.Wk = week;
 		rank = parseInt(line.Rk);
 		line.Rk = rank;
@@ -66,6 +112,18 @@ var weeks = [];
 			teams[school].push(line);
 		} else {
 			teams[school] = [line];
+		}
+
+		conf = line.Conf;
+		if (conferences[conf]) {
+			if (conferences[conf][week]) {
+				conferences[conf][week]++;
+			} else {
+				conferences[conf][week] = 1;
+			}
+		} else {
+			conferences[conf] = {};
+			conferences[conf][week] = 1;
 		}
 	}
 
@@ -98,8 +156,11 @@ var weeks = [];
 
 	//console.log(teams);
 
-	xscale = d3.scale.linear().domain([1,maxWk]).range([50,1600]);
-	yscale = d3.scale.linear().domain([1,25]).range([50,700]);
+/*	xscale = d3.scale.linear().domain([1,maxWk]).range([50,1600]);
+	yscale = d3.scale.linear().domain([1,25]).range([50,700]);*/
+
+	xscale = d3.scale.linear().domain([1,maxWk]).range([bbPoll.x,bbPoll.w-100]);
+	yscale = d3.scale.linear().domain([1,25]).range([bbPoll.y+20,bbPoll.h]);
 
 	xaxis = d3.svg.axis()
 				.scale(xscale)
@@ -122,16 +183,22 @@ var weeks = [];
     svg.append("defs").append("clipPath")
         .attr("id", "clip")
         .append("rect")
-        .attr("width", 1550)
-        .attr("height", 660)
-        .attr("x", 50)
-        .attr("y", 40);
+        .attr("width", bbPoll.w)
+        .attr("height", bbPoll.h-10)
+        .attr("x", bbPoll.x)
+        .attr("y", bbPoll.y);
 
 	count = 1;
 
   svg
     .selectAll('.teampath')
     .remove();
+
+  svg.selectAll(".teamtext")
+  		.remove();
+
+  svg.selectAll(".axis")
+  		.remove();
 
 	for (var school in teams) {
 
@@ -158,7 +225,8 @@ var weeks = [];
 		lastRk = teams[school][teams[school].length-1].Rk;
 		if (lastRk < 26) {
 			svg.append("text")
-				.attr("transform", "translate(1603,"+yscale(lastRk)+")")
+				.classed("teamtext", true)
+				.attr("transform", "translate("+(bbPoll.w-90)+","+yscale(lastRk)+")")
 				.attr("dy", ".25em")
 				.attr("text-anchor", "start")
 				.style("fill", searchColor(school))
@@ -179,12 +247,12 @@ var weeks = [];
 
 	svg.append("g")
 		.attr("class", "axis")
-		.attr("transform", "translate(0,705)")
+		.attr("transform", "translate(0,600)")
 		.call(xaxis);
 
 	svg.append("g")
 		.attr("class", "axis")
-		.attr("transform", "translate(50,0)")
+		.attr("transform", "translate("+margin.left+",0)")
 		.call(yaxis);
 
 /*	svg.append("path")
@@ -215,6 +283,62 @@ function highlightPath(thePath,school) {
 	}
 }
 
+var confCanvas,chart;
+var confXScale,confYScale,confXAxis,confXsvg;
+
+function createConfBar() {
+	confCanvas = d3.select("#confBar").append("svg").attr({
+		width: 300,
+		height: 300
+	})
+
+	chart = confCanvas.append("g").attr({
+		transform: "translate(0,20)"
+	});
+
+	confXScale = d3.scale.ordinal().rangeRoundBands([0,300]);
+	confYScale = d3.scale.linear().rangeRound([250,0]);
+
+	confXAxis = d3.svg.axis()
+					.scale(confXScale)
+					.orient("bottom");
+
+	confXsvg = chart.append("g")
+					.attr("class", "axis")
+					.attr("transform", "translate(0,250)");
+}
+
+var currConfs,confCounts;
+function updateConfBar(week) {
+	currConfs = [];
+	confCounts = [];
+	for (var conf in conferences) {
+		if (conferences[conf][week]) {
+			currConfs.push(conf);
+			confCounts.push(conferences[conf][week]);
+		}
+	}
+
+
+	confXScale.domain(currConfs);
+	confXsvg.call(confXAxis)
+		.selectAll("text")
+			.style("font-size", "7pt");
+	maxCount = d3.max(confCounts, function(d) { return d; });
+	confYScale.domain([0,maxCount]);
+
+	chart.selectAll("rect").remove();
+
+	chart.selectAll("rect")
+			.data(confCounts)
+			.enter()
+			.append("rect")
+			.attr("class", "bars")
+			.attr("height", function(d) { return (250-confYScale(d)); })
+			.attr("width", ((300/confCounts.length)-2))
+			.attr("transform", function(d,i) { return "translate(" + confXScale(currConfs[i]) + "," + confYScale(d) + ")"; });
+}
+
 function backToNormal() {
 	d3.selectAll("path.teampath")
 					.style("opacity", 1)
@@ -225,6 +349,10 @@ function backToNormal() {
 //d3.select("input[value=\"coaches\"]").on("click", displayPoll("coaches"));
 
 displayPoll("ap");
+
+createConfBar();
+d3.select("body").append("div").attr("class", "d3-slider d3-slider-horizontal")//.style("margin-left", "35px");
+d3.select("div.d3-slider").call(d3.slider().axis(true).min(1).max(20).step(1).on("slide", function(evt, value) { updateConfBar(value); } ));
 //displayPoll("coaches");
 
 </script>
