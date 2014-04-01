@@ -3,7 +3,17 @@ $(document).ready(function() {
   var plays = []; // hold all our play objects
   var play = null;
 
-  var saveToFile = function(arrayOfLines, fileName) {
+
+  var saveJsonToFile = function(object, filename){
+      var blob, blobText;
+      blobText = [JSON.stringify(object)];
+      blob = new Blob(blobText, {
+          type: "text/plain;charset=utf-8"
+      });
+      saveAs(blob, filename);
+  }
+
+  var saveCsvToFile = function(arrayOfLines, fileName) {
       /* adds linebreaks at the end*/
       var blob, blobText;
       blobText = arrayOfLines.map(function(d) {
@@ -110,7 +120,7 @@ $(document).ready(function() {
       }
 
       var csv = convertToCSV(plays);
-      saveToFile(csv, 'temp.csv'); // temp name for now
+      saveCsvToFile(csv, 'temp.csv'); // temp name for now
 
     } // end success
   }); // end $.ajax()
