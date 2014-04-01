@@ -90,10 +90,7 @@ $(document).ready(function() {
         
       });
       
-      //var data = JSON.stringify(plays); // make JSON 
-      //var data = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(plays));
-      //$('body').append('<div>').attr('id', 'container');
-      //$('<a href="data:' + data + '" download="data.json">download JSON</a>').appendTo('#container');
+      saveJsonToFile(plays, 'temp.json');
 
       //http://stackoverflow.com/questions/11257062/converting-json-object-to-csv-format-in-javascript
       function convertToCSV(objArray) {
@@ -119,8 +116,9 @@ $(document).ready(function() {
         return arrOfStr;
       }
 
-      var csv = convertToCSV(plays);
-      saveCsvToFile(csv, 'temp.csv'); // temp name for now
+      //convert plays array to CSV
+      //var csv = convertToCSV(plays);
+      //saveCsvToFile(csv, 'temp.csv'); // temp name for now
 
     } // end success
   }); // end $.ajax()
