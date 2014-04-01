@@ -61,8 +61,13 @@ $(document).ready(function() {
             // like a timeout or end of half, 
             // in which case we'll only note the clock
             if (tds.length > 2) {
+              //console.log($(this).children().text())
               play['away_play'] = $(this).text().trim();
-            } else {
+            } else { // ... something unusual
+              // debug
+              console.log($(this).children().text(), 
+                $(this).children().text().indexOf('End of'));
+              play['away_play'] = $(this).text().trim();
               play['away_play'] = '';
               play['score'] = '';
               play['home_play'] = '';
@@ -90,7 +95,13 @@ $(document).ready(function() {
         
       });
       
+
+      /****** SAVE JSON **********
+
       saveJsonToFile(plays, 'temp.json');
+
+      /**************************/
+
 
       //http://stackoverflow.com/questions/11257062/converting-json-object-to-csv-format-in-javascript
       function convertToCSV(objArray) {
