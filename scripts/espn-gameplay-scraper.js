@@ -72,25 +72,17 @@ $(document).ready(function() {
               play['away_play'] = $(this).text().trim();
             } else { // ... play stoppage
               var stoppageEvent = $(this).children().text(); 
-              // if a half has ended ...
-              if (stoppageEvent.indexOf('End of') === 0) {
-                // twist back to grab the score from the previous row
-                var score = $(this).parent('tr')
-                  .prev('tr').find('td:nth-child(3)').text().trim();
-                // and note that a half has ended
-                play['away_play'] = stoppageEvent;
-                // away score is listed first ... 
-                play['away_score'] = score.split('-')[0]; 
-                // ... and team_score is last
-                play['team_score'] = score.split('-')[1]; 
-                play['home_play'] = stoppageEvent;
-              } else {
-                //play['away_play'] = $(this).text().trim();
-                play['away_play'] = '';
-                play['away_score'] = '';
-                play['home_score'] = '';
-                play['home_play'] = '';
-              }
+              // twist back to grab the score from the previous row
+              var score = $(this).parent('tr')
+                .prev('tr').find('td:nth-child(3)').text().trim();
+              play['away_play'] = '';
+              // away score is listed first ... 
+              play['away_score'] = score.split('-')[0]; 
+              // ... and team_score is last
+              play['team_score'] = score.split('-')[1]; 
+              play['home_play'] = '';
+              // and note the event that stopped the game
+              play['stoppage'] = stoppageEvent;
             }
           } else if (k % numTDsInRow === 2) {
             // we're in the third <td>, the one with the score;
@@ -104,6 +96,7 @@ $(document).ready(function() {
               play['away_score'] = '';
               play['home_score'] = '';
               play['home_play'] = '';
+              play['stoppage'] = '';
             }
           } else if (k % numTDsInRow === 3) {
             // we're in the third <td>: the home play;
