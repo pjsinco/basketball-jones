@@ -3,7 +3,6 @@ $(document).ready(function() {
   var plays = []; // hold all our play objects
   var play = null;
 
-
   var saveJsonToFile = function(object, filename){
       var blob, blobText;
       blobText = [JSON.stringify(object)];
@@ -62,7 +61,7 @@ $(document).ready(function() {
             // before we write anything
               play['clock'] = $(this).text().trim()
           } else if (k % numTDsInRow === 1) { 
-            // we're in the second <td>;
+            // we're in the second <td>: away team's play;
             // check that there are more than 2 <td>s in this row;
             // if there aren't, there's been a stoppage in gameplay,
             // like a timeout or end of half;
@@ -77,30 +76,37 @@ $(document).ready(function() {
               if (stoppageEvent.indexOf('End of') === 0) {
                 // twist back to grab the score from the previous row
                 var score = $(this).parent('tr')
-                  .prev('tr').find('td:nth-child(3)').text();
+                  .prev('tr').find('td:nth-child(3)').text().trim();
                 // and note that a half has ended
                 play['away_play'] = stoppageEvent;
-                play['score'] = score.trim();
+                // away score is listed first ... 
+                play['away_score'] = score.split('-')[0]; 
+                // ... and team_score is last
+                play['team_score'] = score.split('-')[1]; 
                 play['home_play'] = stoppageEvent;
               } else {
                 //play['away_play'] = $(this).text().trim();
                 play['away_play'] = '';
-                play['score'] = '';
+                play['away_score'] = '';
+                play['home_score'] = '';
                 play['home_play'] = '';
               }
             }
           } else if (k % numTDsInRow === 2) {
-            // we're in the third <td>;
+            // we're in the third <td>, the one with the score;
             // we probably don't need to check number of <td>s at this
             // point, but we will just to be safe
             if (tds.length > 2) {
-              play['score'] = $(this).text().trim();
+              var score = $(this).text().trim().split('-');
+              play['away_score'] = score[0];
+              play['home_score'] = score[1];
             } else {
-              play['score'] = '';
+              play['away_score'] = '';
+              play['home_score'] = '';
               play['home_play'] = '';
             }
           } else if (k % numTDsInRow === 3) {
-            // we're in the third <td>;
+            // we're in the third <td>: the home play;
             // again, check tds.length just to be safe
             if (tds.length > 2) {
               play['home_play'] = $(this).text().trim();
