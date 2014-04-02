@@ -2,6 +2,9 @@ $(document).ready(function() {
 
   var plays = []; // hold all our play objects
   var play = null;
+  var awayId, homeId, fileName;
+  var indexId = 7; 
+  // index of espn id after splitting on '/' on a team's url
 
   var saveJsonToFile = function(object, filename){
       var blob, blobText;
@@ -28,12 +31,24 @@ $(document).ready(function() {
       return saveAs(blob, fileName);
     };
 
+  // take a team's espn url and parse out the espn id
+  var getTeamIdFromLink = function(link) {
+    return link.split('/')[indexId].trim();
+  }
   
   $.ajax({
     url: 'http://espn.go.com/ncb/playbyplay?gameId=400502374',
     //url: 'http://espn.go.com/ncb/playbyplay?gameId=323152168',
     type: 'GET',
     success: function(data, textStatus) {
+
+      //console.log($('.team.away .team-info h3 a').attr('href'));
+      awayId
+        = getTeamIdFromLink($(data.responseText).find('.team.away h3 a')
+          .attr('href'));
+      homeId
+        = getTeamIdFromLink($(data.responseText).find('.team.home h3 a')
+          .attr('href'));
 
       // grab all the rows
       var rows = $(data.responseText).find('.mod-data.mod-pbp tbody tr');
@@ -114,8 +129,8 @@ $(document).ready(function() {
 
       /****** SAVE JSON **********
       ***************************/
-
-      saveJsonToFile(plays, 'temp.json');
+      var fileName =  awayId + '-' + homeId + '-' + '123456' + '.json';
+      saveJsonToFile(plays, fileName);
 
       /***************************
       ***************************/
