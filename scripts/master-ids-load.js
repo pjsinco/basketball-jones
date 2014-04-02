@@ -1,13 +1,12 @@
 var master_ids;
 
-d3.csv("data/school-ids-master.csv", function(error, data) {
+d3.csv("data/new-master-id.csv", function(error, data) {
 	master_ids = data;
 })
 
 function getIDsBy(espn_id, sports_ref_id, teamrankings_id, friendly_school, friendly_full) {
 	var retVal;
 	if (espn_id) {
-		console.log(espn_id);
 		master_ids.forEach(function(d) {
 			if (d.espn_id == espn_id) {
 				retVal = d;

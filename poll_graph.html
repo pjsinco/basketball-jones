@@ -5,7 +5,18 @@
 <script src="libs/jquery-1.10.1.js"></script>
 <script src="scripts/master-ids-load.js"></script>
 <script src="libs/d3.slider.js"></script>
+<script src="libs/d3.tip.v0.6.3.js"></script>
 <link rel="stylesheet" href="libs/d3.slider.css" />
+<style>
+	.d3-tip {
+		line-height:1;
+		font-weight:bold;
+		padding:12px;
+		background: rgba(0,0,0,0.75);
+		color:#fff;
+		border-radius:5px;
+	}
+</style>
 </head>
 <body>
 <table>
@@ -69,6 +80,18 @@ var svg = canvas.append("g").attr({
 
 var polls = { "ap": "data/poll-data/2012-13-AP.csv", "coaches": "data/poll-data/2012-13-coaches.csv", "rpi": "data/rpi-ratings/2012-13-rpi.csv" };
 
+var tip = d3.tip()
+			.attr("class", "d3-tip")
+			.offset([-10,0])
+			.html(function(d) {
+				//console.log("d", d);
+				return getIDsBy(d).friendly_school;
+			})
+
+svg.call(tip);
+
+var externalschool;
+
 function displayPoll(thePoll) {
 	thePollPath = polls[thePoll];
 
@@ -96,6 +119,7 @@ conferences = {};
 		}*/
 		line = dataset[i];
 		school = line.School;
+		if (i == 4) externalschool = school;
 		strWeek = line.Wk;
 		week = parseInt(strWeek);
 		line.Wk = week;
@@ -107,6 +131,10 @@ conferences = {};
 		}
 		if (starIndex > 0) {
 			school = school.substring(0,starIndex);
+			line.School = school;
+		} else if (/\sR/g.test(school)) {
+			lastIndex = school.lastIndexOf("R");
+			school = school.substring(0,lastIndex-1);
 			line.School = school;
 		}
 		if (teams[school]) {
@@ -202,22 +230,32 @@ conferences = {};
   		.remove();
 
 	for (var school in teams) {
+		console.log(school);
+		espnid = getIDsBy(undefined,undefined,undefined,school,undefined).espn_id;
+		espnid = "x" + espnid.toString();
+		console.log(espnid);
 
-		svg.append("path")
+		//svg.append("path")
+		svg.append("g").append("path")
 			.attr("d", teamline(teams[school]))
-			.classed(school, true)
+			.classed(espnid, true)
 			.classed("teampath", true)
 			.style("fill", "none")
 			.style("stroke-width", origStroke)
 			.style("stroke", searchColor(school))
 			.on("mouseover", function(d) {
-				var thepath = d3.select(this);
+				var thePath = d3.select(this);
 				//thepath.style("stroke-width", hoverStroke);
-				return highlightPath(thepath);
+				theClass = getClassFromPath(thePath);
+				console.log(theClass);
+				tip.show(theClass);
+				return highlightPath(thePath);
 			})
 			.on("mouseout", function(d) {
-				//var thepath = d3.select(this);
+				var thePath = d3.select(this);
 				//thepath.style("stroke-width", origStroke);
+				theClass = getClassFromPath(thePath);
+				tip.hide(theClass);
 				return backToNormal();
 			})
 			.style("clip-path", "url(#clip)")
@@ -234,6 +272,7 @@ conferences = {};
 				.on("mouseover", function() {
 					//thisSchool = this.indexOf
 					theSchool = this.innerHTML;
+					console.log(theSchool);
 					theSchool = theSchool.substring((theSchool.indexOf(" ")+1));
 					//console.log(theSchool);
 					return highlightPath(null,theSchool);
@@ -267,6 +306,15 @@ conferences = {};
 
 var allPaths;
 
+function getClassFromPath(thePath) {
+	theClass = thePath[0][0].className.animVal;
+	console.log(theClass);
+	tpi = theClass.indexOf("teampath");
+	theClass = theClass.substring(1,(tpi-1));
+	console.log(theClass);
+	return theClass;
+}
+
 function highlightPath(thePath,school) {
 
 	d3.selectAll("path.teampath")
@@ -276,8 +324,15 @@ function highlightPath(thePath,school) {
 	if (thePath) {
 		thePath.style("stroke-width", hoverStroke)
 				.style("opacity", 1);
+		// classes = thePath[0][0].className.animVal;
+		// tpi = classes.indexOf("teampath");
+		// classes = classes.substring(0,(tpi-1));
+		// console.log(classes);
 	}
 	if (school) {
+		school = getIDsBy(undefined,undefined,undefined,school,undefined).espn_id;
+		school = "x" + school.toString();
+		console.log(school);
 		thePath = d3.select("path."+school);
 		thePath.style("stroke-width", hoverStroke)
 				.style("opacity", 1);
