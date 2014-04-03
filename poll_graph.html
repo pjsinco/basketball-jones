@@ -133,9 +133,11 @@ conferences = {};
 			school = school.substring(0,starIndex);
 			line.School = school;
 		} else if (/\sR/g.test(school)) {
-			lastIndex = school.lastIndexOf("R");
-			school = school.substring(0,lastIndex-1);
-			line.School = school;
+			if (!/\sR[a-z]/g.test(school)) {
+				lastIndex = school.lastIndexOf("R");
+				school = school.substring(0,lastIndex-1);
+				line.School = school;
+			}
 		}
 		if (teams[school]) {
 			teams[school].push(line);

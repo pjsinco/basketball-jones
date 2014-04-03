@@ -5,7 +5,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 2,11/12/2012,4,Army,army-black-knights,0.521,302,4,302
 2,11/12/2012,5,Hawaii,hawaii-warriors,0.5,214,5,278
 2,11/12/2012,6,Houston Baptist,houston-baptist-huskies,0.5,319,6,345
-2,11/12/2012,7,Maryland Eastern Shore,maryland-e-shore-hawks,0.5,325,7,345
+2,11/12/2012,7,Maryland-Eastern Shore,maryland-e-shore-hawks,0.5,325,7,345
 2,11/12/2012,8,Arkansas Pine Bluff,arkansas-pine-bluff-golden-lions,0.5,331,8,333
 2,11/12/2012,9,Morgan State,morgan-st-bears,0.471,1,1,299
 2,11/12/2012,10,Citadel,citadel-bulldogs,0.45,315,10,347
@@ -586,7 +586,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 3,11/19/2012,237,Virginia Military,vmi-keydets,0.326,204,12,344
 3,11/19/2012,238,Chicago State,chicago-st-cougars,0.326,199,199,340
 3,11/19/2012,239,Portland,portland-pilots,0.319,106,100,299
-3,11/19/2012,240,Maryland East Shore,maryland-e-shore-hawks,0.315,203,7,345
+3,11/19/2012,240,Maryland-Eastern Shore,maryland-e-shore-hawks,0.315,203,7,345
 3,11/19/2012,241,UNC Asheville,nc-asheville-bulldogs,0.308,219,90,326
 3,11/19/2012,242,Northern Illinois,northern-illinois-huskies,0.302,223,66,334
 3,11/19/2012,243,Marshall,marshall-thundering-herd,0.302,206,60,325
@@ -1028,7 +1028,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 4,11/26/2012,331,Northern Illinois,northern-illinois-huskies,0.341,326,66,334
 4,11/26/2012,332,Navy,navy-midshipmen,0.337,324,115,337
 4,11/26/2012,333,South Carolina State,south-carolina-state-bulldogs,0.326,334,261,347
-4,11/26/2012,334,Maryland East Shore,maryland-e-shore-hawks,0.325,335,7,345
+4,11/26/2012,334,Maryland-Eastern Shore,maryland-e-shore-hawks,0.325,335,7,345
 4,11/26/2012,335,Maine,maine-black-bears,0.324,344,224,344
 4,11/26/2012,336,Utah State,utah-st-aggies,0.323,333,84,339
 4,11/26/2012,337,Coppin State,coppin-st-eagles,0.322,327,56,338
@@ -1382,7 +1382,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 5,12/3/2012,337,Northern Kentucky,northern-kentucky-norse,0.336,338,1,345
 5,12/3/2012,338,St. Francis (PA),st-francis-pa-red-flash,0.334,337,117,345
 5,12/3/2012,339,Florida A&M,florida-am-rattlers,0.329,339,43,344
-5,12/3/2012,340,Maryland East Shore,maryland-e-shore-hawks,0.328,340,7,345
+5,12/3/2012,340,Maryland-Eastern Shore,maryland-e-shore-hawks,0.328,340,7,345
 5,12/3/2012,341,Kennesaw State,kennesaw-st-fighting-owls,0.327,341,160,346
 5,12/3/2012,342,Binghamton,binghamton-bearcats,0.327,343,119,347
 5,12/3/2012,343,Pennsylvania,pennsylvania-quakers,0.317,344,131,346
@@ -1718,7 +1718,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 6,12/10/2012,325,Texas-Pan American,texas-pan-american-broncs,0.37,326,266,346
 6,12/10/2012,326,Hampton,hampton-pirates,0.365,327,50,347
 6,12/10/2012,327,South Carolina State,south-carolina-state-bulldogs,0.364,329,261,347
-6,12/10/2012,328,Maryland East Shore,maryland-e-shore-hawks,0.363,328,7,345
+6,12/10/2012,328,Maryland-Eastern Shore,maryland-e-shore-hawks,0.363,328,7,345
 6,12/10/2012,329,Campbell,campbell-fighting-camels,0.362,330,222,341
 6,12/10/2012,330,Alabama A&M,alabama-am-bulldogs,0.361,333,47,346
 6,12/10/2012,331,Samford,samford-bulldogs,0.357,332,155,346
@@ -2065,7 +2065,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 7,12/17/2012,324,Texas-Pan American,texas-pan-american-broncs,0.373,324,266,346
 7,12/17/2012,325,Binghamton,binghamton-bearcats,0.373,325,119,347
 7,12/17/2012,326,Alabama A&M,alabama-am-bulldogs,0.371,329,47,346
-7,12/17/2012,327,Maryland East Shore,maryland-e-shore-hawks,0.37,326,7,345
+7,12/17/2012,327,Maryland-Eastern Shore,maryland-e-shore-hawks,0.37,326,7,345
 7,12/17/2012,328,Presbyterian,presbyterian-blue-hose,0.368,327,57,346
 7,12/17/2012,329,Chicago State,chicago-st-cougars,0.367,335,199,340
 7,12/17/2012,330,UC Riverside,uc-riverside-highlanders,0.364,328,227,345
@@ -2395,7 +2395,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 8,12/24/2012,306,Eastern Illinois,eastern-illinois-panthers,0.398,307,132,331
 8,12/24/2012,307,Nebraska-Omaha,nebraska-omaha-mavericks,0.397,309,77,335
 8,12/24/2012,308,Eastern Washington,eastern-washington-eagles,0.397,308,30,334
-8,12/24/2012,309,Maryland East Shore,maryland-e-shore-hawks,0.397,313,7,345
+8,12/24/2012,309,Maryland-Eastern Shore,maryland-e-shore-hawks,0.397,313,7,345
 8,12/24/2012,310,Hofstra,hofstra-pride,0.397,310,46,327
 8,12/24/2012,311,Texas A&M-CC,texas-am-cc-islanders,0.392,315,258,343
 8,12/24/2012,312,Jacksonville,jacksonville-dolphins,0.391,312,154,316
@@ -2747,7 +2747,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 9,12/31/2012,310,Eastern Washington,eastern-washington-eagles,0.399,309,30,334
 9,12/31/2012,311,NJIT,new-jersey-tech-highlanders,0.398,283,211,328
 9,12/31/2012,312,Siena,siena-saints,0.397,310,36,329
-9,12/31/2012,313,Maryland East Shore,maryland-e-shore-hawks,0.396,311,7,345
+9,12/31/2012,313,Maryland-Eastern Shore,maryland-e-shore-hawks,0.396,311,7,345
 9,12/31/2012,314,Eastern Illinois,eastern-illinois-panthers,0.396,312,132,331
 9,12/31/2012,315,Missouri State,missouri-st-bears,0.394,334,125,334
 9,12/31/2012,316,Austin Peay,austin-peay-governors,0.39,314,101,342
@@ -3100,7 +3100,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 10,1/7/2013,315,UC Riverside,uc-riverside-highlanders,0.39,316,227,345
 10,1/7/2013,316,Eastern Washington,eastern-washington-eagles,0.39,317,30,334
 10,1/7/2013,317,Siena,siena-saints,0.39,313,36,329
-10,1/7/2013,318,Maryland East Shore,maryland-e-shore-hawks,0.389,318,7,345
+10,1/7/2013,318,Maryland-Eastern Shore,maryland-e-shore-hawks,0.389,318,7,345
 10,1/7/2013,319,Tennessee-Martin,tenn-martin-skyhawks,0.389,320,71,339
 10,1/7/2013,320,Appalachian State,appalachian-st-mountaineers,0.388,322,254,347
 10,1/7/2013,321,Portland State,portland-st-vikings,0.388,319,188,340
@@ -3468,7 +3468,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 11,1/14/2013,335,Mississippi Valley State,mississippi-valley-state-delta-devils,0.372,334,18,345
 11,1/14/2013,336,Liberty,liberty-flames,0.371,338,52,345
 11,1/14/2013,337,UC Riverside,uc-riverside-highlanders,0.371,337,227,345
-11,1/14/2013,338,Maryland East Shore,maryland-e-shore-hawks,0.371,336,7,345
+11,1/14/2013,338,Maryland-Eastern Shore,maryland-e-shore-hawks,0.371,336,7,345
 11,1/14/2013,339,UNC Greensboro,nc-greensboro-spartans,0.369,339,197,345
 11,1/14/2013,340,Houston Baptist,houston-baptist-huskies,0.368,341,6,345
 11,1/14/2013,341,New Orleans,new-orleans-privateers,0.368,340,1,346
@@ -3811,7 +3811,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 12,1/21/2013,330,South Carolina State,south-carolina-state-bulldogs,0.383,329,261,347
 12,1/21/2013,331,UC Riverside,uc-riverside-highlanders,0.383,330,227,345
 12,1/21/2013,332,Jackson State,jackson-state-tigers,0.379,331,187,345
-12,1/21/2013,333,Maryland East Shore,maryland-e-shore-hawks,0.379,332,7,345
+12,1/21/2013,333,Maryland-Eastern Shore,maryland-e-shore-hawks,0.379,332,7,345
 12,1/21/2013,334,Eastern Washington,eastern-washington-eagles,0.377,333,30,334
 12,1/21/2013,335,Florida A&M,florida-am-rattlers,0.376,334,43,344
 12,1/21/2013,336,Longwood,longwood-lancers,0.375,335,110,346
@@ -4158,7 +4158,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 13,1/28/2013,329,Idaho State,idaho-state-bengals,0.382,326,259,345
 13,1/28/2013,330,Texas A&M-CC,texas-am-cc-islanders,0.382,329,258,343
 13,1/28/2013,331,Houston Baptist,houston-baptist-huskies,0.381,331,6,345
-13,1/28/2013,332,Maryland East Shore,maryland-e-shore-hawks,0.377,332,7,345
+13,1/28/2013,332,Maryland-Eastern Shore,maryland-e-shore-hawks,0.377,332,7,345
 13,1/28/2013,333,Eastern Washington,eastern-washington-eagles,0.377,333,30,334
 13,1/28/2013,334,St. Francis (PA),st-francis-pa-red-flash,0.376,335,117,345
 13,1/28/2013,335,Citadel,citadel-bulldogs,0.375,336,10,347
@@ -4512,7 +4512,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 14,2/4/2013,335,Portland State,portland-st-vikings,0.373,336,188,340
 14,2/4/2013,336,Binghamton,binghamton-bearcats,0.373,335,119,347
 14,2/4/2013,337,Austin Peay,austin-peay-governors,0.372,337,101,342
-14,2/4/2013,338,Maryland East Shore,maryland-e-shore-hawks,0.37,338,7,345
+14,2/4/2013,338,Maryland-Eastern Shore,maryland-e-shore-hawks,0.37,338,7,345
 14,2/4/2013,339,Mississippi Valley State,mississippi-valley-state-delta-devils,0.369,339,18,345
 14,2/4/2013,340,Liberty,liberty-flames,0.368,340,52,345
 14,2/4/2013,341,Kennesaw State,kennesaw-st-fighting-owls,0.366,341,160,346
@@ -4863,7 +4863,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 15,2/11/2013,338,Kennesaw State,kennesaw-st-fighting-owls,0.369,338,160,346
 15,2/11/2013,339,Furman,furman-paladins,0.367,341,221,347
 15,2/11/2013,340,Longwood,longwood-lancers,0.367,339,110,346
-15,2/11/2013,341,Maryland East Shore,maryland-e-shore-hawks,0.367,340,7,345
+15,2/11/2013,341,Maryland-Eastern Shore,maryland-e-shore-hawks,0.367,340,7,345
 15,2/11/2013,342,Idaho State,idaho-state-bengals,0.365,342,259,345
 15,2/11/2013,343,Mississippi Valley State,mississippi-valley-state-delta-devils,0.364,343,18,345
 15,2/11/2013,344,Presbyterian,presbyterian-blue-hose,0.364,344,57,346
@@ -5213,7 +5213,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 16,2/18/2013,340,Presbyterian,presbyterian-blue-hose,0.368,341,57,346
 16,2/18/2013,341,Kennesaw State,kennesaw-st-fighting-owls,0.367,340,160,346
 16,2/18/2013,342,South Carolina State,south-carolina-state-bulldogs,0.364,342,261,347
-16,2/18/2013,343,Maryland East Shore,maryland-e-shore-hawks,0.362,343,7,345
+16,2/18/2013,343,Maryland-Eastern Shore,maryland-e-shore-hawks,0.362,343,7,345
 16,2/18/2013,344,Mississippi Valley State,mississippi-valley-state-delta-devils,0.361,344,18,345
 16,2/18/2013,345,Furman,furman-paladins,0.358,345,221,347
 16,2/18/2013,346,New Orleans,new-orleans-privateers,0.353,346,1,346
@@ -5560,7 +5560,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 17,2/25/2013,339,Presbyterian,presbyterian-blue-hose,0.369,339,57,346
 17,2/25/2013,340,Longwood,longwood-lancers,0.367,340,110,346
 17,2/25/2013,341,South Carolina State,south-carolina-state-bulldogs,0.364,342,261,347
-17,2/25/2013,342,Maryland East Shore,maryland-e-shore-hawks,0.364,341,7,345
+17,2/25/2013,342,Maryland-Eastern Shore,maryland-e-shore-hawks,0.364,341,7,345
 17,2/25/2013,343,Furman,furman-paladins,0.363,344,221,347
 17,2/25/2013,344,Kennesaw State,kennesaw-st-fighting-owls,0.363,343,160,346
 17,2/25/2013,345,Mississippi Valley State,mississippi-valley-state-delta-devils,0.355,345,18,345
@@ -5909,7 +5909,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 18,3/4/2013,340,Portland State,portland-st-vikings,0.37,340,188,340
 18,3/4/2013,341,Kennesaw State,kennesaw-st-fighting-owls,0.367,341,160,346
 18,3/4/2013,342,Furman,furman-paladins,0.36,342,221,347
-18,3/4/2013,343,Maryland East Shore,maryland-e-shore-hawks,0.356,344,7,345
+18,3/4/2013,343,Maryland-Eastern Shore,maryland-e-shore-hawks,0.356,344,7,345
 18,3/4/2013,344,South Carolina State,south-carolina-state-bulldogs,0.356,343,261,347
 18,3/4/2013,345,Mississippi Valley State,mississippi-valley-state-delta-devils,0.355,345,18,345
 18,3/4/2013,346,New Orleans,new-orleans-privateers,0.35,346,1,346
@@ -6259,7 +6259,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 19,3/11/2013,342,South Carolina State,south-carolina-state-bulldogs,0.365,342,261,347
 19,3/11/2013,343,Furman,furman-paladins,0.364,343,221,347
 19,3/11/2013,344,Mississippi Valley State,mississippi-valley-state-delta-devils,0.355,344,18,345
-19,3/11/2013,345,Maryland East Shore,maryland-e-shore-hawks,0.352,345,7,345
+19,3/11/2013,345,Maryland-Eastern Shore,maryland-e-shore-hawks,0.352,345,7,345
 19,3/11/2013,346,New Orleans,new-orleans-privateers,0.347,346,1,346
 19,3/11/2013,347,Grambling State,grambling-state-tigers,0.304,347,134,347
 Wk,Date,Rk,School,ID,Rating,Prev,High,Low
@@ -6607,7 +6607,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 20,3/18/2013,342,South Carolina State,south-carolina-state-bulldogs,0.366,342,261,347
 20,3/18/2013,343,Furman,furman-paladins,0.362,343,221,347
 20,3/18/2013,344,Mississippi Valley State,mississippi-valley-state-delta-devils,0.356,344,18,345
-20,3/18/2013,345,Maryland East Shore,maryland-e-shore-hawks,0.355,345,7,345
+20,3/18/2013,345,Maryland-Eastern Shore,maryland-e-shore-hawks,0.355,345,7,345
 20,3/18/2013,346,New Orleans,new-orleans-privateers,0.345,346,1,346
 20,3/18/2013,347,Grambling State,grambling-state-tigers,0.302,347,134,347
 Wk,Date,Rk,School,ID,Rating,Prev,High,Low
@@ -6955,7 +6955,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 21,3/25/2013,342,Presbyterian,presbyterian-blue-hose,0.364,342,57,346
 21,3/25/2013,343,Furman,furman-paladins,0.359,343,221,347
 21,3/25/2013,344,Mississippi Valley State,mississippi-valley-state-delta-devils,0.356,344,18,345
-21,3/25/2013,345,Maryland East Shore,maryland-e-shore-hawks,0.353,345,7,345
+21,3/25/2013,345,Maryland-Eastern Shore,maryland-e-shore-hawks,0.353,345,7,345
 21,3/25/2013,346,New Orleans,new-orleans-privateers,0.344,346,1,346
 21,3/25/2013,347,Grambling State,grambling-state-tigers,0.301,347,134,347
 Wk,Date,Rk,School,ID,Rating,Prev,High,Low
@@ -7303,7 +7303,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 22,4/1/2013,342,Presbyterian,presbyterian-blue-hose,0.364,342,57,346
 22,4/1/2013,343,Furman,furman-paladins,0.359,343,221,347
 22,4/1/2013,344,Mississippi Valley State,mississippi-valley-state-delta-devils,0.355,344,18,345
-22,4/1/2013,345,Maryland East Shore,maryland-e-shore-hawks,0.353,345,7,345
+22,4/1/2013,345,Maryland-Eastern Shore,maryland-e-shore-hawks,0.353,345,7,345
 22,4/1/2013,346,New Orleans,new-orleans-privateers,0.344,346,1,346
 22,4/1/2013,347,Grambling State,grambling-state-tigers,0.3,347,134,347
 Wk,Date,Rk,School,ID,Rating,Prev,High,Low
@@ -7651,7 +7651,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 23,4/8/2013,342,Presbyterian,presbyterian-blue-hose,0.364,342,57,346
 23,4/8/2013,343,Furman,furman-paladins,0.359,343,221,347
 23,4/8/2013,344,Mississippi Valley State,mississippi-valley-state-delta-devils,0.355,344,18,345
-23,4/8/2013,345,Maryland East Shore,maryland-e-shore-hawks,0.352,345,7,345
+23,4/8/2013,345,Maryland-Eastern Shore,maryland-e-shore-hawks,0.352,345,7,345
 23,4/8/2013,346,New Orleans,new-orleans-privateers,0.344,346,1,346
 23,4/8/2013,347,Grambling State,grambling-state-tigers,0.3,347,134,347
 Wk,Date,Rk,School,ID,Rating,Prev,High,Low
@@ -7999,6 +7999,6 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 24,4/15/2013,342,Presbyterian,presbyterian-blue-hose,0.364,342,57,346
 24,4/15/2013,343,Furman,furman-paladins,0.359,343,221,347
 24,4/15/2013,344,Mississippi Valley State,mississippi-valley-state-delta-devils,0.355,344,18,345
-24,4/15/2013,345,Maryland East Shore,maryland-e-shore-hawks,0.352,345,7,345
+24,4/15/2013,345,Maryland-Eastern Shore,maryland-e-shore-hawks,0.352,345,7,345
 24,4/15/2013,346,New Orleans,new-orleans-privateers,0.344,346,1,346
 24,4/15/2013,347,Grambling State,grambling-state-tigers,0.3,347,134,347

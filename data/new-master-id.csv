@@ -12,24 +12,24 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 12,arizona,arizona-wildcats,Arizona,Arizona Wildcats
 9,arizona-state,arizona-st-sun-devils,Arizona State,Arizona St Sun Devils
 8,arkansas,arkansas-razorbacks,Arkansas,Arkansas Razorbacks
-2031,arkansas-little-rock,arkansas-little-rock-trojans,Arkansas Little Rock,Arkansas Little Rock Trojans
+2031,arkansas-little-rock,arkansas-little-rock-trojans,Arkansas-Little Rock,Arkansas Little Rock Trojans
 2029,arkansas-pine-bluff,arkansas-pine-bluff-golden-lions,Arkansas Pine Bluff,Arkansas Pine Bluff Golden Lions
-2032,arkansas-state,arkansas-st-red-wolves,Arkansas Stateate,Arkansas State Red Wolves
+2032,arkansas-state,arkansas-st-red-wolves,Arkansas State,Arkansas State Red Wolves
 349,army,army-black-knights,Army,Army Black Knights
 2,auburn,auburn-tigers,Auburn,Auburn Tigers
 2046,austin-peay,austin-peay-governors,Austin Peay,Austin Peay Governors
 2050,ball-state,ball-st-cardinals,Ball State,Ball St Cardinals
 239,baylor,baylor-bears,Baylor,Baylor Bears
 2057,belmont,belmont-bruins,Belmont,Belmont Bruins
-2065,bethune-cookman,bethune-cookman-wildcats,Bethune Cookman,Bethune Cookman Wildcats
+2065,bethune-cookman,bethune-cookman-wildcats,Bethune-Cookman,Bethune-Cookman Wildcats
 2066,binghamton,binghamton-bearcats,Binghamton,Binghamton Bearcats
 68,boise-state,boise-st-broncos,Boise State,Boise St Broncos
 103,boston-college,boston-college-eagles,Boston College,Boston College Eagles
 104,boston-university,boston-u-terriers,Boston University,Boston U Terriers
-189,bowling-green-state,bowling-green-falcons,Bowling Green State,Bowling Green Falcons
+189,bowling-green-state,bowling-green-falcons,Bowling Green,Bowling Green Falcons
 71,bradley,bradley-braves,Bradley,Bradley Braves
 252,brigham-young,brigham-young-cougars,Brigham Young,Brigham Young Cougars
-2341,brooklyn,liu-brooklyn-blackbirds,Brooklyn,LIU Brooklyn Blackbirds
+2341,brooklyn,liu-brooklyn-blackbirds,LIU Brooklyn,LIU Brooklyn Blackbirds
 225,brown,brown-bears,Brown,Brown Bears
 2803,bryant,bryant-bulldogs,Bryant,Bryant Bulldogs
 2083,bucknell,bucknell-bison,Bucknell,Bucknell Bison
@@ -40,10 +40,10 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 2239,cal-state-fullerton,cal-st-fullerton-titans,Cal State Fullerton,Cal St Fullerton Titans
 2463,cal-state-northridge,csu-northridge-matadors,Cal State Northridge,Csu Northridge Matadors
 25,california,california-golden-bears,California,California Golden Bears
-302,california-davis,uc-davis-aggies,California Davis,UC Davis Aggies
-300,california-irvine,uc-irvine-anteaters,California Irvine,UC Irvine Anteaters
-27,california-riverside,uc-riverside-highlanders,California Riverside,UC Riverside Highlanders
-2540,california-santa-barbara,uc-santa-barbara-gauchos,California Santa Barbara,UC Santa Barbara Gauchos
+302,california-davis,uc-davis-aggies,UC Davis,UC Davis Aggies
+300,california-irvine,uc-irvine-anteaters,UC Irvine,UC Irvine Anteaters
+27,california-riverside,uc-riverside-highlanders,UC Riverside,UC Riverside Highlanders
+2540,california-santa-barbara,uc-santa-barbara-gauchos,UCSB,UC Santa Barbara Gauchos
 2097,campbell,campbell-fighting-camels,Campbell,Campbell Fighting Camels
 2099,canisius,canisius-golden-griffins,Canisius,Canisius Golden Griffins
 2110,central-arkansas,central-arkansas-bears,Central Arkansas,Central Arkansas Bears
@@ -58,8 +58,8 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 228,clemson,clemson-tigers,Clemson,Clemson Tigers
 325,cleveland-state,cleveland-st-vikings,Cleveland State,Cleveland St Vikings
 324,coastal-carolina,coastal-carolina-chanticleers,Coastal Carolina,Coastal Carolina Chanticleers
-2142,colgate,charleston-cougars,Colgate,Charleston Cougars
-232,college-of-charleston,colgate-raiders,College of Charleston,Colgate Raiders
+2142,colgate,colgate-raiders,Colgate,Colgate Raiders
+232,college-of-charleston,charleston-cougars,Charleston,Charleston Cougars
 38,colorado,colorado-buffaloes,Colorado,Colorado Buffaloes
 36,colorado-state,colorado-st-rams,Colorado State,Colorado St Rams
 171,columbia,columbia-lions,Columbia,Columbia Lions
@@ -73,8 +73,8 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 48,delaware,delaware-blue-hens,Delaware,Delaware Blue Hens
 2169,delaware-state,delaware-state-hornets,Delaware State,Delaware State Hornets
 2172,denver,denver-pioneers,Denver,Denver Pioneers
-305,depaul,depaul-blue-demons,Depaul,Depaul Blue Demons
-2174,detroit-mercy,detroit-titans,Detroit Mercy,Detroit Titans
+305,depaul,depaul-blue-demons,DePaul,Depaul Blue Demons
+2174,detroit-mercy,detroit-titans,Detroit,Detroit Titans
 2181,drake,drake-bulldogs,Drake,Drake Bulldogs
 2182,drexel,drexel-dragons,Drexel,Drexel Dragons
 150,duke,duke-blue-devils,Duke,Duke Blue Devils
@@ -98,7 +98,7 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 2230,fordham,fordham-rams,Fordham,Fordham Rams
 278,fresno-state,fresno-st-bulldogs,Fresno State,Fresno St Bulldogs
 231,furman,furman-paladins,Furman,Furman Paladins
-2241,gardner-webb,gardner-webb-runnin-bulldogs,Gardner Webb,Gardner Webb Runnin Bulldogs
+2241,gardner-webb,gardner-webb-runnin-bulldogs,Gardner-Webb,Gardner-Webb Runnin Bulldogs
 2244,george-mason,george-mason-patriots,George Mason,George Mason Patriots
 45,george-washington,george-washington-colonials,George Washington,George Washington Colonials
 46,georgetown,georgetown-hoyas,Georgetown,Georgetown Hoyas
@@ -107,7 +107,7 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 2247,georgia-state,georgia-southern-eagles,Georgia State,Georgia Southern Eagles
 59,georgia-tech,georgia-tech-yellow-jackets,Georgia Tech,Georgia Tech Yellow Jackets
 2250,gonzaga,gonzaga-bulldogs,Gonzaga,Gonzaga Bulldogs
-2755,grambling,grambling-state-tigers,Grambling,Grambling State Tigers
+2755,grambling,grambling-state-tigers,Grambling State,Grambling State Tigers
 2253,grand-canyon,grand-canyon-antelopes,Grand Canyon,Grand Canyon Antelopes
 2739,green-bay,green-bay-phoenix,Green Bay,Green Bay Phoenix
 2261,hampton,hampton-pirates,Hampton,Hampton Pirates
@@ -123,7 +123,7 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 70,idaho,idaho-vandals,Idaho,Idaho Vandals
 304,idaho-state,idaho-state-bengals,Idaho State,Idaho State Bengals
 356,illinois,illinois-fighting-illini,Illinois,Illinois Fighting Illini
-82,illinois-chicago,illinois-chicago-flames,Illinois Chicago,Illinois Chicago Flames
+82,illinois-chicago,illinois-chicago-flames,Illinois-Chicago,Illinois Chicago Flames
 2287,illinois-state,illinois-st-redbirds,Illinois State,Illinois St Redbirds
 2916,incarnate-word,incarnate-word-cardinals,Incarnate Word,Incarnate Word Cardinals
 84,indiana,indiana-hoosiers,Indiana,Indiana Hoosiers
@@ -150,13 +150,13 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 288,lipscomb,lipscomb-bison,Lipscomb,Lipscomb Bison
 299,long-beach-state,long-beach-st-49ers,Long Beach State,Long Beach St 49ers
 2344,longwood,longwood-lancers,Longwood,Longwood Lancers
-309,louisiana-lafayette,louisiana-lafayette-ragin-cajuns,Louisiana Lafayette,Louisiana Lafayette Ragin Cajuns
-2433,louisiana-monroe,louisiana-monroe-warhawks,Louisiana Monroe,Louisiana Monroe Warhawks
+309,louisiana-lafayette,louisiana-lafayette-ragin-cajuns,Louisiana-Lafayette,Louisiana Lafayette Ragin Cajuns
+2433,louisiana-monroe,louisiana-monroe-warhawks,Louisiana-Monroe,Louisiana Monroe Warhawks
 2348,louisiana-tech,louisiana-tech-bulldogs,Louisiana Tech,Louisiana Tech Bulldogs
 97,louisville,louisville-cardinals,Louisville,Louisville Cardinals
-2350,loyola-il,loyola-marymount-lions,Loyola IL,Loyola Marymount Lions
-2351,loyola-marymount,loyola-chicago-ramblers,Loyola Marymount,Loyola Chicago Ramblers
-2352,loyola-md,loyola-maryland-greyhounds,Loyola Md,Loyola Maryland Greyhounds
+2350,loyola-il,loyola-chicago-ramblers,Loyola Chicago,Loyola Chicago Ramblers
+2351,loyola-marymount,loyola-marymount-lions,Loyola Marymount,Loyola Marymount Lions
+2352,loyola-md,loyola-maryland-greyhounds,Loyola (MD),Loyola Maryland Greyhounds
 99,lsu,louisiana-state-tigers,LSU,Louisiana State Tigers
 311,maine,maine-black-bears,Maine,Maine Black Bears
 2363,manhattan,manhattan-jaspers,Manhattan,Manhattan Jaspers
@@ -164,10 +164,10 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 269,marquette,marquette-golden-eagles,Marquette,Marquette Golden Eagles
 276,marshall,marshall-thundering-herd,Marshall,Marshall Thundering Herd
 120,maryland,maryland-terrapins,Maryland,Maryland Terrapins
-2379,maryland-eastern-shore,maryland-e-shore-hawks,Maryland Eastern Shore,Maryland E Shore Hawks
+2379,maryland-eastern-shore,maryland-e-shore-hawks,Maryland-Eastern Shore,Maryland-Eastern Shore Hawks
 113,massachusetts,massachusetts-minutemen,Massachusetts,Massachusetts Minutemen
 2349,massachusetts-lowell,massachusetts-lowell-river-hawks,Massachusetts Lowell,Massachusetts Lowell River Hawks
-2377,mcneese-state,mcneese-st-cowboys,Mcneese State,Mcneese St Cowboys
+2377,mcneese-state,mcneese-st-cowboys,McNeese State,McNeese State Cowboys
 235,memphis,memphis-tigers,Memphis,Memphis Tigers
 2382,mercer,mercer-bears,Mercer,Mercer Bears
 2390,miami-fl,miami-florida-hurricanes,Miami (FL),Miami Florida Hurricanes
@@ -175,7 +175,7 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 130,michigan,michigan-wolverines,Michigan,Michigan Wolverines
 127,michigan-state,michigan-st-spartans,Michigan State,Michigan State Spartans
 2393,middle-tennessee,middle-tennessee-st-blue-raiders,Middle Tennessee State,Middle Tennessee State Blue Raiders
-270,milwaukee,wis-milwaukee-panthers,Milwaukee,Wis Milwaukee Panthers
+270,milwaukee,wis-milwaukee-panthers,Milwaukee,Milwaukee Panthers
 135,minnesota,minnesota-golden-gophers,Minnesota,Minnesota Golden Gophers
 145,mississippi,mississippi-rebels,Mississippi,Mississippi Rebels
 344,mississippi-state,mississippi-st-bulldogs,Mississippi State,Mississippi St Bulldogs
@@ -191,7 +191,7 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 93,murray-state,murray-st-racers,Murray State,Murray State Racers
 2426,navy,navy-midshipmen,Navy,Navy Midshipmen
 158,nebraska,nebraska-cornhuskers,Nebraska,Nebraska Cornhuskers
-2437,nebraska-omaha,nebraska-omaha-mavericks,Nebraska Omaha,Nebraska Omaha Mavericks
+2437,nebraska-omaha,nebraska-omaha-mavericks,Nebraska-Omaha,Nebraska-Omaha Mavericks
 2440,nevada,nevada-wolf-pack,Nevada,Nevada Wolf Pack
 160,new-hampshire,new-hampshire-wildcats,New Hampshire,New Hampshire Wildcats
 167,new-mexico,new-mexico-lobos,New Mexico,New Mexico Lobos
@@ -202,12 +202,12 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 2885,njit,new-jersey-tech-highlanders,NJIT,New Jersey Tech Highlanders
 2450,norfolk-state,norfolk-state-spartans,Norfolk State,Norfolk State Spartans
 153,north-carolina,north-carolina-tar-heels,North Carolina,North Carolina Tar Heels
-2427,north-carolina-asheville,nc-asheville-bulldogs,North Carolina Asheville,Nc Asheville Bulldogs
+2427,north-carolina-asheville,nc-asheville-bulldogs,UNC Asheville,UNC Asheville Bulldogs
 2448,north-carolina-at,nocarolina-at-aggies,North Carolina A&T,North Carolina A&T Aggies
 2428,north-carolina-central,north-carolina-central-eagles,North Carolina Central,North Carolina Central Eagles
-2430,north-carolina-greensboro,nc-greensboro-spartans,North Carolina Greensboro,UNC-Greensboro Spartans
-152,north-carolina-state,nc-state-wolfpack,North Carolina State,Nc State Wolfpack
-350,north-carolina-wilmington,nc-wilmington-seahawks,North Carolina Wilmington,Nc Wilmington Seahawks
+2430,north-carolina-greensboro,nc-greensboro-spartans,UNC Greensboro,UNC Greensboro Spartans
+152,north-carolina-state,nc-state-wolfpack,North Carolina State,North Carolina State Wolfpack
+350,north-carolina-wilmington,nc-wilmington-seahawks,North Carolina-Wilmington,North Carolina-Wilmington Seahawks
 155,north-dakota,north-dakota,North Dakota,North Dakota
 2449,north-dakota-state,north-dakota-state-bison,North Dakota State,North Dakota State Bison
 2454,north-florida,north-florida-osprey,North Florida,North Florida Osprey
@@ -252,11 +252,11 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 164,rutgers,rutgers-scarlet-knights,Rutgers,Rutgers Scarlet Knights
 16,sacramento-state,sacramento-state-hornets,Sacramento State,Sacramento State Hornets
 2529,sacred-heart,sacred-heart-pioneers,Sacred Heart,Sacred Heart Pioneers
-2598,saint-francis-pa,st-francis-pa-red-flash,Saint Francis Pa,St Francis Pa Red Flash
-2603,saint-josephs,st-josephs-hawks,Saint Josephs,St Josephs Hawks
+2598,saint-francis-pa,st-francis-pa-red-flash,St. Francis (PA),St. Francis (PA) Red Flash
+2603,saint-josephs,st-josephs-hawks,Saint Joseph's,St Josephs Hawks
 139,saint-louis,saint-louis-billikens,Saint Louis,Saint Louis Billikens
 2608,saint-marys-ca,st-marys-gaels,Saint Mary's (CA),St Marys Gaels
-2612,saint-peters,st-peters-peacocks,Saint Peters,St Peters Peacocks
+2612,saint-peters,st-peters-peacocks,St. Peter's,St. Peter's Peacocks
 2534,sam-houston-state,sam-houston-st-bearkats,Sam Houston State,Sam Houston St Bearkats
 2535,samford,samford-bulldogs,Samford,Samford Bulldogs
 301,san-diego,san-diego-toreros,San Diego,San Diego Toreros
@@ -271,7 +271,7 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 6,south-alabama,south-alabama-jaguars,South Alabama,South Alabama Jaguars
 2579,south-carolina,south-carolina-gamecocks,South Carolina,South Carolina Gamecocks
 2569,south-carolina-state,south-carolina-state-bulldogs,South Carolina State,South Carolina State Bulldogs
-2908,south-carolina-upstate,south-carolina-upstate-spartans,South Carolina Upstate,South Carolina Upstate Spartans
+2908,south-carolina-upstate,south-carolina-upstate-spartans,USC Upstate,South Carolina Upstate Spartans
 233,south-dakota,south-dakota-coyotes,South Dakota,South Dakota Coyotes
 2571,south-dakota-state,south-dakota-state-jackrabbits,South Dakota State,South Dakota State Jackrabbits
 58,south-florida,south-florida-bulls,South Florida,South Florida Bulls
@@ -283,25 +283,25 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 2567,southern-methodist,southern-methodist-mustangs,Southern Methodist,Southern Methodist Mustangs
 2572,southern-mississippi,southern-miss-golden-eagles,Southern Mississippi,Southern Miss Golden Eagles
 253,southern-utah,southern-utah-thunderbirds,Southern Utah,Southern Utah Thunderbirds
-179,st-bonaventure,st-bonaventure-bonnies,St Bonaventure,St Bonaventure Bonnies
-2597,st-francis-ny,st-francis-ny-terriers,St Francis Ny,St Francis Ny Terriers
-2599,st-johns-ny,st-johns-red-storm,St Johns Ny,St Johns Red Storm
+179,st-bonaventure,st-bonaventure-bonnies,St. Bonaventure,St. Bonaventure Bonnies
+2597,st-francis-ny,st-francis-ny-terriers,St. Francis (NY),St. Francis (NY) Terriers
+2599,st-johns-ny,st-johns-red-storm,St. John's,St. John's Red Storm
 24,stanford,stanford-cardinal,Stanford,Stanford Cardinal
-2617,stephen-f-austin,stephen-f-austin-lumberjacks,Stephen F Austin,Stephen F Austin Lumberjacks
+2617,stephen-f-austin,stephen-f-austin-lumberjacks,Stephen F. Austin,Stephen F. Austin Lumberjacks
 56,stetson,stetson-hatters,Stetson,Stetson Hatters
 2619,stony-brook,stony-brook-seawolves,Stony Brook,Stony Brook Seawolves
 183,syracuse,syracuse-orange,Syracuse,Syracuse Orange
 218,temple,temple-owls,Temple,Temple Owls
 2633,tennessee,tennessee-volunteers,Tennessee,Tennessee Volunteers
-2630,tennessee-martin,tenn-martin-skyhawks,Tennessee Martin,Tenn Martin Skyhawks
-2634,tennessee-state,tennessee-st-tigers,Tennessee State,Tennessee St Tigers
+2630,tennessee-martin,tenn-martin-skyhawks,Tennessee-Martin,Tennessee-Martin Skyhawks
+2634,tennessee-state,tennessee-st-tigers,Tennessee State,Tennessee State Tigers
 2635,tennessee-tech,tennessee-tech-golden-eagles,Tennessee Tech,Tennessee Tech Golden Eagles
 251,texas,texas-longhorns,Texas,Texas Longhorns
 245,texas-am,texas-am-aggies,Texas A&M,Texas A&M Aggies
-357,texas-am-corpus-christi,texas-am-cc-islanders,Texas Am Corpus Christi,Texas Am Cc Islanders
-250,texas-arlington,texas-arlington-mavericks,Texas Arlington,Texas Arlington Mavericks
-2628,texas-christian,texas-christian-horned-frogs,Texas Christian,Texas Christian Horned Frogs
-292,texas-pan-american,texas-pan-american-broncs,Texas Pan American,Texas Pan American Broncs
+357,texas-am-corpus-christi,texas-am-cc-islanders,Texas A&M-CC,Texas A&M-CC Islanders
+250,texas-arlington,texas-arlington-mavericks,Texas-Arlington,Texas Arlington Mavericks
+2628,texas-christian,texas-christian-horned-frogs,TCU,TCU Horned Frogs
+292,texas-pan-american,texas-pan-american-broncs,Texas-Pan American,Texas-Pan American Broncs
 2640,texas-southern,texas-southern-tigers,Texas Southern,Texas Southern Tigers
 326,texas-state,texas-state-bobcats,Texas State,Texas State Bobcats
 2641,texas-tech,texas-tech-red-raiders,Texas Tech,Texas Tech Red Raiders
@@ -310,7 +310,7 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 2653,troy,troy-trojans,Troy,Troy Trojans
 2655,tulane,tulane-green-wave,Tulane,Tulane Green Wave
 202,tulsa,tulsa-golden-hurricane,Tulsa,Tulsa Golden Hurricane
-5,uab,uab-blazers,UAB,Uab Blazers
+5,uab,uab-blazers,UAB,UAB Blazers
 2116,ucf,central-florida-knights,UCF,Central Florida Knights
 26,ucla,ucla-bruins,UCLA,UCLA Bruins
 2378,umbc,md-baltimore-cty-retrievers,UMBC,Md Baltimore Cty Retrievers
@@ -320,7 +320,7 @@ espn_id,sports_ref_id,teamrankings_id,friendly_school,friendly_full
 254,utah,utah-utes,Utah,Utah Utes
 328,utah-state,utah-st-aggies,Utah State,Utah State Aggies
 3084,utah-valley,utah-valley-wolverines,Utah Valley,Utah Valley Wolverines
-2638,utep,texas-el-paso-miners,Utep,Texas El Paso Miners
+2638,utep,texas-el-paso-miners,UTEP,Texas El Paso Miners
 2636,utsa,texas-san-antonio-roadrunners,UTSA,Texas San Antonio Roadrunners
 2674,valparaiso,valparaiso-crusaders,Valparaiso,Valparaiso Crusaders
 238,vanderbilt,vanderbilt-commodores,Vanderbilt,Vanderbilt Commodores
