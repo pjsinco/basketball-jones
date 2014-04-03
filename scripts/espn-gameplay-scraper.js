@@ -2,7 +2,9 @@ $(document).ready(function() {
 
   var plays = []; // hold all our play objects
   var play = null;
-
+  var awayId, homeId, fileName;
+  var indexId = 7; 
+  // index of espn id after splitting on '/' on a team's url
 
   var saveJsonToFile = function(object, filename){
       var blob, blobText;
@@ -29,12 +31,24 @@ $(document).ready(function() {
       return saveAs(blob, fileName);
     };
 
+  // take a team's espn url and parse out the espn id
+  var getTeamIdFromLink = function(link) {
+    return link.split('/')[indexId].trim();
+  }
   
   $.ajax({
     url: 'http://espn.go.com/ncb/playbyplay?gameId=400502374',
     //url: 'http://espn.go.com/ncb/playbyplay?gameId=323152168',
     type: 'GET',
     success: function(data, textStatus) {
+
+      //console.log($('.team.away .team-info h3 a').attr('href'));
+      awayId
+        = getTeamIdFromLink($(data.responseText).find('.team.away h3 a')
+          .attr('href'));
+      homeId
+        = getTeamIdFromLink($(data.responseText).find('.team.home h3 a')
+          .attr('href'));
 
       // grab all the rows
       var rows = $(data.responseText).find('.mod-data.mod-pbp tbody tr');
@@ -62,7 +76,7 @@ $(document).ready(function() {
             // before we write anything
               play['clock'] = $(this).text().trim()
           } else if (k % numTDsInRow === 1) { 
-            // we're in the second <td>;
+            // we're in the second <td>: away team's play;
             // check that there are more than 2 <td>s in this row;
             // if there aren't, there's been a stoppage in gameplay,
             // like a timeout or end of half;
@@ -73,34 +87,34 @@ $(document).ready(function() {
               play['away_play'] = $(this).text().trim();
             } else { // ... play stoppage
               var stoppageEvent = $(this).children().text(); 
-              // if a half has ended ...
-              if (stoppageEvent.indexOf('End of') === 0) {
-                // twist back to grab the score from the previous row
-                var score = $(this).parent('tr')
-                  .prev('tr').find('td:nth-child(3)').text();
-                // and note that a half has ended
-                play['away_play'] = stoppageEvent;
-                play['score'] = score.trim();
-                play['home_play'] = stoppageEvent;
-              } else {
-                //play['away_play'] = $(this).text().trim();
-                play['away_play'] = '';
-                play['score'] = '';
-                play['home_play'] = '';
-              }
+              // twist back to grab the score from the previous row
+              var score = $(this).parent('tr')
+                .prev('tr').find('td:nth-child(3)').text().trim();
+              play['away_play'] = '';
+              // away score is listed first ... 
+              play['away_score'] = score.split('-')[0]; 
+              // ... and team_score is last
+              play['team_score'] = score.split('-')[1]; 
+              play['home_play'] = '';
+              // and note the event that stopped the game
+              play['stoppage'] = stoppageEvent;
             }
           } else if (k % numTDsInRow === 2) {
-            // we're in the third <td>;
+            // we're in the third <td>, the one with the score;
             // we probably don't need to check number of <td>s at this
             // point, but we will just to be safe
             if (tds.length > 2) {
-              play['score'] = $(this).text().trim();
+              var score = $(this).text().trim().split('-');
+              play['away_score'] = score[0];
+              play['home_score'] = score[1];
             } else {
-              play['score'] = '';
+              play['away_score'] = '';
+              play['home_score'] = '';
               play['home_play'] = '';
+              play['stoppage'] = '';
             }
           } else if (k % numTDsInRow === 3) {
-            // we're in the third <td>;
+            // we're in the third <td>: the home play;
             // again, check tds.length just to be safe
             if (tds.length > 2) {
               play['home_play'] = $(this).text().trim();
@@ -115,8 +129,8 @@ $(document).ready(function() {
 
       /****** SAVE JSON **********
       ***************************/
-
-      saveJsonToFile(plays, 'temp.json');
+      var fileName =  awayId + '-' + homeId + '-' + '123456' + '.json';
+      saveJsonToFile(plays, fileName);
 
       /***************************
       ***************************/
