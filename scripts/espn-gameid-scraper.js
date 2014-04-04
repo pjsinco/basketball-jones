@@ -3,6 +3,7 @@ $(document).ready(function() {
   var gameIds = ['gameid'];
   var teamId;
   var indexId = 8;
+  var baseUrl = 'http://espn.go.com/mens-college-basketball/team/schedule/_/id/';
 
   var saveCsvToFile = function(arrayOfLines, fileName) {
       /* adds linebreaks at the end*/
@@ -23,31 +24,39 @@ $(document).ready(function() {
   var getTeamIdFromLink = function(link) {
     return link.split('/')[indexId].trim();
   }
+  
+  var getGameIdList = function(teamId) {
+      $.ajax({
+        url: baseUrl + teamId,
+        type: 'GET',
+        success: function(data, textStatus) {
+          
+          gameIds = ['gameid'];
 
-  $.ajax({
-    url: 'http://espn.go.com/mens-college-basketball/team/schedule/_/id/2168/year/2013/dayton-flyers',
-    type: 'GET',
-    success: function(data, textStatus) {
+          // grab all the game ids
+          $(data.responseText).find('li.score a').each(function(i) {
+            gameIds.push($(this).attr('href').split('=').pop());
+          });
+
+          saveCsvToFile(gameIds, teamId + '.csv');
+        } // end success 
+      }); // end $.ajax()
+  };
+
+  function sleep(millis, callback, param) {
+    window.setTimeout(function() {
+      callback(param);
+    }, millis);
+  };
+
+  d3.csv('../data/new-master-id.csv', function(error, data) {
+
+    data.forEach(function(d) {
       
-      //console.log($(data.responseText).filter("link[href*='espn.go.com/mens-college-basketball/team/schedule/_/id/']"));
-      teamId = 
-        getTeamIdFromLink(
-          $(data.responseText)
-            .filter("link[href*='/schedule/_/id/']").attr('href')
-        );
+      // pause a few seconds between calls
+      // ***** PAUSE DOESN'T WORK ********
+      sleep(3000, getGameIdList, d.espn_id);
 
-
-
-      //console.log(data.responseText);
-      //var teamId = getTeamIdFromLink(teamLink)
-      $(data.responseText).find('li.score a').each(function(i) {
-        gameIds.push($(this).attr('href').split('=').pop());
-      });
-
-      saveCsvToFile(gameIds, teamId + '.csv');
-    } // end success 
-
-
-  }); // end $.ajax()
-
-});
+    }); // end data.forEach()
+  }); // end d3.csv();
+}); // end ready();
