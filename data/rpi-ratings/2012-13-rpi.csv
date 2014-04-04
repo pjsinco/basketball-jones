@@ -154,7 +154,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 2,11/12/2012,153,Manhattan,manhattan-jaspers,--,139,134,289
 2,11/12/2012,154,Georgia State,georgia-st-panthers,--,150,16,277
 2,11/12/2012,155,Penn State,penn-st-nittany-lions,--,151,76,270
-2,11/12/2012,156,UCSB,uc-santa-barbara-gauchos,--,149,45,254
+2,11/12/2012,156,UC Santa Barbara,uc-santa-barbara-gauchos,--,149,45,254
 2,11/12/2012,157,Milwaukee,wis-milwaukee-panthers,--,126,101,332
 2,11/12/2012,158,Tennessee State,tennessee-st-tigers,--,154,87,247
 2,11/12/2012,159,Duquesne,duquesne-dukes,--,156,114,233
@@ -425,7 +425,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 3,11/19/2012,76,Fairleigh Dickinson,fairleigh-dickinson-knights,0.569,340,52,343
 3,11/19/2012,77,Notre Dame,notre-dame-fighting-irish,0.568,71,30,98
 3,11/19/2012,78,Rutgers,rutgers-scarlet-knights,0.565,55,4,222
-3,11/19/2012,79,UCSB,uc-santa-barbara-gauchos,0.562,93,45,254
+3,11/19/2012,79,UC Santa Barbara,uc-santa-barbara-gauchos,0.562,93,45,254
 3,11/19/2012,80,Charleston Southern,charleston-southern-buccaneers,0.562,75,45,277
 3,11/19/2012,81,Fairfield,fairfield-stags,0.56,89,56,182
 3,11/19/2012,82,Wyoming,wyoming-cowboys,0.554,68,20,209
@@ -825,7 +825,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 4,11/26/2012,128,USC,southern-california-trojans,0.535,116,78,254
 4,11/26/2012,129,Davidson,davidson-wildcats,0.533,133,60,273
 4,11/26/2012,130,Loyola (MD),loyola-maryland-greyhounds,0.529,148,87,171
-4,11/26/2012,131,UCSB,uc-santa-barbara-gauchos,0.529,130,45,254
+4,11/26/2012,131,UC Santa Barbara,uc-santa-barbara-gauchos,0.529,130,45,254
 4,11/26/2012,132,Army,army-black-knights,0.528,101,4,302
 4,11/26/2012,133,Saint Mary's (CA),st-marys-gaels,0.527,124,24,243
 4,11/26/2012,134,Providence,providence-friars,0.526,141,76,294
@@ -1105,7 +1105,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 5,12/3/2012,60,Lehigh,lehigh-mountain-hawks,0.592,61,58,306
 5,12/3/2012,61,Nebraska,nebraska-cornhuskers,0.591,46,20,174
 5,12/3/2012,62,Illinois State,illinois-st-redbirds,0.588,65,24,168
-5,12/3/2012,63,UCSB,uc-santa-barbara-gauchos,0.587,66,45,254
+5,12/3/2012,63,UC Santa Barbara,uc-santa-barbara-gauchos,0.587,66,45,254
 5,12/3/2012,64,Kentucky,kentucky-wildcats,0.585,67,2,102
 5,12/3/2012,65,UCF,central-florida-knights,0.584,50,28,152
 5,12/3/2012,66,Maryland,maryland-terrapins,0.582,102,28,203
@@ -1440,7 +1440,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 6,12/10/2012,47,Miami (FL),miami-florida-hurricanes,0.589,44,2,176
 6,12/10/2012,48,Mississippi,mississippi-rebels,0.588,47,31,199
 6,12/10/2012,49,North Carolina,north-carolina-tar-heels,0.588,49,7,134
-6,12/10/2012,50,UCSB,uc-santa-barbara-gauchos,0.586,50,45,254
+6,12/10/2012,50,UC Santa Barbara,uc-santa-barbara-gauchos,0.586,50,45,254
 6,12/10/2012,51,Southern Methodist,southern-methodist-mustangs,0.586,46,1,226
 6,12/10/2012,52,Florida Gulf Coast,florida-gulf-coast-eagles,0.585,55,17,213
 6,12/10/2012,53,Canisius,canisius-golden-griffins,0.584,58,26,330
@@ -1786,7 +1786,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 7,12/17/2012,45,Charlotte,charlotte-49ers,0.59,39,30,201
 7,12/17/2012,46,St. John's,st-johns-red-storm,0.589,49,26,331
 7,12/17/2012,47,Massachusetts,massachusetts-minutemen,0.589,46,23,256
-7,12/17/2012,48,UCSB,uc-santa-barbara-gauchos,0.589,52,45,254
+7,12/17/2012,48,UC Santa Barbara,uc-santa-barbara-gauchos,0.589,52,45,254
 7,12/17/2012,49,Pittsburgh,pittsburgh-panthers,0.587,47,27,190
 7,12/17/2012,50,McNeese State,mcneese-st-cowboys,0.587,128,43,255
 7,12/17/2012,51,Mississippi,mississippi-rebels,0.586,60,31,199
@@ -2131,7 +2131,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 8,12/24/2012,42,Georgetown,georgetown-hoyas,0.59,41,7,169
 8,12/24/2012,43,California,california-golden-bears,0.588,47,14,177
 8,12/24/2012,44,Baylor,baylor-bears,0.587,46,8,299
-8,12/24/2012,45,UCSB,uc-santa-barbara-gauchos,0.586,45,45,254
+8,12/24/2012,45,UC Santa Barbara,uc-santa-barbara-gauchos,0.586,45,45,254
 8,12/24/2012,46,Maryland,maryland-terrapins,0.583,44,28,203
 8,12/24/2012,47,Nebraska,nebraska-cornhuskers,0.58,37,20,174
 8,12/24/2012,48,Cal State Northridge,csu-northridge-matadors,0.58,49,23,310
@@ -2522,7 +2522,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 9,12/31/2012,85,Western Kentucky,western-kentucky-hilltoppers,0.551,82,14,316
 9,12/31/2012,86,South Dakota State,south-dakota-state-jackrabbits,0.55,89,38,194
 9,12/31/2012,87,Alabama,alabama-crimson-tide,0.55,57,2,106
-9,12/31/2012,88,UCSB,uc-santa-barbara-gauchos,0.55,87,45,254
+9,12/31/2012,88,UC Santa Barbara,uc-santa-barbara-gauchos,0.55,87,45,254
 9,12/31/2012,89,Detroit,detroit-titans,0.55,129,57,333
 9,12/31/2012,90,Davidson,davidson-wildcats,0.549,91,60,273
 9,12/31/2012,91,Southern,southern-jaguars,0.549,93,67,323
@@ -2912,7 +2912,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 10,1/7/2013,127,Pacific,pacific-tigers,0.524,127,39,326
 10,1/7/2013,128,Texas,texas-longhorns,0.524,119,18,281
 10,1/7/2013,129,Albany,albany-great-danes,0.524,128,23,227
-10,1/7/2013,130,UCSB,uc-santa-barbara-gauchos,0.523,130,45,254
+10,1/7/2013,130,UC Santa Barbara,uc-santa-barbara-gauchos,0.523,130,45,254
 10,1/7/2013,131,Evansville,evansville-purple-aces,0.522,121,77,229
 10,1/7/2013,132,Princeton,princeton-tigers,0.522,140,34,243
 10,1/7/2013,133,Montana,montana-grizzlies,0.522,133,24,309
@@ -3255,7 +3255,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 11,1/14/2013,122,Western Michigan,western-michigan-broncos,0.522,117,58,290
 11,1/14/2013,123,Montana,montana-grizzlies,0.522,121,24,309
 11,1/14/2013,124,Savannah State,savannah-state-tigers,0.522,125,105,257
-11,1/14/2013,125,UCSB,uc-santa-barbara-gauchos,0.521,122,45,254
+11,1/14/2013,125,UC Santa Barbara,uc-santa-barbara-gauchos,0.521,122,45,254
 11,1/14/2013,126,Pacific,pacific-tigers,0.521,124,39,326
 11,1/14/2013,127,Western Kentucky,western-kentucky-hilltoppers,0.519,130,14,316
 11,1/14/2013,128,Florida International,florida-international-golden-panthers,0.519,129,109,347
@@ -3635,7 +3635,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 12,1/21/2013,154,St. Bonaventure,st-bonaventure-bonnies,0.512,152,16,200
 12,1/21/2013,155,Mercer,mercer-bears,0.512,156,93,297
 12,1/21/2013,156,Rider,rider-broncs,0.511,169,33,222
-12,1/21/2013,157,UCSB,uc-santa-barbara-gauchos,0.511,157,45,254
+12,1/21/2013,157,UC Santa Barbara,uc-santa-barbara-gauchos,0.511,157,45,254
 12,1/21/2013,158,Texas,texas-longhorns,0.51,155,18,281
 12,1/21/2013,159,George Washington,george-washington-colonials,0.51,154,105,294
 12,1/21/2013,160,Oregon State,oregon-st-beavers,0.507,159,13,213
@@ -4022,7 +4022,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 13,1/28/2013,193,Duquesne,duquesne-dukes,0.483,194,114,233
 13,1/28/2013,194,South Carolina,south-carolina-gamecocks,0.483,195,11,247
 13,1/28/2013,195,Norfolk State,norfolk-state-spartans,0.482,190,106,263
-13,1/28/2013,196,UCSB,uc-santa-barbara-gauchos,0.482,193,45,254
+13,1/28/2013,196,UC Santa Barbara,uc-santa-barbara-gauchos,0.482,193,45,254
 13,1/28/2013,197,Arkansas State,arkansas-st-red-wolves,0.48,196,103,255
 13,1/28/2013,198,Yale,yale-bulldogs,0.48,197,136,287
 13,1/28/2013,199,Toledo,toledo-rockets,0.477,199,171,306
@@ -4379,7 +4379,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 14,2/4/2013,202,Cal Poly,cal-poly-slo-mustangs,0.476,202,155,332
 14,2/4/2013,203,Missouri State,missouri-st-bears,0.472,203,125,334
 14,2/4/2013,204,Houston,houston-cougars,0.471,204,37,341
-14,2/4/2013,205,UCSB,uc-santa-barbara-gauchos,0.47,206,45,254
+14,2/4/2013,205,UC Santa Barbara,uc-santa-barbara-gauchos,0.47,206,45,254
 14,2/4/2013,206,Hawaii,hawaii-warriors,0.47,205,5,278
 14,2/4/2013,207,Fordham,fordham-rams,0.47,212,207,336
 14,2/4/2013,208,Cornell,cornell-big-red,0.47,208,24,327
@@ -4737,7 +4737,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 15,2/11/2013,212,Duquesne,duquesne-dukes,0.469,212,114,233
 15,2/11/2013,213,Fordham,fordham-rams,0.469,213,207,336
 15,2/11/2013,214,Cornell,cornell-big-red,0.468,217,24,327
-15,2/11/2013,215,UCSB,uc-santa-barbara-gauchos,0.467,219,45,254
+15,2/11/2013,215,UC Santa Barbara,uc-santa-barbara-gauchos,0.467,219,45,254
 15,2/11/2013,216,Missouri State,missouri-st-bears,0.467,216,125,334
 15,2/11/2013,217,Texas Tech,texas-tech-red-raiders,0.467,215,25,288
 15,2/11/2013,218,Houston,houston-cougars,0.466,220,37,341
@@ -5085,7 +5085,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 16,2/18/2013,212,Houston,houston-cougars,0.472,211,37,341
 16,2/18/2013,213,Gardner-Webb,gardner-webb-runnin-bulldogs,0.47,212,122,325
 16,2/18/2013,214,Georgia State,georgia-st-panthers,0.47,213,16,277
-16,2/18/2013,215,UCSB,uc-santa-barbara-gauchos,0.469,214,45,254
+16,2/18/2013,215,UC Santa Barbara,uc-santa-barbara-gauchos,0.469,214,45,254
 16,2/18/2013,216,St. Francis (NY),st-francis-ny-terriers,0.469,216,2,224
 16,2/18/2013,217,Florida Atlantic,florida-atlantic-owls,0.467,219,68,325
 16,2/18/2013,218,Fordham,fordham-rams,0.467,217,207,336
@@ -5467,7 +5467,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 17,2/25/2013,246,Coastal Carolina,coastal-carolina-chanticleers,0.45,246,46,341
 17,2/25/2013,247,North Texas,north-texas-mean-green-eagles,0.449,247,59,279
 17,2/25/2013,248,Southeast Missouri State,se-missouri-st-redhawks,0.449,248,170,295
-17,2/25/2013,249,UCSB,uc-santa-barbara-gauchos,0.448,250,45,254
+17,2/25/2013,249,UC Santa Barbara,uc-santa-barbara-gauchos,0.448,250,45,254
 17,2/25/2013,250,Jacksonville,jacksonville-dolphins,0.448,249,154,316
 17,2/25/2013,251,Ball State,ball-st-cardinals,0.448,254,106,291
 17,2/25/2013,252,Holy Cross,holy-cross-crusaders,0.448,259,2,261
@@ -5802,7 +5802,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 18,3/4/2013,233,Southeastern Louisiana,southeastern-louisiana-lions,0.458,232,63,341
 18,3/4/2013,234,Auburn,auburn-tigers,0.458,234,13,275
 18,3/4/2013,235,Tennessee Tech,tennessee-tech-golden-eagles,0.457,236,49,287
-18,3/4/2013,236,UCSB,uc-santa-barbara-gauchos,0.457,237,45,254
+18,3/4/2013,236,UC Santa Barbara,uc-santa-barbara-gauchos,0.457,237,45,254
 18,3/4/2013,237,North Texas,north-texas-mean-green-eagles,0.457,235,59,279
 18,3/4/2013,238,Wofford,wofford-terriers,0.456,238,46,270
 18,3/4/2013,239,Lipscomb,lipscomb-bison,0.456,240,19,287
@@ -6153,7 +6153,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 19,3/11/2013,236,Sam Houston State,sam-houston-st-bearkats,0.457,237,83,319
 19,3/11/2013,237,Lipscomb,lipscomb-bison,0.457,236,19,287
 19,3/11/2013,238,South Dakota,south-dakota-coyotes,0.455,241,97,341
-19,3/11/2013,239,UCSB,uc-santa-barbara-gauchos,0.455,239,45,254
+19,3/11/2013,239,UC Santa Barbara,uc-santa-barbara-gauchos,0.455,239,45,254
 19,3/11/2013,240,Brown,brown-bears,0.455,238,102,317
 19,3/11/2013,241,Tennessee Tech,tennessee-tech-golden-eagles,0.454,240,49,287
 19,3/11/2013,242,Cal State Northridge,csu-northridge-matadors,0.454,242,23,310
@@ -6507,7 +6507,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 20,3/18/2013,242,Cal State Northridge,csu-northridge-matadors,0.454,242,23,310
 20,3/18/2013,243,South Dakota,south-dakota-coyotes,0.452,243,97,341
 20,3/18/2013,244,Western Carolina,western-carolina-catamounts,0.452,244,96,321
-20,3/18/2013,245,UCSB,uc-santa-barbara-gauchos,0.452,245,45,254
+20,3/18/2013,245,UC Santa Barbara,uc-santa-barbara-gauchos,0.452,245,45,254
 20,3/18/2013,246,IPFW,iupu-ft-wayne-mastodons,0.451,246,101,311
 20,3/18/2013,247,McNeese State,mcneese-st-cowboys,0.45,247,43,255
 20,3/18/2013,248,North Texas,north-texas-mean-green-eagles,0.45,249,59,279
@@ -6853,7 +6853,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 21,3/25/2013,240,Brown,brown-bears,0.452,240,102,317
 21,3/25/2013,241,Tennessee Tech,tennessee-tech-golden-eagles,0.45,241,49,287
 21,3/25/2013,242,Cal State Northridge,csu-northridge-matadors,0.45,242,23,310
-21,3/25/2013,243,UCSB,uc-santa-barbara-gauchos,0.449,243,45,254
+21,3/25/2013,243,UC Santa Barbara,uc-santa-barbara-gauchos,0.449,243,45,254
 21,3/25/2013,244,Cornell,cornell-big-red,0.448,246,24,327
 21,3/25/2013,245,Western Carolina,western-carolina-catamounts,0.448,245,96,321
 21,3/25/2013,246,McNeese State,mcneese-st-cowboys,0.448,244,43,255
@@ -7202,7 +7202,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 22,4/1/2013,241,Tennessee Tech,tennessee-tech-golden-eagles,0.45,241,49,287
 22,4/1/2013,242,Cal State Northridge,csu-northridge-matadors,0.45,242,23,310
 22,4/1/2013,243,Western Carolina,western-carolina-catamounts,0.448,243,96,321
-22,4/1/2013,244,UCSB,uc-santa-barbara-gauchos,0.448,244,45,254
+22,4/1/2013,244,UC Santa Barbara,uc-santa-barbara-gauchos,0.448,244,45,254
 22,4/1/2013,245,Cornell,cornell-big-red,0.448,245,24,327
 22,4/1/2013,246,McNeese State,mcneese-st-cowboys,0.447,246,43,255
 22,4/1/2013,247,Holy Cross,holy-cross-crusaders,0.447,247,2,261
@@ -7549,7 +7549,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 23,4/8/2013,240,Brown,brown-bears,0.452,240,102,317
 23,4/8/2013,241,Tennessee Tech,tennessee-tech-golden-eagles,0.45,241,49,287
 23,4/8/2013,242,Cal State Northridge,csu-northridge-matadors,0.45,242,23,310
-23,4/8/2013,243,UCSB,uc-santa-barbara-gauchos,0.448,244,45,254
+23,4/8/2013,243,UC Santa Barbara,uc-santa-barbara-gauchos,0.448,244,45,254
 23,4/8/2013,244,Western Carolina,western-carolina-catamounts,0.448,243,96,321
 23,4/8/2013,245,Cornell,cornell-big-red,0.447,245,24,327
 23,4/8/2013,246,McNeese State,mcneese-st-cowboys,0.447,246,43,255
@@ -7897,7 +7897,7 @@ Wk,Date,Rk,School,ID,Rating,Prev,High,Low
 24,4/15/2013,240,Brown,brown-bears,0.452,240,102,317
 24,4/15/2013,241,Tennessee Tech,tennessee-tech-golden-eagles,0.45,241,49,287
 24,4/15/2013,242,Cal State Northridge,csu-northridge-matadors,0.45,242,23,310
-24,4/15/2013,243,UCSB,uc-santa-barbara-gauchos,0.448,243,45,254
+24,4/15/2013,243,UC Santa Barbara,uc-santa-barbara-gauchos,0.448,243,45,254
 24,4/15/2013,244,Western Carolina,western-carolina-catamounts,0.448,244,96,321
 24,4/15/2013,245,Cornell,cornell-big-red,0.447,245,24,327
 24,4/15/2013,246,McNeese State,mcneese-st-cowboys,0.447,246,43,255
