@@ -17,6 +17,13 @@ import os
 #open firefox
 #driver = webdriver.Firefox()
 
+reader = csv.reader(open('/Users/pj/Sites/basketball-jones/data/sportsref-master.csv'))
+
+sportsref_id = {}
+for row in reader:
+  sportsref_id[row[0]]=row[1:]
+
+
 for team in os.listdir('../data/team-schedules/'):
 
   if team.endswith('csv'):
@@ -28,26 +35,17 @@ for team in os.listdir('../data/team-schedules/'):
     continue
 
   #make a team directory if one doesn't exist
-  directory = '../data/' + team
-  if not os.path.exists(directory):
-    os.makedirs(directory)
+  #directory = '../data/' + team
+  #if not os.path.exists(directory):
+    #os.makedirs(directory)
 
   cols = defaultdict(list)
 
   with open ('/Users/pj/Sites/basketball-jones/data/team-schedules/%s.csv'  % (team)) as f:
             
-    reader = csv.DictReader(f)
-    for row in reader:
-      for (k, v) in row.items():
-        cols[k].append(v)
 
-    for d in cols:
-      print d
-      #print d['Date']
-      #print d['Opponent']
-  
       #be a good citizen
-      time.sleep(2)
+      #time.sleep(2)
   
       #open a url
       #driver.get('%s%s-%s.html' % \
