@@ -14,21 +14,8 @@ import csv
 from collections import defaultdict
 import os
 
-#http://stackoverflow.com/questions/10688006/
-#  generate-a-list-of-datetimes-between-an-interval-in-python
-def perdelta(start, end, delta):
-  curr = start
-  while curr < end:
-    yield curr
-    curr += delta
-
-#rough season start and end dates
-startdate = date(2012, 11, 01)
-enddate = date(2013, 04, 15)
-
 #open firefox
 #driver = webdriver.Firefox()
-
 
 for team in os.listdir('../data/team-schedules/'):
 
@@ -54,17 +41,17 @@ for team in os.listdir('../data/team-schedules/'):
       for (k, v) in row.items():
         cols[k].append(v)
 
-  print cols['Date']
+    for d in cols:
+      print d
+      #print d['Date']
+      #print d['Opponent']
   
-#  #loop through the season
-#  for d in perdelta(startdate, enddate, timedelta(days = 1)):
-#  
-#    #be a good citizen
-#    time.sleep(2)
-#  
-#    #open a url
-#    driver.get('%s%s-%s.html' % \
-#      ('http://www.sports-reference.com/cbb/boxscores/', d, team))
+      #be a good citizen
+      time.sleep(2)
+  
+      #open a url
+      #driver.get('%s%s-%s.html' % \
+        #('http://www.sports-reference.com/cbb/boxscores/', d, team))
 #    
 #    #echo out current game so we know what's going on
 #    print '%s%s-%s.html' % \
