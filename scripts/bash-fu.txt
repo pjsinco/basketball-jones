@@ -36,3 +36,11 @@ curl --request GET http://api.espn.com/v1//sports/basketball/mens-college-basket
 /* CONFERENCE INFO */
 curl --request GET http://api.espn.com/v1/sports/basketball/mens-college-basketball?apikey=
 
+      _
+  ___| |_ ___
+ / _ \ __/ __|
+|  __/ || (__ _
+ \___|\__\___(_)
+
+/* FOR CHECKING WHAT GAMEIDS WE'VE SCRAPED */
+ll *.json | awk -F- '{ print $9 }' | awk -F. '{ print $1 }' | sort
