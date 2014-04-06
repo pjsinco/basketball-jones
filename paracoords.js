@@ -1,6 +1,5 @@
 // based on 
 // http://bl.ocks.org/jasondavies/1341281
-console.log('shocker');
 
 var margin = {
   top: 30,
@@ -32,6 +31,7 @@ var svg = d3.select('body').append('svg')
   .append('g')
   .attr('transform', 'translate(' + margin.left + ','
     + margin.top + ')');
+
   
 d3.csv('../data/season-totals-by-team.csv', function(error, data) {
   var totals = data.map(function(d) {
@@ -51,18 +51,52 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
   });
 
   // extract the list of dimensions and create a scale for each
-  //console.log(d3.keys(totals[0]));
-  //console.log(d3.keys(totals[0]));
+  dimensions = d3.keys(totals[0])
+    .filter(function(d) {
+      return d != 'team' && (yScale[d] = d3.scale.linear()
+        .domain(d3.extent(totals, function(p) {
+          return (p[d]);
+        }))
+        .range([height, 0])
+  )});
+
+  var table = d3.select('body').append('table');
+  var thead = table.append('thead').append('tr');
+  var tbody = table.append('tbody')
+
+  thead
+    .selectAll('th')
+    .data(d3.keys(totals[0]))
+    .enter()
+      .append('th')
+      .text(function(d) {
+        return d;
+      });
+
+  var rows = tbody.selectAll('tr')
+    .data(totals)
+    .enter()
+      .append('tr')
+      .attr('class', function(d) {
+        return d.team;
+      })
+       
+  var cells = rows.selectAll('td')
+    .data(function(d, i) {
+      return d3.range(Object.keys(d).length)
+        .map(function(e, i){
+          return d[Object.keys(d)[i]];
+        });
+    })
+    .enter()
+      .append('td')
+      .text(function(d) {
+        return d;
+      });
+  
+
   xScale
-    .domain(dimensions = d3.keys(totals[0])
-      .filter(function(d) {
-        return d != 'team' && (yScale[d] = d3.scale.linear()
-          .domain(d3.extent(totals, function(p) {
-            return (+p[d]);
-          }))
-          .range([height, 0])
-      )})
-    );
+    .domain(dimensions)
 
   // add background lines for context
   background = svg.append('g')
@@ -86,7 +120,6 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
       .append('path')
       .attr('d', path)
       .on('mouseover', function(d) {
-        console.log(d.team);
         d3.select(this)
           .style('stroke-width', '5px')
           .style('stroke', 'darkorange')
@@ -98,6 +131,7 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
           .text(function() {
             return d.team;
           })
+
       })
       .on('mouseout', function() {
         d3.select(this)
