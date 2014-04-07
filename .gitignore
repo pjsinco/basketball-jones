@@ -1,5 +1,4 @@
 .DS_STORE
-*.sql
 *.swp
 *.swo
 play-*.py
