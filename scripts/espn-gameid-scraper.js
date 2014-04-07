@@ -4,6 +4,7 @@ $(document).ready(function() {
   var teamId;
   var indexId = 8;
   var baseUrl = 'http://espn.go.com/mens-college-basketball/team/schedule/_/id/';
+  var endUrl = '/year/2013';
 
   var saveCsvToFile = function(arrayOfLines, fileName) {
       /* adds linebreaks at the end*/
