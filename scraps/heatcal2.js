@@ -1,4 +1,4 @@
-$(document).ready(function() {
+//$(document).ready(function() { // removed for debugging
   
   // much borrowed from
   // http://bl.ocks.org/mbostock/4063318
@@ -16,7 +16,7 @@ $(document).ready(function() {
   //var width = 960;
   //var height = 136;
 
-  var dataset = [];
+  var dataset;
   var datesPlayed = {};
 
   var cellSize = 17;
@@ -120,12 +120,13 @@ $(document).ready(function() {
       }
     }); // end forEach()
     
+    rect.filter(function(d) { return d in datesPlayed; })
+        .select("title")
+          .text(function(d) { if (datesPlayed[d]) { return d + ": " + datesPlayed[d]; } });
+
     // set up domain of color scale
     //colorScale
       //.domain([0, buckets - 1, 154]) // MAGIC # ALERT 
-
-    
-
 
   }); // end d3.csv()
   
@@ -145,4 +146,4 @@ $(document).ready(function() {
       + "H" + (w0 + 1) * cellSize + "Z";
   };
   
-}); // end .ready()
+//}); // end .ready() // removed for debugging
