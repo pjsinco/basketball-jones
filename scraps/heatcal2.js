@@ -34,10 +34,10 @@
         })
     );
 
-  console.log(d3.range(2012, 2014));
+  console.log(d3.range(2012, 2013));
   
   var svg = d3.select('body').selectAll('svg')
-    .data(d3.range(2012, 2014))
+    .data(d3.range(2012, 2013))
     .enter()
       .append('svg')
       .attr('width', width)
@@ -119,8 +119,20 @@
         datesPlayed[date] = 1;
       }
     }); // end forEach()
-    
+
+    maxGames = 0;
+
+    for (var date in datesPlayed) {
+      if (datesPlayed[date] > maxGames) {
+        maxGames = datesPlayed[date];
+      }
+    }
+
+    colorScale
+      .domain([0,maxGames]);
+
     rect.filter(function(d) { return d in datesPlayed; })
+        .attr("class", function(d) { if (datesPlayed[d]) { return "day " + colorScale(datesPlayed[d]); } else { return "day"; } })
         .select("title")
           .text(function(d) { if (datesPlayed[d]) { return d + ": " + datesPlayed[d]; } });
 
