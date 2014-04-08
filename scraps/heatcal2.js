@@ -33,9 +33,11 @@ $(document).ready(function() {
           return 'q' + d + '-11';
         })
     );
+
+  console.log(d3.range(2012, 2014));
   
   var svg = d3.select('body').selectAll('svg')
-    .data(d3.range(2011, 2013))
+    .data(d3.range(2012, 2014))
     .enter()
       .append('svg')
       .attr('width', width)
