@@ -18,6 +18,7 @@
 
   var dataset;
   var datesPlayed = {};
+  var confsPlayed = {};
 
   var cellSize = 17;
 
@@ -34,10 +35,10 @@
         })
     );
 
-  console.log(d3.range(2012, 2013));
+  console.log(d3.range(2012, 2014));
   
   var svg = d3.select('body').selectAll('svg')
-    .data(d3.range(2012, 2013))
+    .data(d3.range(2012, 2014))
     .enter()
       .append('svg')
       .attr('width', width)
@@ -52,8 +53,10 @@
 
   var rect = svg.selectAll('.day')
     .data(function(d) {
-      return d3.time.days(new Date(d, 10, 1),
-        new Date(d + 1, 03, 30));
+      return d3.time.days(new Date(d, 0, 1),
+        new Date(d + 1, 0, 1));
+      //return d3.time.days(new Date(d, 10, 1),
+      //  new Date(d + 1, 03, 30));
     })
     .enter()
       .append('rect')
@@ -77,8 +80,10 @@
   svg
     .selectAll('.month')
     .data(function(d) {
-      return d3.time.months(new Date(d, 10, 1),
-        new Date(d + 1, 03, 30));
+      return d3.time.months(new Date(d, 0, 1),
+        new Date(d + 1, 0, 1));
+      // return d3.time.months(new Date(d, 10, 1),
+        // new Date(d + 1, 03, 30));
     })
     .enter()
       .append('path')
@@ -113,13 +118,38 @@
     // calculate # of games each day
     dataset.forEach(function(d) {
       var date = d.date;
+      // create datesPlayed object
       if (datesPlayed[date]) {
         datesPlayed[date]++;
       } else {
         datesPlayed[date] = 1;
       }
+      // create confsPlayed object
+      conf = d.conf_friendly;
+      if (confsPlayed[date]) {
+        if (confsPlayed[date][conf]) {
+          confsPlayed[date][conf]++;
+        } else {
+          confsPlayed[date][conf] = 1;
+        }
+      } else {
+        confsPlayed[date] = {};
+        confsPlayed[date][conf] = 1;
+      }
+
+      // if (confsPlayed[conf]) {
+      //   if (confsPlayed[conf][date]) {
+      //     confsPlayed[conf][date]++;
+      //   } else {
+      //     confsPlayed[conf][date] = 1;
+      //   }
+      // } else {
+      //   confsPlayed[conf] = {};
+      //   confsPlayed[conf][date] = 1;
+      // }
     }); // end forEach()
 
+    // calculate max # of games played
     maxGames = 0;
 
     for (var date in datesPlayed) {
@@ -128,13 +158,26 @@
       }
     }
 
+    // set up domain of color scale from 0 games to maxGames games
     colorScale
       .domain([0,maxGames]);
 
     rect.filter(function(d) { return d in datesPlayed; })
         .attr("class", function(d) { if (datesPlayed[d]) { return "day " + colorScale(datesPlayed[d]); } else { return "day"; } })
+        // .on("click", function(d) { 
+        //   if (confsPlayed[d]) { 
+        //     console.log(confsPlayed[d]);
+        //     string = ""; 
+        //     for (var conf in confsPlayed[d]) {
+        //       console.log(confsPlayed[d][conf]);
+        //       string = string + conf + ": " + confsPlayed[d][conf] + "\n"; 
+        //     }
+        //     window.alert(string); 
+        //   } 
+        // })
         .select("title")
           .text(function(d) { if (datesPlayed[d]) { return d + ": " + datesPlayed[d]; } });
+
 
     // set up domain of color scale
     //colorScale
@@ -142,7 +185,6 @@
 
   }); // end d3.csv()
   
-
   // nifty!
   // stolen from http://bl.ocks.org/mbostock/4063318
   function monthPath(t0) {
