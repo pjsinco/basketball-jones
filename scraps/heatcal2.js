@@ -1,17 +1,23 @@
 $(document).ready(function() {
+  
+  // much borrowed from
+  // http://bl.ocks.org/mbostock/4063318
 
   console.log('iron');
 
   var margin = {
-    top: 50,
-    right: 50,
-    bottom: 50,
-    left: 50
+    top: 10,
+    right: 10,
+    bottom: 10,
+    left: 10
   }
-  //var width = 960 - margin.left - margin.right;
-  //var height = 200 - margin.top - margin.bottom;
-  var width = 960;
-  var height = 136;
+  var width = 960 - margin.left - margin.right;
+  var height = 150 - margin.top - margin.bottom;
+  //var width = 960;
+  //var height = 136;
+
+  var dataset = [];
+  var datesPlayed = {};
 
   var cellSize = 17;
 
@@ -29,7 +35,7 @@ $(document).ready(function() {
     );
   
   var svg = d3.select('body').selectAll('svg')
-    .data([2012])
+    .data(d3.range(2011, 2013))
     .enter()
       .append('svg')
       .attr('width', width)
@@ -37,26 +43,15 @@ $(document).ready(function() {
       .attr('class', 'RdYlGn')
       .append('g')
         .attr('transform', 'translate(' 
-          + ((width - cellSize * 53) / 2) + ','
-          + (height - cellSize * 7 - 1) + ')')
-
-//  svg
-//    .append('text')
-//    .attr('transform', 'translate(-6,' + (cellSize * 3.5)
-//      + ')rotate(-90)')
-//    .style('text-anchor', 'middle')
-//    .text(function(d) {
-//      return d
-//    })
-  
-  //console.log(d3.time.days(new Date(2012, 10, 1), 
-    //new Date(2013, 03, 31)));
-
+          + (((width + margin.left + margin.right) 
+            - (cellSize * 53)) / 2) + ','
+            + ((height + margin.top + margin.bottom) 
+              - (cellSize * 7) - 22) + ')')
 
   var rect = svg.selectAll('.day')
-    .data(function() {
-      return d3.time.days(new Date(2012, 10, 1),
-        new Date(2013, 03, 30));
+    .data(function(d) {
+      return d3.time.days(new Date(d, 10, 1),
+        new Date(d + 1, 03, 30));
     })
     .enter()
       .append('rect')
@@ -71,7 +66,6 @@ $(document).ready(function() {
       })
       .datum(dateFormat)
 
-  console.log(rect);
   rect
     .append('title')
     .text(function(d) {
@@ -81,14 +75,57 @@ $(document).ready(function() {
   svg
     .selectAll('.month')
     .data(function(d) {
-      return d3.time.months(new Date(2012, 10, 1),
-        new Date(2013, 03, 30));
+      return d3.time.months(new Date(d, 10, 1),
+        new Date(d + 1, 03, 30));
     })
     .enter()
       .append('path')
       .attr('class', 'month')
       .attr('d', monthPath);
 
+  d3.csv('../data/all-games.csv', function(error, csv) {
+    // some routine data formatting
+    dataset = csv.map(function(d) {
+      return {
+        away_espn_id: d.away_espn_id,
+        away_friendly_school: d.away_friendly_school,
+        away_score: +d.away_score,
+        conf_friendly: d.conf_friendly,
+        date: dateFormat(new Date(d.date_time)),
+        espn_game_id: d.espn_game_id,
+        home_espn_id: d.home_espn_id,
+        home_friendly_school: d.home_friendly_school,
+        home_score: +d.home_score
+      }
+    });
+
+    
+    // set up count of games played on every day of season;
+    // note: max # of games on a date is 154
+    
+    // get the season start and end dates
+    var extent = d3.extent(dataset, function(d) { 
+      return d.date; 
+    });
+
+    // calculate # of games each day
+    dataset.forEach(function(d) {
+      var date = d.date;
+      if (datesPlayed[date]) {
+        datesPlayed[date]++;
+      } else {
+        datesPlayed[date] = 1;
+      }
+    }); // end forEach()
+    
+    // set up domain of color scale
+    //colorScale
+      //.domain([0, buckets - 1, 154]) // MAGIC # ALERT 
+
+    
+
+
+  }); // end d3.csv()
   
 
   // nifty!
