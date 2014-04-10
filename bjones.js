@@ -109,7 +109,7 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
       .append('path')
       .attr('d', path)
 
-  // blue foreground lines for focus
+  // gray foreground lines for focus
   foreground = svg.append('g')
     .attr('class', 'foreground')
 
@@ -136,7 +136,7 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
       .on('mouseout', function() {
         d3.select(this)
           .style('stroke-width', '1px')
-          .style('stroke', 'cadetblue')
+          .style('stroke', '#ccc')
         d3.select('.tooltip')
           .remove();
       })
@@ -197,6 +197,7 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
         .append('text')
           .attr('text-anchor', 'middle')
           .attr('y', -9)
+          .attr('class', 'dimension')
           .text(function(d) {
             return d;
           });
