@@ -9,6 +9,7 @@ import json
 
 base_url = 'http://espn.go.com/ncb/boxscore?gameId='
 
+  
 
 # indices of home, away totals in list of tbody elems
 away_tr_index = 2 
@@ -18,7 +19,6 @@ home_tr_index = 5
   #open ('../data/all-gameids-2012-13.csv', 'r')
 csv_file = \
   open ('../data/some-gameids.csv', 'r')
-
 
 # set up our game dictionary
 game = {'game_id': None, 'date': None, 'away': None, 'home': None}
@@ -61,7 +61,12 @@ game['home'] = \
     'pts': None \
   }
 
-for line in csv_file:
+# for every gameid we have
+for game_id in csv_file:
+
+  game_id = game_id.replace('\n', '')
+  print game_id
+
   # clear the dictionary
   game['game_id'] = None
   game['date'] = None
@@ -70,11 +75,9 @@ for line in csv_file:
   for key in game['home'].keys():
     game['home'][key] = None
 
+  url = 'http://espn.go.com/ncb/boxscore?gameId=%s' % (game_id)
 
-  url = 'http://espn.go.com/ncb/boxscore?gameId=%s' % (line)
-
-  response = \
-    urllib2.urlopen(url)
+  response =  urllib2.urlopen(url)
   content = response.read()
   soup = BeautifulSoup(content)
 
@@ -84,39 +87,95 @@ for line in csv_file:
   date = time.strptime(' '.join(date), '%Y %d, %B')
   date = time.strftime('%Y-%m-%d', date)
 
-  away_id = soup.select('.team.away a')[0]['href'] \
+  ids = {
+    'away_id': soup.select('.team.away a')[0]['href'] \
+      .split('/')[-2:-1],
+    'home_id': soup.select('.team.home a')[0]['href'] \
     .split('/')[-2:-1]
-  home_id = soup.select('.team.home a')[0]['href'] \
-    .split('/')[-2:-1]
+  }
 
-  print away_id, home_id
   
   # rows where we find the stats we need
-  away_tr = soup.select('tbody')[away_tr_index].find('tr')
-  home_tr = soup.select('tbody')[home_tr_index].find('tr')
+  stat_rows = { \
+    'away': soup.select('tbody')[away_tr_index].find('tr'), \
+    'home': soup.select('tbody')[home_tr_index].find('tr') \
+  }
   
-  #for td in away_tr.select('td'):
-  for num in range(2, len(away_tr.select('td'))):
-    if (away_tr.select('td')[num].contents):
-    
-      away_tr.select('td')[num].string
-  
-  game['game_id'] = line.replace('\n', '')
-  game['date'] = date.replace('\n', '')
-  game['away']['away_id'] = away_id[0]
-  game['home']['home_id'] = home_id[0]
+  for team in stat_rows:
+    print ids['%s_id' % (team)]
 
-  with open('../data/%s.json' % (line), 'w') as outfile:
+    num_fields = len(stat_rows[team].select('td'))
+    print num_fields
+
+    for num in range(2, num_fields):
+
+      game[team]['%s_id' % (team)] = ids['%s_id' % (team)][0]
+
+      val = stat_rows[team].select('td')[num].string
+
+      if (num == 2): # process FG%
+        val = val.split('-')
+        game[team]['fga'] = val[1]
+        game[team]['fgm'] = val[0]
+      elif (num == 3): # process 3P%
+        val = val.split('-')
+        game[team]['3pa'] = val[1]
+        game[team]['3pm'] = val[0]
+      elif (num == 4): # process FT%
+        val = stat_rows[team].select('td')[num].string.split('-')
+        game[team]['fta'] = val[1]
+        game[team]['ftm'] = val[0]
+      elif (num == 5): # process FT%
+        game[team]['oreb'] = val
+
+      elif (num == 6 and num_fields == 13): 
+        game[team]['reb'] = val
+      elif (num == 6 and num_fields == 14): 
+        game[team]['dreb'] = val
+
+      elif (num == 7 and num_fields == 13): 
+        game[team]['ast'] = val
+      elif (num == 7 and num_fields == 14): 
+        game[team]['reb'] = val
+
+      elif (num == 8 and num_fields == 13): 
+        game[team]['stl'] = val
+      elif (num == 8 and num_fields == 14): 
+        game[team]['ast'] = val
+
+      elif (num == 9 and num_fields == 13): 
+        game[team]['blk'] = val
+      elif (num == 9 and num_fields == 14): 
+        game[team]['stl'] = val
+
+      elif (num == 10 and num_fields == 13):
+        game[team]['to'] = val
+      elif (num == 10 and num_fields == 14):
+        game[team]['blk'] = val
+
+      elif (num == 11 and num_fields == 13):
+        game[team]['pf'] = val
+      elif (num == 11 and num_fields == 14):
+        game[team]['to'] = val
+
+      elif (num == 12 and num_fields == 13):
+        game[team]['pts'] = val
+      elif (num == 12 and num_fields == 14):
+        game[team]['pf'] = val
+
+      elif (num == 13): # process FT%
+        game[team]['pts'] = val
+    # end for num
+      
+  game['game_id'] = game_id
+  game['date'] = date.replace('\n', '')
+
+  print game
+  
+  with open('../data/%s.json' % (game_id.replace('\n', '')), 'w') \
+    as outfile:
     json.dump(game, outfile)
-  #print len(away_tr.select('td'))
-  #print len(home_tr.select('td'))
-  
-  #for td in away_tr:
-    #print td.string
-  
-  #for td in home_tr:
-    #print td.string
-  
+
   #be a good citizen
-  time.sleep(2)
+  time.sleep(3)
 
