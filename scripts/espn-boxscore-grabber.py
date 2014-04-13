@@ -12,8 +12,8 @@ home_tr_index = 5
 
 # file of 5000+ game id's we'll read from
 csv_file = \
-  open ('../data/all-gameids-2012-13.csv', 'r')
-  #open ('../data/some-gameids.csv', 'r')
+  open ('../data/some-gameids.csv', 'r')
+  #open ('../data/all-gameids-2012-13.csv', 'r')
 
 # set up our game dictionary
 games = {}
@@ -90,10 +90,13 @@ for game_id in csv_file:
 
     
     # rows where we find the stats we need
-    stat_rows = { \
-      'away': soup.select('tbody')[away_tr_index].find('tr'), \
-      'home': soup.select('tbody')[home_tr_index].find('tr') \
+    try:
+      stat_rows = { \
+        'away': soup.select('tbody')[away_tr_index].find('tr'), \
+        'home': soup.select('tbody')[home_tr_index].find('tr') \
     }
+    except:
+      pass
     
     for team in stat_rows:
       num_fields = len(stat_rows[team].select('td'))
