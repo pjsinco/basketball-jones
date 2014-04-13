@@ -18,9 +18,14 @@ csv_file = \
 # set up our game dictionary
 games = {}
 
+counter = 0
+
 # for every gameid we have
 for game_id in csv_file:
-  
+
+  counter = counter + 1
+  print counter
+
   game_id = game_id.replace('\n', '')
   print game_id
 
