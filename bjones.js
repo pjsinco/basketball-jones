@@ -18,7 +18,7 @@ var xScale = d3.scale.ordinal()
 var yScale = {};
 
 var dragging = {};
-var background, foreground, dimensions;
+var background, foreground, dimensions, totals;
 
 var axis = d3.svg.axis()
   .orient('left');
@@ -34,7 +34,7 @@ var svg = d3.select('body').append('svg')
 
   
 d3.csv('../data/season-totals-by-team.csv', function(error, data) {
-  var totals = data.map(function(d) {
+  totals = data.map(function(d) {
     return {
       team: d.Team,
       'FG%': parseFloat(d['FGp']),
