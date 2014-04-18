@@ -18,7 +18,7 @@ var xScale = d3.scale.ordinal()
 var yScale = {};
 
 var dragging = {};
-var background, foreground;
+var background, foreground, dimensions;
 
 var axis = d3.svg.axis()
   .orient('left');
@@ -37,7 +37,7 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
   var totals = data.map(function(d) {
     return {
       team: d.Team,
-      'FG%': parseFloat(d.FGp),
+      'FG%': parseFloat(d['FGp']),
       '2P%': parseFloat(d['2Pp']),
       '3P%': parseFloat(d['3Pp']),
       'AST': parseInt(d.AST),
@@ -50,15 +50,29 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
     };
   });
 
-  // extract the list of dimensions and create a scale for each
-  dimensions = d3.keys(totals[0])
-    .filter(function(d) {
-      return d != 'team' && (yScale[d] = d3.scale.linear()
-        .domain(d3.extent(totals, function(p) {
-          return (p[d]);
-        }))
-        .range([height, 0])
-  )});
+  dimensions = d3.keys(totals[0]).filter(function(d) {
+    return d != 'team'; 
+  });
+
+  // set up our yScales
+  dimensions.forEach(function(d) {
+    yScale[d] = d3.scale.linear();
+    yScale[d]
+      .range([height, 0])
+      .domain(d3.extent(totals, function(e) {
+        return e[d];
+      }));
+  });
+
+//  // extract the list of dimensions and create a scale for each
+//  dimensions = d3.keys(totals[0])
+//    .filter(function(d) {
+//      return d != 'team' && (yScale[d] = d3.scale.linear()
+//        .domain(d3.extent(totals, function(p) {
+//          return (p[d]);
+//        }))
+//        .range([height, 0])
+//  )});
 
   var table = d3.select('body').append('table');
   var thead = table.append('thead').append('tr');
@@ -123,6 +137,7 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
         d3.select(this)
           .style('stroke-width', '5px')
           .style('stroke', 'darkorange')
+          .style('stroke-opacity', '1.0')
        svg
           .append('text')
           .attr('class', 'tooltip')
@@ -137,6 +152,7 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
         d3.select(this)
           .style('stroke-width', '1px')
           .style('stroke', '#ccc')
+          .style('stroke-opacity', '0.4')
         d3.select('.tooltip')
           .remove();
       })
@@ -152,38 +168,71 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
       })
       .call(d3.behavior.drag()
         .on('dragstart', function(d) {
+          console.log(d);
           dragging[d] = this.__origin__ = xScale(d);
-          background
-            .attr('visibility', 'hidden');
+          background.attr('visibility', 'hidden');
         })
         .on('drag', function(d) {
-          dragging[d] = 
-            Math.min(w, Math.max(0, this.__origin__ += d3.event.dx));
-            foreground
-              .attr('d', path);
-            dimensions.sort(function(a, b) {
-              return position(a) - position(b); 
-            });
-            xScale
-              .domain(dimensions)
-            g
-              .attr('transform', function(d) {
-                return 'translate(' + position(d) + ')'
-              });
+          dragging[d] = Math.min(
+            width, 
+            Math.max(0, this.__origin__ += d3.event.dx)
+          );
+          foreground.attr('d', path);
+          dimensions.sort(function(a, b) { 
+            return position(a) - position(b); 
+          });
+          xScale.domain(dimensions);
+          g.attr('transform', function(d) { 
+            return 'translate(' + position(d) + ')'; 
+          })
         })
         .on('dragend', function(d) {
           delete this.__origin__;
           delete dragging[d];
           transition(d3.select(this))
-            .attr('transform', 'translate(' + xScale(d) + ')');
+              .attr('transform', 'translate(' + xScale(d) + ')');
           transition(foreground)
-            .attr('d', path);
+              .attr('d', path);
           background
-            .attr('d', path)
-            .transition()
-            .delay(500)
-            .duration(0)
-            .attr('visibility', null);
+              .attr('d', path)
+              .transition()
+              .delay(500)
+              .duration(0)
+              .attr('visibility', null);
+
+//        .on('dragstart', function(d) {
+//          dragging[d] = this.__origin__ = xScale(d);
+//          background
+//            .attr('visibility', 'hidden');
+//        })
+//        .on('drag', function(d) {
+//          dragging[d] = 
+//            Math.min(w, Math.max(0, this.__origin__ += d3.event.dx));
+//            foreground
+//              .attr('d', path);
+//            dimensions.sort(function(a, b) {
+//              return position(a) - position(b); 
+//            });
+//            xScale
+//              .domain(dimensions)
+//            g
+//              .attr('transform', function(d) {
+//                return 'translate(' + position(d) + ')'
+//              });
+//        })
+//        .on('dragend', function(d) {
+//          delete this.__origin__;
+//          delete dragging[d];
+//          transition(d3.select(this))
+//            .attr('transform', 'translate(' + xScale(d) + ')');
+//          transition(foreground)
+//            .attr('d', path);
+//          background
+//            .attr('d', path)
+//            .transition()
+//            .delay(500)
+//            .duration(0)
+//            .attr('visibility', null);
         })
       );
 
@@ -202,6 +251,18 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
             return d;
           });
 
+      g
+        .append('g')
+        .attr('class', 'brush')
+        .each(function(d) {
+          d3.select(this).call(yScale[d].brush
+            = d3.svg.brush()
+              .y(yScale[d])
+              .on('brushstart', brushstart)
+              .on('brush', brush)
+          );
+        })
+
 }); // end d3.csv()
 
 function position(d) {
@@ -210,7 +271,9 @@ function position(d) {
 }
 
 function transition(g) {
-  return g.transition().duration(500);
+  return g
+    .transition()
+    .duration(500);
 }
 
 function path(d) {
@@ -219,12 +282,16 @@ function path(d) {
   }));
 }
 
+function brushstart() {
+  d3.event.sourceEvent.stopPropagation();
+}
+
 function brush() {
   var actives = dimensions.filter(function(p) {
-    return !y[p].brush.empty();
+    return !yScale[p].brush.empty();
   });
   var extents = actives.map(function(p) {
-    return y[p].brush.extent();
+    return yScale[p].brush.extent();
   });
   foreground
     .style('display', function(d) {
