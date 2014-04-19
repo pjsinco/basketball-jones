@@ -25,6 +25,7 @@ var xAxis = d3.svg.axis()
   .orient("left");
 
 var background, foreground, dimensions;
+var selected = []; // will hold the brushed teams
 
 var totals;
 
@@ -64,7 +65,7 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
       'stl'  : +d['STL'],
       'tov'  : +d['TOV'],
       'trb'  : +d['TRB'],
-      'team' : +d['Team']
+      'team' : d['Team']
     }
   });
 
@@ -93,6 +94,9 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
     .data(totals)
     .enter()
       .append('path')
+      .attr('class', function(d) {
+        return d['team'];
+      })
       .attr('d', path)
 
   // ... and one for each team brushed
@@ -102,7 +106,13 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
     .data(totals)
     .enter()
       .append('path')
+      .attr('class', function(d) {
+        return d['team'];
+      })
       .attr('d', path)
+      .on('mouseover', function(d) {
+        //console.log(d['team']);
+      })
 
 
   // add g element for each dimension (each y-axis)
@@ -186,7 +196,15 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
     .attr('x', -8)
     .attr('width', 16)
 
-}); // end d3.csv()
+
+  function setSelectedTeams() {
+    $.each(
+      $(".foreground path:not([style*='display: none'])"), 
+        function() { 
+          selected.push($(this).attr('class'));
+        }
+    ); // .each()
+  }
 
   function position(d) {
     var v = dragging[d];
@@ -216,15 +234,16 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
 
   // our brush event--toggle the display of foreground lines
   function brush() {
-    var actives = dimensions
-      .filter(function(d) { 
-        return !yScale[d].brush.empty(); 
+    selected = []; // reset selected teams
+
+    var actives = dimensions.filter(function(d) { 
+        return !yScale[d].brush.empty(); //return nonempty brushes
+    });
+
+    var extents = actives.map(function(d) {
+        return yScale[d].brush.extent(); 
       });
-  
-    var extents = actives
-      .map(function(e) {
-        return yScale[e].brush.extent(); 
-      });
+
 
     foreground
       .style("display", function(d) {
@@ -232,4 +251,18 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
           return extents[i][0] <= d[e] && d[e] <= extents[i][1];
         }) ? null : "none";
       });
+
+    setSelectedTeams();
   } // end brush()
+
+}); // end d3.csv()
+
+// get array of selected lines with this selector:
+// d3.selectAll(".foreground path:not([style*='display: none'])")
+
+// get length of that selection
+// d3.selectAll(".foreground path:not([style*='display: none'])")[0].length
+
+// get class name in jquery:
+//$(".foreground path:not([style*='display: none'])").attr('class')
+
