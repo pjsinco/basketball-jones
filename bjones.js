@@ -96,7 +96,7 @@ d3.csv('../data/season-totals-by-team.csv', function(error, data) {
       })
        
   var cells = rows.selectAll('td')
-    .data(function(d, i) {
+    .data(function(d) {
       return d3.range(Object.keys(d).length)
         .map(function(e, i){
           return d[Object.keys(d)[i]];

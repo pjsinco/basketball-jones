@@ -1,6 +1,9 @@
 // lots of inspiration, ideas from here:
 // http://bl.ocks.org/mbostock/7586334
 
+// http://bl.ocks.org/jasondavies/1341281
+
+
 var margin = {
     top: 30, 
     right: 10, 
@@ -190,20 +193,77 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
             .y(yScale[d])
               .on('brushstart', brushstart)
               .on('brush', brush)
+              .on('brushend', updateTable)
         );
     })
     .selectAll('rect')
     .attr('x', -8)
     .attr('width', 16)
 
+  // add a table
+  var table = d3.select('body').append('table');
+  var thead = table.append('thead').append('tr');
+  var tbody = table.append('tbody');
 
-  function setSelectedTeams() {
+  thead
+    .selectAll('th')
+    .data(d3.keys(totals[0]))
+    .enter()
+      .append('th')
+      .text(function(d) {
+        return d;
+      });
+
+  /*
+   *HELPER FUNCTIONS
+   */
+  function updateTable() {
+    // get selected teams
     $.each(
       $(".foreground path:not([style*='display: none'])"), 
         function() { 
           selected.push($(this).attr('class'));
         }
-    ); // .each()
+    ); // end .each()
+
+    // for each team in selected[], bring in the team from totals[]
+    selected = totals.filter(function(d) {
+      if (selected.indexOf(d['team']) > -1) {
+        return d;
+      }
+    })
+
+    var rows = tbody.selectAll('tr')
+      .data(selected)
+
+    // remove the table rows already there ...
+    rows
+      .exit()
+      .remove();
+    
+    // ... and make new ones
+    rows
+      .enter()
+        .append('tr')
+        .attr('class', function(d) {
+          return d['team'];
+        })
+
+    // populate the cells;
+    // snippet from HW1
+    var cells = rows.selectAll('td')
+      .data(function(d) {
+        return d3.range(Object.keys(d).length)
+          .map(function(e, i){
+            return d[Object.keys(d)[i]];
+          });
+      })
+      .enter()
+        .append('td')
+        .text(function(d) {
+          return d;
+        });
+    
   }
 
   function position(d) {
@@ -252,7 +312,6 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
         }) ? null : "none";
       });
 
-    setSelectedTeams();
   } // end brush()
 
 }); // end d3.csv()
