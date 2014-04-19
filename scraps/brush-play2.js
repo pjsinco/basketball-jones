@@ -1,3 +1,6 @@
+// lots of inspiration, ideas from here:
+// http://bl.ocks.org/mbostock/7586334
+
 var margin = {
     top: 30, 
     right: 10, 
@@ -10,7 +13,7 @@ var height = 500 - margin.top - margin.bottom;
 
 // set up our scales
 var xScale = d3.scale.ordinal()
-    .rangePoints([0, width], 1);
+  .rangePoints([0, width], 1);
 
 var yScale = {};
 
@@ -18,10 +21,10 @@ var dragging = {};
 
 var line = d3.svg.line();
 
-var axis = d3.svg.axis()
+var xAxis = d3.svg.axis()
   .orient("left");
 
-var background, foreground;
+var background, foreground, dimensions;
 
 var totals;
 
@@ -35,137 +38,183 @@ var svg = d3.select("body")
 
 d3.csv("../data/season-totals-by-team.csv", function(error, data) {
 
-  console.log(data);
+  //console.log(data);
   totals = data.map(function(d) {
     return {
-      2P: 
-      2PA:
-      2Pp:
-      3P: 
-      3PA:
-      3Pp:
-      AST:
-      BLK:
-      DRB:
-      FG: 
-      FGA:
-      FGp:
-      FT: 
-      FTA:
-      FTp:
-      G: 
-      MP: 
-      ORB:
-      PF: 
-      PTS:
-      PTSg:
-      STL:
-      TOV:
-      TRB:
-      Team:
-      Year:
+      '2p'   : +d['2P'],
+      '2pa'  : +d['2PA'],
+      '2pp'  : +d['2Pp'],
+      '3p'   : +d['3P'],
+      '3pa'  : +d['3PA'],
+      '3pp'  : +d['3Pp'],
+      'ast'  : +d['AST'],
+      'blk'  : +d['BLK'],
+      'drb'  : +d['DRB'],
+      'fg'   : +d['FG'],
+      'fga'  : +d['FGA'],
+      'fgp'  : +d['FGp'],
+      'ft'   : +d['FT'],
+      'fta'  : +d['FTA'],
+      'ftp'  : +d['FTp'],
+      'g'    : +d['G'],
+      'orb'  : +d['ORB'],
+      'pf'   : +d['PF'],
+      'pts'  : +d['PTS'],
+      'ptsg' : +d['PTSg'],
+      'stl'  : +d['STL'],
+      'tov'  : +d['TOV'],
+      'trb'  : +d['TRB'],
+      'team' : +d['Team']
+    }
   });
 
-  // Extract the list of dimensions and create a scale for each.
-  xScale.domain(dimensions = d3.keys(totals[0]).filter(function(d) {
-    return d != "name" && (yScale[d] = d3.scale.linear()
-        .domain(d3.extent(totals, function(p) { return +p[d]; }))
-        .range([height, 0]));
-  }));
+  // these will be our y axes; exclude 'team'
+  dimensions = d3.keys(totals[0]).filter(function(d) {
+    return d != 'team';
+  });
 
-  // Add grey background lines for context.
-  background = svg.append("g")
-      .attr("class", "background")
-    .selectAll("path")
-      .data(totals)
-    .enter().append("path")
-      .attr("d", path);
+  // set up our yScales
+  dimensions.forEach(function(d) {
+    yScale[d] = d3.scale.linear()
+      .range([height, 0])
+      .domain(d3.extent(totals, function(teamStats) {
+        return teamStats[d];
+      }))
+  });
+    
+  // xScale's domain is all our yScale axes
+  xScale
+    .domain(dimensions)
 
-  // Add blue foreground lines for focus.
-  foreground = svg.append("g")
-      .attr("class", "foreground")
-    .selectAll("path")
-      .data(totals)
-    .enter().append("path")
-      .attr("d", path);
+  // add a line for each team in the background
+  background = svg.append('g')
+    .attr('class', 'background')
+    .selectAll('path')
+    .data(totals)
+    .enter()
+      .append('path')
+      .attr('d', path)
 
-  // Add a group element for each dimension.
-  var g = svg.selectAll(".dimension")
-      .data(dimensions)
-    .enter().append("g")
-      .attr("class", "dimension")
-      .attr("transform", function(d) { return "translate(" + xScale(d) + ")"; })
-      .call(d3.behavior.drag()
-        .on("dragstart", function(d) {
+  // ... and one for each team brushed
+  foreground = svg.append('g')
+    .attr('class', 'foreground')
+    .selectAll('path')
+    .data(totals)
+    .enter()
+      .append('path')
+      .attr('d', path)
+
+
+  // add g element for each dimension (each y-axis)
+  var g = svg.selectAll('.dimension')
+    .data(dimensions)
+    .enter()
+      .append('g')
+      .attr('class', 'dimension')
+      .attr('transform', function(d) {
+        return 'translate(' + xScale(d) + ')';
+      })
+      .call(d3.behavior.drag() // allow user to rearrange axes
+        .on('dragstart', function(d) {
           dragging[d] = this.__origin__ = xScale(d);
-          background.attr("visibility", "hidden");
-        })
-        .on("drag", function(d) {
-          dragging[d] = Math.min(width, Math.max(0, this.__origin__ += d3.event.dx));
-          foreground.attr("d", path);
-          dimensions.sort(function(a, b) { return position(a) - position(b); });
-          xScale.domain(dimensions);
-          g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
-        })
-        .on("dragend", function(d) {
+          background
+            .attr('visibility', 'hidden');
+        }) // end 'dragstart'
+        .on('drag', function(d) {
+          dragging[d] = Math.min(
+            width, Math.max(0, this.__origin__ += d3.event.dx)
+          );
+          foreground
+            .attr('d', path);
+          dimensions 
+            .sort(function(a, b) {
+              return position(a) - position(b);
+            }) 
+          xScale
+            .domain(dimensions)
+          g
+            .attr('transform', function(d) {
+              return 'translate(' + position(d) + ')';
+            })
+        }) // end 'drag'
+        .on('dragend', function(d) {
           delete this.__origin__;
           delete dragging[d];
-          transition(d3.select(this)).attr("transform", "translate(" + xScale(d) + ")");
+          transition(d3.select(this))
+            .attr('transform', 'translate(' + xScale(d) + ')'); 
           transition(foreground)
-              .attr("d", path);
+            .attr('d', path)
           background
-              .attr("d", path)
-              .transition()
-              .delay(500)
-              .duration(0)
-              .attr("visibility", null);
-        }));
+            .attr('d', path)
+            .transition()
+            .delay(500)
+            .duration(0)
+            .attr('visibility', null);
+        }) // end 'dragend'
+      ); // end call()
+  
+  // add an axis and title
+  g
+    .append('g')
+    .attr('class', 'axis')
+    .each(function(d) {
+      d3.select(this)
+        .call(
+          xAxis
+            .scale(yScale[d])
+        );
+    })
+    .append('text')
+    .attr('text-anchor', 'middle')
+    .attr('y', -9)
+    .text(String)
 
-  // Add an axis and title.
-  g.append("g")
-      .attr("class", "axis")
-      .each(function(d) { d3.select(this).call(axis.scale(yScale[d])); })
-    .append("text")
-      .attr("text-anchor", "middle")
-      .attr("y", -9)
-      .text(String);
+  // add a brush for each axis
+  g
+    .append('g')
+    .attr('class', 'brush')
+    .each(function(d) {
+      d3.select(this)
+        .call(
+          yScale[d].brush = d3.svg.brush()
+            .y(yScale[d])
+              .on('brushstart', brushstart)
+              .on('brush', brush)
+        );
+    })
+    .selectAll('rect')
+    .attr('x', -8)
+    .attr('width', 16)
 
-  // Add and store a brush for each axis.
-  g.append("g")
-      .attr("class", "brush")
-      .each(function(d) { d3.select(this).call(yScale[d].brush = d3.svg.brush().y(yScale[d]).on("brushstart", brushstart).on("brush", brush)); })
-    .selectAll("rect")
-      .attr("x", -8)
-      .attr("width", 16);
-});
+}); // end d3.csv()
 
-function position(d) {
-  var v = dragging[d];
-  return v == null ? xScale(d) : v;
-}
-
-function transition(g) {
-  return g.transition().duration(500);
-}
-
-// Returns the path for a given data point.
-function path(d) {
-  return line(dimensions.map(function(p) { return [position(p), yScale[p](d[p])]; }));
-}
-
-// When brushing, don’t trigger axis dragging.
-function brushstart() {
-  d3.event.sourceEvent.stopPropagation();
-}
-
-// Handles a brush event, toggling the display of foreground lines.
-function brush() {
-  var actives = dimensions.filter(function(p) { return !yScale[p].brush.empty(); }),
-      extents = actives.map(function(p) { return yScale[p].brush.extent(); });
-  foreground.style("display", function(d) {
-    return actives.every(function(p, i) {
-      return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-    }) ? null : "none";
-  });
-}
-
+  function position(d) {
+    var v = dragging[d];
+    return v == null ? xScale(d) : v;
+  }
+  
+  function transition(g) {
+    return g.transition().duration(500);
+  }
+  
+  // Returns the path for a given data point.
+  function path(d) {
+    return line(dimensions.map(function(p) { return [position(p), yScale[p](d[p])]; }));
+  }
+  
+  // When brushing, don’t trigger axis dragging.
+  function brushstart() {
+    d3.event.sourceEvent.stopPropagation();
+  }
+  
+  // Handles a brush event, toggling the display of foreground lines.
+  function brush() {
+    var actives = dimensions.filter(function(p) { return !yScale[p].brush.empty(); }),
+        extents = actives.map(function(p) { return yScale[p].brush.extent(); });
+    foreground.style("display", function(d) {
+      return actives.every(function(p, i) {
+        return extents[i][0] <= d[p] && d[p] <= extents[i][1];
+      }) ? null : "none";
+    });
+  }
+  
