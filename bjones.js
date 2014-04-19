@@ -1,9 +1,6 @@
 // lots of inspiration, ideas from here:
 // http://bl.ocks.org/mbostock/7586334
 
-// http://bl.ocks.org/jasondavies/1341281
-
-
 var margin = {
     top: 30, 
     right: 10, 
@@ -114,7 +111,7 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
       })
       .attr('d', path)
       .on('mouseover', function(d) {
-        //console.log(d['team']);
+        console.log(d['team']);
       })
 
 
@@ -218,6 +215,8 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
    *HELPER FUNCTIONS
    */
   function updateTable() {
+    selected = [];
+
     // get selected teams
     $.each(
       $(".foreground path:not([style*='display: none'])"), 
@@ -226,15 +225,24 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
         }
     ); // end .each()
 
+    console.log(selected);
+
     // for each team in selected[], bring in the team from totals[]
-    selected = totals.filter(function(d) {
+    var selectedTeams = totals.filter(function(d) {
       if (selected.indexOf(d['team']) > -1) {
         return d;
       }
     })
 
+    console.log(selectedTeams);
+    //console.log(selected.forEach(function(d) {console.log(d['team']);}));
+
+
     var rows = tbody.selectAll('tr')
-      .data(selected)
+      .data(selectedTeams, function(d) {
+        // key function to associate the row with a team
+        return d['team']; 
+      })
 
     // remove the table rows already there ...
     rows
