@@ -194,27 +194,42 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
   }
   
   function transition(g) {
-    return g.transition().duration(500);
+    return g
+      .transition()
+      .duration(500);
   }
   
-  // Returns the path for a given data point.
+  // return the path for a given data point
   function path(d) {
-    return line(dimensions.map(function(p) { return [position(p), yScale[p](d[p])]; }));
+    return line(
+      dimensions
+        .map(function(e) { 
+          return [position(e), yScale[e](d[e])]; }
+        )
+    );
   }
   
-  // When brushing, don’t trigger axis dragging.
+  // when brushing, don’t trigger axis dragging
   function brushstart() {
     d3.event.sourceEvent.stopPropagation();
   }
-  
-  // Handles a brush event, toggling the display of foreground lines.
+
+  // our brush event--toggle the display of foreground lines
   function brush() {
-    var actives = dimensions.filter(function(p) { return !yScale[p].brush.empty(); }),
-        extents = actives.map(function(p) { return yScale[p].brush.extent(); });
-    foreground.style("display", function(d) {
-      return actives.every(function(p, i) {
-        return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-      }) ? null : "none";
-    });
-  }
+    var actives = dimensions
+      .filter(function(d) { 
+        return !yScale[d].brush.empty(); 
+      });
   
+    var extents = actives
+      .map(function(e) {
+        return yScale[e].brush.extent(); 
+      });
+
+    foreground
+      .style("display", function(d) {
+        return actives.every(function(e, i) {
+          return extents[i][0] <= d[e] && d[e] <= extents[i][1];
+        }) ? null : "none";
+      });
+  } // end brush()
