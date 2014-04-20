@@ -29,6 +29,8 @@ var selected = []; // will hold the brushed teams
 
 var totals;
 
+var percentFormat = d3.format('%')
+
 var svg = d3.select("body")
   .append("svg")
   .attr("width", width + margin.right + margin.left)
