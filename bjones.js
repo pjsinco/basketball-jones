@@ -39,37 +39,24 @@ var svg = d3.select("body")
     .attr("transform", "translate(" + margin.left + "," 
       + margin.top + ")");
 
-d3.csv("../data/season-totals-by-team.csv", function(error, data) {
+d3.json("../data/season-totals.json", function(error, data) {
 
-  //console.log(data);
-  totals = data.map(function(d) {
-    return {
-      '2p'   : +d['2P'],
-      '2pa'  : +d['2PA'],
-      '2pp'  : +d['2Pp'],
-      '3p'   : +d['3P'],
-      '3pa'  : +d['3PA'],
-      '3pp'  : +d['3Pp'],
-      'ast'  : +d['AST'],
-      'blk'  : +d['BLK'],
-      'drb'  : +d['DRB'],
-      'fg'   : +d['FG'],
-      'fga'  : +d['FGA'],
-      'fgp'  : +d['FGp'],
-      'ft'   : +d['FT'],
-      'fta'  : +d['FTA'],
-      'ftp'  : +d['FTp'],
-      'g'    : +d['G'],
-      'orb'  : +d['ORB'],
-      'pf'   : +d['PF'],
-      'pts'  : +d['PTS'],
-      'ptsg' : +d['PTSg'],
-      'stl'  : +d['STL'],
-      'tov'  : +d['TOV'],
-      'trb'  : +d['TRB'],
-      'team' : d['Team']
-    }
+  // convert statistics from strings to numbers
+  d3.keys(data).forEach(function(d) {
+    //console.log(d3.keys(data[d]).filter(function(e) return e != 'Team'));
+    d3.keys(data[d]).forEach(function(e) {
+      // we want to keep these as strings
+      if (e == 'Team' || e == 'conf_abbrev' || e == 'conf_friendly' 
+          || e == 'espn_id' || e == 'friendly_school' || e == 'Year'
+          || e == 'friendly_full') {
+        return data[d][e] = data[d][e];
+      } else {
+        return data[d][e] = +data[d][e];
+      }
+    });
   });
+
+  console.log(d3.keys(totals[0]));
 
   // these will be our y axes; exclude 'team'
   dimensions = d3.keys(totals[0]).filter(function(d) {
