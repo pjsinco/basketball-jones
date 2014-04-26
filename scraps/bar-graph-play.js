@@ -27,8 +27,7 @@ var timeFormat = d3.time.format('%Y-%m-%d').parse;
 // returns a js Date object
 
 var xScale = d3.scale.ordinal()
-  //.range([0, width]);
-  .rangeRoundBands([0, width], .7, 0.5);
+  .rangeRoundBands([0, width], 0.05);
 
 var yScale = d3.scale.linear()
   .range([height, 0]);
@@ -56,7 +55,7 @@ getGames('2582', function(record, games) {
   //}));
 
   xScale
-    .domain([0, games.length]);
+    .domain(d3.range(games.length));
 
   yScale
     .domain(d3.extent(games.map(function(d) {
@@ -71,12 +70,14 @@ getGames('2582', function(record, games) {
 
   xAxis
     .tickValues(d3.range([1, games.length]))
+
   chart
     .append('g')
     .attr('class', 'x axis')
     .attr('transform', 'translate(0,' + height + ')')
     .call(xAxis);
 
+  console.log(games);
   chart
     .selectAll('bar')
     .data(games)
