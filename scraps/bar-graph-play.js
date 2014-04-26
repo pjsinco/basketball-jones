@@ -38,9 +38,7 @@ var chart = d3.select('body')
 
 var teamHighlighted = '2582';
 
-getGames(teamHighlighted, function(record, games) {
-  //console.log(record);
-  //console.log(games);
+getGames(teamHighlighted, function(games) {
 
   //var extent = d3.extent(games.map(function(d) {
     //return timeFormat(d.details.date);
@@ -55,22 +53,6 @@ getGames(teamHighlighted, function(record, games) {
     })));
 
   console.log(games);
-  var margins = games.map(function(d) {
-    var margin;
-    if (d.details.winner == teamHighlighted ) {
-      margin = (d.details.side == 'home') ?
-        +d.details.home.pts - d.details.away.pts :
-        +d.details.away.pts - d.details.home.pts;
-    } else {
-      margin = (d.details.side == 'away') ? 
-        +d.details.away.pts - d.details.home.pts :
-        +d.details.home.pts - d.details.away.pts;
-    }
-    return margin;
-  });
-
-  console.log(margins);
-
 
   chart
     .append('g')
@@ -110,12 +92,6 @@ function getGames(team, callback) {
 // returns stats for all season's games for the given team
   d3.json('../data/box-scores-all.json', function(error, data) {
     
-    // count wins, losses
-    var record = {
-      wins: 0,
-      losses: 0
-    }
-  
     var games = [];
 
     // find all games involving the team
@@ -132,15 +108,26 @@ function getGames(team, callback) {
           } else {
             data[d].details.side = 'home';
           }
-          games.push(data[d])
-          if (data[d].details.winner == team) {
-            record.wins++;
+
+          // add a property for margin of win, loss;
+          // positive is win, negative is loss
+          var margin;
+          if (data[d].details.winner == team ) {
+            margin = (data[d].details.side == 'home') ?
+              +data[d].details.home.pts - data[d].details.away.pts :
+              +data[d].details.away.pts - data[d].details.home.pts;
           } else {
-            record.losses++;
+            margin = (data[d].details.side == 'away') ? 
+              +data[d].details.away.pts - data[d].details.home.pts :
+              +data[d].details.home.pts - data[d].details.away.pts;
           }
+
+          data[d].details.margin = margin;
+
+          games.push(data[d])
         }
       });
 
-    callback(record, games);
+    callback(games);
   }); // end d3.json()
 } // end getGames
