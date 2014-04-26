@@ -1,5 +1,6 @@
-// re: parallel coords, lots of inspiration, ideas from here:
+// re: para coords--lots of inspiration, ideas from:
 // http://bl.ocks.org/mbostock/7586334
+// http://exposedata.com/parallel/
 
 var margin = {
     top: 30, 
@@ -19,7 +20,9 @@ var yScale = {};
 
 var dragging = {};
 
-var line = d3.svg.line();
+var line = d3.svg.line()
+  .interpolate('cardinal')
+  .tension(0.95)
 
 var xAxis = d3.svg.axis()
   .orient("left");
@@ -348,7 +351,6 @@ d3.csv("../data/season-totals.csv", function(error, data) {
     var extents = actives.map(function(d) {
         return yScale[d].brush.extent(); 
       });
-
 
     foreground
       .style("display", function(d) {
