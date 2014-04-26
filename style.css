@@ -1,5 +1,17 @@
 body {
-  font-family: sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+table#season_totals {
+  margin-left: 20px;
+}
+
+table#season_totals thead tr th:first-child {
+  width: 180px;
+}
+table#season_totals thead tr th {
+  width: 40px;
 }
 
 .background path {

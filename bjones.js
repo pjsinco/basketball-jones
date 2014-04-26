@@ -1,4 +1,4 @@
-// lots of inspiration, ideas from here:
+// re: parallel coords, lots of inspiration, ideas from here:
 // http://bl.ocks.org/mbostock/7586334
 
 var margin = {
@@ -9,7 +9,7 @@ var margin = {
 }
 
 var width = 960 - margin.right - margin.left;
-var height = 500 - margin.top - margin.bottom;
+var height = 300 - margin.top - margin.bottom;
 
 // set up our scales
 var xScale = d3.scale.ordinal()
@@ -39,41 +39,41 @@ var svg = d3.select("body")
     .attr("transform", "translate(" + margin.left + "," 
       + margin.top + ")");
 
-d3.csv("../data/season-totals-by-team.csv", function(error, data) {
+d3.csv("../data/season-totals.csv", function(error, data) {
 
-  //console.log(data);
+  console.log(data);
   totals = data.map(function(d) {
     return {
-      '2p'   : +d['2P'],
-      '2pa'  : +d['2PA'],
-      '2pp'  : +d['2Pp'],
-      '3p'   : +d['3P'],
-      '3pa'  : +d['3PA'],
-      '3pp'  : +d['3Pp'],
-      'ast'  : +d['AST'],
-      'blk'  : +d['BLK'],
-      'drb'  : +d['DRB'],
-      'fg'   : +d['FG'],
-      'fga'  : +d['FGA'],
-      'fgp'  : +d['FGp'],
-      'ft'   : +d['FT'],
-      'fta'  : +d['FTA'],
-      'ftp'  : +d['FTp'],
-      'g'    : +d['G'],
-      'orb'  : +d['ORB'],
-      'pf'   : +d['PF'],
-      'pts'  : +d['PTS'],
-      'ptsg' : +d['PTSg'],
-      'stl'  : +d['STL'],
-      'tov'  : +d['TOV'],
-      'trb'  : +d['TRB'],
-      'team' : d['Team']
+      'Team' : d['friendly_school'],
+      //'2p'   : +d['2P'],
+      //'2pa'  : +d['2PA'],
+      'FG%'  : +d['FGp'],
+      '2P%'  : +d['2Pp'],
+      //'3p'   : +d['3P'],
+      //'3pa'  : +d['3PA'],
+      '3P%'  : +d['3Pp'],
+      'FT%'  : +d['FTp'],
+      'REB'  : +d['TRB'],
+      'AST'  : +d['AST'],
+      'BLK'  : +d['BLK'],
+      'STL'  : +d['STL'],
+      'TOV'  : +d['TOV'],
+      'PF'   : +d['PF'],
+      //'Reb'  : +d['DRB'] + d['ORB'],
+      //'fg'   : +d['FG'],
+      //'fga'  : +d['FGA'],
+      //'ft'   : +d['FT'],
+      //'fta'  : +d['FTA'],
+      //'g'    : +d['G'],
+      //'orb'  : +d['ORB'],
+      //'pts'  : +d['PTS'],
+      'PTS/G' : +d['PTSg']
     }
   });
 
-  // these will be our y axes; exclude 'team'
+  // these will be our y axes; exclude 'Team'
   dimensions = d3.keys(totals[0]).filter(function(d) {
-    return d != 'team';
+    return d != 'Team';
   });
 
   // set up our yScales
@@ -97,7 +97,7 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
     .enter()
       .append('path')
       .attr('class', function(d) {
-        return d['team'];
+        return d['Team'];
       })
       .attr('d', path)
 
@@ -109,11 +109,11 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
     .enter()
       .append('path')
       .attr('class', function(d) {
-        return d['team'];
+        return d['Team'];
       })
       .attr('d', path)
       .on('mouseover', function(d) {
-        console.log(d['team']);
+        console.log(d['Team']);
       })
 
 
@@ -201,6 +201,9 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
 
   // add a table
   var table = d3.select('body').append('table');
+  table
+    .attr('id', 'season_totals');
+  
   var thead = table.append('thead').append('tr');
   var tbody = table.append('tbody');
 
@@ -231,7 +234,7 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
 
     // for each team in selected[], bring in the team from totals[]
     var selectedTeams = totals.filter(function(d) {
-      if (selected.indexOf(d['team']) > -1) {
+      if (selected.indexOf(d['Team']) > -1) {
         return d;
       }
     })
@@ -243,7 +246,7 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
     var rows = tbody.selectAll('tr')
       .data(selectedTeams, function(d) {
         // key function to associate the row with a team
-        return d['team']; 
+        return d['Team']; 
       })
 
     // remove the table rows already there ...
@@ -256,7 +259,7 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
       .enter()
         .append('tr')
         .attr('class', function(d) {
-          return d['team'];
+          return d['Team'];
         })
 
     // populate the cells;
@@ -325,6 +328,17 @@ d3.csv("../data/season-totals-by-team.csv", function(error, data) {
   } // end brush()
 
 }); // end d3.csv()
+
+
+
+
+
+
+
+
+
+
+
 
 // get array of selected lines with this selector:
 // d3.selectAll(".foreground path:not([style*='display: none'])")
