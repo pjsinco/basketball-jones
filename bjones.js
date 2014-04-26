@@ -304,7 +304,9 @@ d3.csv("../data/season-totals.csv", function(error, data) {
           })
       }) // end on
       .on('click', function() {
-        $('.opened').toggleClass('opened');
+        $('.opened').not($(this))
+          .toggleClass('opened');
+
         $(this).toggleClass('opened');
       })
   }
