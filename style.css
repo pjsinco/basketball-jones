@@ -1,12 +1,34 @@
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
+  color: #5a5b88;
+}
+
+div.table_container {
+  /*overflow: auto;*/
+  /*width: 700px;*/
+  /*height: 200px;*/
 }
 
 table#season_totals {
   margin-left: 20px;
+  line-height: 16px;
   cursor: pointer;
   border-collapse: collapse;
+  /*width: 580px;*/
+}
+
+table#season_totals tbody, table#season_totals thead {
+  display: block;
+}
+
+table#season_totals thead {
+  width: 700px;
+}
+table#season_totals tbody {
+  overflow: auto;
+  height: 300px;
+  width: 660px;
 }
 
 table#season_totals tr {
@@ -14,22 +36,35 @@ table#season_totals tr {
 }
 
 table#season_totals thead tr th:first-child {
+  text-align: left;
   width: 180px;
 }
 
 table#season_totals thead tr th {
-  width: 40px;
+  text-align: left;
 }
 
-table#season_totals td {
+table#season_totals tbody tr td:first-child {
+  width: 180px;
+  text-align: left;
+}
+
+table#season_totals th, table#season_totals td {
+  width: 40px;
+  text-align: left;
+}
+
+table#season_totals {
   padding: 3px;
 }
+
 tr.opened {
   height: 100px;
 }
 
 tr.highlighted {
-  background-color: #90b8da;
+  /*background-color: #9c9bdf;*/
+  background-color: ghostwhite;
 }
 
 .background path {
@@ -49,11 +84,6 @@ tr.highlighted {
   fill-opacity: 0.3;
   stroke: #fff;
   shape-rendering: crispEdges;
-}
-
-.selected {
-  stroke-width: 5;
-  stroke: cadetblue;
 }
 
 .axis line, .axis path {

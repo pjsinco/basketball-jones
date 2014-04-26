@@ -193,7 +193,11 @@ d3.csv("../data/season-totals.csv", function(error, data) {
     .attr('width', 16)
 
   // add a table
-  var table = d3.select('body').append('table');
+  var table = d3.select('body')
+    .append('div')
+    .attr('class', 'table_container')
+    .append('table');
+
   table
     .attr('id', 'season_totals');
   
@@ -279,37 +283,29 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         selectedSchool = $(this).attr('class') 
             .replace(/highlighted/g, '')
             .trim()
-            // replace() space with period so we can select the class name
-            // ex.: 'New Hampshire' becomes 'New.Hampshire'
-            .replace(/ /g, '.') 
 
-        $('.foreground path.' + selectedSchool).each(function(d) {
-          $(this)
-            .css('stroke-width', '10')
-            .css('stroke', 'cadetblue')
-            .appendTo($(this).parent()) // bring to front
-        });
-
-        //d3
-          //.selectAll('.foreground path.' + selectedSchool)
-          //.style('stroke-width', '10')
-          //.style('stroke', 'cadetblue')
-
-        console.log(selectedSchool);
-      })
+        $(".foreground path[class='" + selectedSchool + "']")
+          .each(function(d) {
+            $(this)
+              .css('stroke-width', '5')
+              .css('stroke', '#5654bf')
+              .css('stroke-linecap', 'round')
+              .appendTo($(this).parent()) // bring to front
+          });
+      }) // end on
       .on('mouseout', function() {
         $(this).toggleClass('highlighted');
 
-        $('.foreground path.' + selectedSchool)
-          .css('stroke-width', '1')
-          .css('stroke', 'darkorange')
-        //d3
-          //.select('.foreground path.' + selectedSchool)
-          //.style('stroke-width', '1')
-          //.style('stroke', 'darkorange')
-      })
+        $(".foreground path[class='" + selectedSchool + "']")
+          .each(function() {
+            $(this)
+              .css('stroke-width', '1')
+              .css('stroke', 'darkorange')
+          })
+      }) // end on
       .on('click', function() {
-        $(this).toggleClass('opened')
+        $('.opened').toggleClass('opened');
+        $(this).toggleClass('opened');
       })
   }
 
