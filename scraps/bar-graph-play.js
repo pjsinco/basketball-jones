@@ -1,16 +1,7 @@
 console.log('blue demon');
 
-// time scales
-// http://jsfiddle.net/robdodson/KWRxW/
-// http://bl.ocks.org/mbostock/1849162 // yes
-// http://bl.ocks.org/mbostock/6186172
-// http://bl.ocks.org/mbostock/1166403
-// http://bl.ocks.org/phoebebright/3059392
-// http://stackoverflow.com/questions/20181286/
-//    how-to-use-d3-time-scale-to-generate-an-array-of-
-//      evenly-spaced-dates
-// http://stackoverflow.com/questions/10127402/
-//    bar-chart-with-negative-values // yes
+// bar chart with negative values
+// http://bl.ocks.org/mbostock/2368837
 
 var margin = {
   top: 50,
@@ -35,7 +26,7 @@ var yScale = d3.scale.linear()
 var xAxis = d3.svg.axis()
   .scale(xScale)
   .orient('bottom')
-  //.tickSize(6, 6)
+  .tickSize(6, 6)
 
 var chart = d3.select('body')
   .append('svg')
@@ -45,10 +36,11 @@ var chart = d3.select('body')
   .attr('transform', 'translate(' + margin.left + ','
     + margin.top + ')');
 
+var teamHighlighted = '2582';
 
-getGames('2582', function(record, games) {
-  console.log(record);
-  console.log(games);
+getGames(teamHighlighted, function(record, games) {
+  //console.log(record);
+  //console.log(games);
 
   //var extent = d3.extent(games.map(function(d) {
     //return timeFormat(d.details.date);
@@ -62,14 +54,23 @@ getGames('2582', function(record, games) {
       return d.details.home.pts - d.details.away.pts;
     })));
 
-  console.log(yScale.domain());
-  
-  var marginExtent = games.map(function(d) {
-    //console.log(d);
-  })
+  console.log(games);
+  var margins = games.map(function(d) {
+    var margin;
+    if (d.details.winner == teamHighlighted ) {
+      margin = (d.details.side == 'home') ?
+        +d.details.home.pts - d.details.away.pts :
+        +d.details.away.pts - d.details.home.pts;
+    } else {
+      margin = (d.details.side == 'away') ? 
+        +d.details.away.pts - d.details.home.pts :
+        +d.details.home.pts - d.details.away.pts;
+    }
+    return margin;
+  });
 
-  xAxis
-    .tickValues(d3.range([1, games.length]))
+  console.log(margins);
+
 
   chart
     .append('g')
@@ -77,7 +78,10 @@ getGames('2582', function(record, games) {
     .attr('transform', 'translate(0,' + height + ')')
     .call(xAxis);
 
-  console.log(games);
+  chart
+    .selectAll('.x.axis .tick')
+    .text(function() { return null; });
+
   chart
     .selectAll('bar')
     .data(games)
@@ -96,10 +100,8 @@ getGames('2582', function(record, games) {
       })
       .attr('width', xScale.rangeBand());
 
-  console.log(xScale.rangeBand());
-  
 
-});
+}); // end getGames();
 
 
 
@@ -118,8 +120,18 @@ function getGames(team, callback) {
 
     // find all games involving the team
     d3.keys(data).forEach(function(d) {
+      // if our given team is in this object, 
+      // include in games[] and incrent wins or losses
       if (data[d].details.away.id == team ||
         data[d].details.home.id == team) {
+        
+          // add a new property indicating which 
+          // side team is, home or away
+          if (data[d].details.away.id == team) {
+            data[d].details.side = 'away';
+          } else {
+            data[d].details.side = 'home';
+          }
           games.push(data[d])
           if (data[d].details.winner == team) {
             record.wins++;
@@ -131,4 +143,4 @@ function getGames(team, callback) {
 
     callback(record, games);
   }); // end d3.json()
-}
+} // end getGames
