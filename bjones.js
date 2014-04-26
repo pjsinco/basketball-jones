@@ -277,6 +277,16 @@ d3.csv("../data/season-totals.csv", function(error, data) {
           return d;
         });
     
+    d3.selectAll('#season_totals tbody tr')
+      .on('mouseover', function() {
+        $(this).toggleClass('highlighted');
+      })
+      .on('mouseout', function() {
+        $(this).toggleClass('highlighted');
+      })
+      .on('click', function() {
+        $(this).toggleClass('opened')
+      })
   }
 
   function position(d) {

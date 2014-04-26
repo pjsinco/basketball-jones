@@ -5,13 +5,31 @@ body {
 
 table#season_totals {
   margin-left: 20px;
+  cursor: pointer;
+  border-collapse: collapse;
+}
+
+table#season_totals tr {
+  vertical-align: top;
 }
 
 table#season_totals thead tr th:first-child {
   width: 180px;
 }
+
 table#season_totals thead tr th {
   width: 40px;
+}
+
+table#season_totals td {
+  padding: 3px;
+}
+tr.opened {
+  height: 100px;
+}
+
+tr.highlighted {
+  background-color: #90b8da;
 }
 
 .background path {
