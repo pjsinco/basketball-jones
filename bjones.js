@@ -41,16 +41,12 @@ var svg = d3.select("body")
 
 d3.csv("../data/season-totals.csv", function(error, data) {
 
-  console.log(data);
+  //console.log(data);
   totals = data.map(function(d) {
     return {
-      'Team' : d['friendly_school'],
-      //'2p'   : +d['2P'],
-      //'2pa'  : +d['2PA'],
+      'Team' : d['friendly_school'].replace(/&/g, ''),
       'FG%'  : +d['FGp'],
       '2P%'  : +d['2Pp'],
-      //'3p'   : +d['3P'],
-      //'3pa'  : +d['3PA'],
       '3P%'  : +d['3Pp'],
       'FT%'  : +d['FTp'],
       'REB'  : +d['TRB'],
@@ -59,18 +55,11 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       'STL'  : +d['STL'],
       'TOV'  : +d['TOV'],
       'PF'   : +d['PF'],
-      //'Reb'  : +d['DRB'] + d['ORB'],
-      //'fg'   : +d['FG'],
-      //'fga'  : +d['FGA'],
-      //'ft'   : +d['FT'],
-      //'fta'  : +d['FTA'],
-      //'g'    : +d['G'],
-      //'orb'  : +d['ORB'],
-      //'pts'  : +d['PTS'],
       'PTS/G' : +d['PTSg']
     }
   });
 
+  console.log(totals);
   // these will be our y axes; exclude 'Team'
   dimensions = d3.keys(totals[0]).filter(function(d) {
     return d != 'Team';
@@ -93,7 +82,9 @@ d3.csv("../data/season-totals.csv", function(error, data) {
   background = svg.append('g')
     .attr('class', 'background')
     .selectAll('path')
-    .data(totals)
+    .data(totals, function(d) {
+      return d.Team;
+    })
     .enter()
       .append('path')
       .attr('class', function(d) {
@@ -105,7 +96,9 @@ d3.csv("../data/season-totals.csv", function(error, data) {
   foreground = svg.append('g')
     .attr('class', 'foreground')
     .selectAll('path')
-    .data(totals)
+    .data(totals, function(d) {
+      return d.Team;
+    })
     .enter()
       .append('path')
       .attr('class', function(d) {
@@ -113,7 +106,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       })
       .attr('d', path)
       .on('mouseover', function(d) {
-        console.log(d['Team']);
+        //console.log(d['Team']);
       })
 
 
@@ -277,12 +270,43 @@ d3.csv("../data/season-totals.csv", function(error, data) {
           return d;
         });
     
+    var selectedSchool; 
     d3.selectAll('#season_totals tbody tr')
       .on('mouseover', function() {
         $(this).toggleClass('highlighted');
+        
+        // get school name from class
+        selectedSchool = $(this).attr('class') 
+            .replace(/highlighted/g, '')
+            .trim()
+            // replace() space with period so we can select the class name
+            // ex.: 'New Hampshire' becomes 'New.Hampshire'
+            .replace(/ /g, '.') 
+
+        $('.foreground path.' + selectedSchool).each(function(d) {
+          $(this)
+            .css('stroke-width', '10')
+            .css('stroke', 'cadetblue')
+            .appendTo($(this).parent()) // bring to front
+        });
+
+        //d3
+          //.selectAll('.foreground path.' + selectedSchool)
+          //.style('stroke-width', '10')
+          //.style('stroke', 'cadetblue')
+
+        console.log(selectedSchool);
       })
       .on('mouseout', function() {
         $(this).toggleClass('highlighted');
+
+        $('.foreground path.' + selectedSchool)
+          .css('stroke-width', '1')
+          .css('stroke', 'darkorange')
+        //d3
+          //.select('.foreground path.' + selectedSchool)
+          //.style('stroke-width', '1')
+          //.style('stroke', 'darkorange')
       })
       .on('click', function() {
         $(this).toggleClass('opened')
@@ -335,7 +359,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         }) ? null : "none";
       });
 
-  } // end brush()
+  } // end brush
+
 
 }); // end d3.csv()
 

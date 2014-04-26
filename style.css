@@ -51,6 +51,11 @@ tr.highlighted {
   shape-rendering: crispEdges;
 }
 
+.selected {
+  stroke-width: 5;
+  stroke: cadetblue;
+}
+
 .axis line, .axis path {
   fill: none;
   stroke: #000;
