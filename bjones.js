@@ -62,7 +62,6 @@ d3.csv("../data/season-totals.csv", function(error, data) {
     }
   });
 
-  console.log(totals);
   // these will be our y axes; exclude 'Team'
   dimensions = d3.keys(totals[0]).filter(function(d) {
     return d != 'Team';
@@ -214,9 +213,48 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         return d;
       });
 
+  updateTable(); // draw the table
+
+  console.log(totals);
+
+  $('#team_search')
+    .autocomplete({
+      source: totals.map(function(d) {
+        return d.Team;
+      }),
+      focus: function(event) {
+        unhighlightSchool($(this).val());
+      },
+      close: function(event) {
+        selectedSchool = $(this).val();
+        highlightSchool(selectedSchool);
+      }
+    });
+
   /*
    *HELPER FUNCTIONS
    */
+  function highlightSchool(school) {
+    $(".foreground path[class='" + school + "']")
+      .each(function(d) {
+        $(this)
+          .css('stroke-width', '5')
+          .css('stroke', '#5654bf')
+          .css('stroke-linecap', 'round')
+          .appendTo($(this).parent()) // bring to front
+      });
+  }
+
+  function unhighlightSchool(school) {
+    $(".foreground path[class='" + school + "']")
+      .each(function() {
+        $(this)
+          .css('stroke-width', '1')
+          .css('stroke', 'darkorange')
+      })
+
+  }
+  
   function updateTable() {
     selected = [];
 
@@ -228,18 +266,12 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         }
     ); // end .each()
 
-    console.log(selected);
-
     // for each team in selected[], bring in the team from totals[]
     var selectedTeams = totals.filter(function(d) {
       if (selected.indexOf(d['Team']) > -1) {
         return d;
       }
     })
-
-    console.log(selectedTeams);
-    //console.log(selected.forEach(function(d) {console.log(d['team']);}));
-
 
     var rows = tbody.selectAll('tr')
       .data(selectedTeams, function(d) {
@@ -278,6 +310,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
     var selectedSchool; 
     d3.selectAll('#season_totals tbody tr')
       .on('mouseover', function() {
+        unhighlightSchool(selectedSchool);
         $(this).toggleClass('highlighted');
         
         // get school name from class
@@ -285,24 +318,14 @@ d3.csv("../data/season-totals.csv", function(error, data) {
             .replace(/highlighted/g, '')
             .trim()
 
-        $(".foreground path[class='" + selectedSchool + "']")
-          .each(function(d) {
-            $(this)
-              .css('stroke-width', '5')
-              .css('stroke', '#5654bf')
-              .css('stroke-linecap', 'round')
-              .appendTo($(this).parent()) // bring to front
-          });
+        highlightSchool(selectedSchool);
+
       }) // end on
       .on('mouseout', function() {
         $(this).toggleClass('highlighted');
+        
+        unhighlightSchool(selectedSchool);
 
-        $(".foreground path[class='" + selectedSchool + "']")
-          .each(function() {
-            $(this)
-              .css('stroke-width', '1')
-              .css('stroke', 'darkorange')
-          })
       }) // end on
       .on('click', function() {
         $('.opened').not($(this))
@@ -310,7 +333,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
 
         $(this).toggleClass('opened');
       })
-  }
+  } // end updateTable
+
 
   function position(d) {
     var v = dragging[d];
@@ -358,6 +382,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       });
 
   } // end brush
+
 
 
 }); // end d3.csv()
