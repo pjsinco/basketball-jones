@@ -34,7 +34,7 @@ var totals;
 
 var percentFormat = d3.format('%')
 
-var svg = d3.select("body")
+var svg = d3.select(".paracoords")
   .append("svg")
   .attr("width", width + margin.right + margin.left)
   .attr("height", height + margin.top + margin.bottom)
@@ -196,9 +196,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
     .attr('width', 16)
 
   // add a table
-  var table = d3.select('body')
-    .append('div')
-    .attr('class', 'table_container')
+  var table = d3.select('.table_container')
     .append('table');
 
   table
