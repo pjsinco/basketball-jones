@@ -44,10 +44,13 @@ var svg = d3.select(".paracoords")
 
 d3.csv("../data/season-totals.csv", function(error, data) {
 
+  console.log(data);
+
   //console.log(data);
   totals = data.map(function(d) {
     return {
       'Team'        : d['friendly_school'].replace(/&/g, ''),
+      'friendly'    : d['friendly_full'],
       'espn_id'     : d['espn_id'],
       'conf'        : d['conf_friendly'],
       'conf_abbrev' : d['conf_abbrev'],
@@ -68,7 +71,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
   // these will be our y axes; exclude 'Team'
   dimensions = d3.keys(totals[0]).filter(function(d) {
     return d != 'Team' && d != 'espn_id' && d != 'conf'
-      && d != 'conf_abbrev';
+      && d != 'conf_abbrev' && d != 'friendly';
   });
 
   // set up our yScales
@@ -113,10 +116,6 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         return d['Team'];
       })
       .attr('d', path)
-      .on('mouseover', function(d) {
-        //console.log(d['Team']);
-      })
-
 
   // add g element for each dimension (each y-axis)
   var g = svg.selectAll('.dimension')
@@ -211,7 +210,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
   thead
     .selectAll('th')
     .data(d3.keys(totals[0]).filter(function(d) {
-      return d != 'espn_id' && d != 'conf' && d != 'conf_abbrev';
+      return d != 'espn_id' && d != 'conf' && d != 'conf_abbrev'
+        && d != 'friendly';
     }))
     .enter()
       .append('th')
@@ -367,7 +367,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         // that we don't want to display in the table
         var team = {};
         var keys = d3.keys(d).filter(function(d) {
-          return d != 'espn_id' && d != 'conf' && d != 'conf_abbrev';
+          return d != 'espn_id' && d != 'conf' && d != 'conf_abbrev'
+            && d!= 'friendly';
         })
         keys.forEach(function(key) {
           team[key] = d[key];
@@ -384,6 +385,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
           return d;
         });
     
+    // interaction: highlight table rows and paracoords 
+    // on mouseover
     var selectedSchool; 
     d3.selectAll('#season_totals tbody tr')
       .on('mouseover', function() {
@@ -392,10 +395,22 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         
         // get school name from class
         selectedSchool = $(this).attr('class') 
-            .replace(/highlighted/g, '')
-            .trim()
+          .replace(/highlighted/g, '')
+          .trim()
 
         highlightSchool(selectedSchool);
+
+        d3.select('.details')
+          .select('.team_name')
+            .text(function() {
+              return getTeamByName(selectedSchool)['friendly'];
+            })
+
+        d3.select('.team_conf')
+          .text(function() {
+            return getTeamByName(selectedSchool)['conf'];
+          });
+        
 
       }) // end on
       .on('mouseout', function() {
@@ -412,6 +427,16 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       })
   } // end updateTable
 
+  // return all a team's data for the given team name
+  function getTeamByName(teamName) {
+    var team;
+    totals.forEach(function(d) {
+      if (d['Team'] == teamName) {
+        team = d;
+      }
+    });
+    return team;
+  } // end getTeamByName
 
   function position(d) {
     var v = dragging[d];
