@@ -42,6 +42,7 @@ table#season_totals tbody {
 
 table#season_totals tr {
   vertical-align: top;
+  border-bottom: 1px solid #ccc;
 }
 
 table#season_totals thead tr th:first-child {
