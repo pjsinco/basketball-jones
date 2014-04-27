@@ -3,6 +3,7 @@ body {
   font-size: 12px;
   color: #5a5b88;
   position: relative;
+  height: 2000px; /* TEMP! */
 }
 
 div.table_container {
@@ -13,10 +14,25 @@ div.table_container {
 }
 div.details {
   float: left;
-  height: 300px;
+  height: 400px;
   width: 217px;
   border: 1px solid #5a5b88;
   background-color: ghostwhite;
+}
+
+/*.games_bar_chart {*/
+  /*height: 80px;*/
+  /*width: 670px;*/
+  /*background-color: gold;*/
+  
+/*}*/
+
+.bar.positive {
+  fill: #4682b4;
+}
+
+.bar.negative {
+  fill: #a6451d;
 }
 
 table#season_totals {
@@ -24,6 +40,7 @@ table#season_totals {
   line-height: 20px;
   cursor: pointer;
   border-collapse: collapse;
+  background-color: transparent;
   /*width: 580px;*/
 }
 

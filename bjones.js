@@ -9,14 +9,31 @@ var margin = {
     left: 10
 }
 
+var marginBar = {
+  top: 10,
+  right: 10,
+  bottom: 10,
+  left: 10
+}
+
 var width = 960 - margin.right - margin.left;
-var height = 300 - margin.top - margin.bottom;
+var height = 250 - margin.top - margin.bottom;
+
+var widthBar = 670 - marginBar.right - marginBar.left;
+var heightBar = 80 - marginBar.top - marginBar.bottom;
 
 // set up our scales
 var xScale = d3.scale.ordinal()
   .rangePoints([0, width], 1);
 
+var xScaleBar = d3.scale.ordinal()
+  .rangeRoundBands([0, widthBar], 0.15);
+
 var yScale = {};
+
+var yScaleBar = d3.scale.linear()
+  .range([0, heightBar])
+  .nice();
 
 var dragging = {};
 
@@ -43,8 +60,6 @@ var svg = d3.select(".paracoords")
       + margin.top + ")");
 
 d3.csv("../data/season-totals.csv", function(error, data) {
-
-  console.log(data);
 
   //console.log(data);
   totals = data.map(function(d) {
@@ -203,6 +218,17 @@ d3.csv("../data/season-totals.csv", function(error, data) {
   var table = d3.select('.table_container')
     .append('table')
     .attr('id', 'season_totals');
+
+  //var chart = d3.select('.table_container')
+  var chart = d3.select('body')
+    //.append('div')
+    //.attr('class', 'games_bar_chart') 
+    .append('svg')
+    .attr('width', widthBar + marginBar.left + marginBar.right)
+    .attr('height', heightBar + marginBar.top + marginBar.bottom)
+    .append('g')
+    .attr('transform', 'translate(' + marginBar.left + ','
+      + marginBar.top + ')');
   
   var thead = table.append('thead').append('tr');
   var tbody = table.append('tbody');
@@ -277,21 +303,114 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       }
     });
 
+  /********************************************/
+  /********************************************/
+  /********************************************/
+
+  var testTeam = 'Army';
+  console.log(getTeamByName('Army').espn_id);
+  getGames(getTeamByName(testTeam).espn_id, function(games) {
+    xScaleBar
+      .domain(d3.range(games.length));
+
+    yScaleBar
+      .domain(d3.extent(games.map(function(d) {
+        return d.details.margin;
+      })));
+
+    console.log(yScaleBar.domain());
+    console.log(games);
+    console.log(chart);
+
+    chart
+      .selectAll('.bar')
+      .data(games)
+      .enter()
+        .append('rect')
+        .attr('class', function(d) {
+          //console.log(d.details.margin < 0);
+          return d.details.margin < 0 ? 'bar negative' : 'bar positive';
+        })
+        .attr('x', function(d, i) {
+          return xScaleBar(i);
+        })
+        .attr('y', function(d) {
+          return heightBar - yScaleBar(Math.max(0, d.details.margin));
+        })
+        .attr('height', function(d) {
+          return Math.abs(yScaleBar(d.details.margin) - yScaleBar(0));
+        })
+        .attr('width', xScaleBar.rangeBand());
+  
+    chart
+      .append('g')
+      .attr('class', 'x axis')
+      .append('line')
+      .attr('y1', heightBar - yScaleBar(0))
+      .attr('y2', heightBar - yScaleBar(0))
+      .attr('x2', widthBar)
+
+  });
+
+  /********************************************/
+  /********************************************/
+  /********************************************/
+
+
+
   /************************************************
    *
    *              HELPER FUNCTIONS
    *
    *
   ************************************************/
-//  function reorder(rows, order, col) {
-//    rows.sort(function(a, b) {
-//      if (order == 'asc') {
-//        return d3.descending(a[col], b[col]);    
-//      } else {
-//        return d3.ascending(a[col], b[col]);    
-//      }
-//    });
-//  } // end reorder
+  /*
+   * Returns stats for all season's games for the given team
+   */
+  function getGames(team, callback) {
+    d3.json('../data/box-scores-all.json', function(error, data) {
+      
+      var games = [];
+  
+      // find all games involving the team at hand
+      d3.keys(data).forEach(function(d) {
+  
+        // if our given team is in this object, 
+        // include it in games[] 
+        if (data[d].details.away.id == team ||
+          data[d].details.home.id == team) {
+          
+            // add a new property indicating which 
+            // side team is, home or away
+            if (data[d].details.away.id == team) {
+              data[d].details.side = 'away';
+            } else {
+              data[d].details.side = 'home';
+            }
+  
+            // add a property for margin of win, loss;
+            // positive is win, negative is loss
+            var margin;
+            if (data[d].details.winner == team ) {
+              margin = (data[d].details.side == 'home') ?
+                +data[d].details.home.pts - data[d].details.away.pts :
+                +data[d].details.away.pts - data[d].details.home.pts;
+            } else {
+              margin = (data[d].details.side == 'away') ? 
+                +data[d].details.away.pts - data[d].details.home.pts :
+                +data[d].details.home.pts - data[d].details.away.pts;
+            }
+  
+            data[d].details.margin = margin;
+  
+            games.push(data[d])
+          }
+        });
+  
+      callback(games);
+  
+    }); // end d3.json
+  } // end getGames
 
   /*
    * Highlight line for school in paracoords
@@ -395,7 +514,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         
         // get school name from class
         selectedSchool = $(this).attr('class') 
-          .replace(/highlighted/g, '')
+          // distill class name down to school name
+          .replace(/highlighted|opened/g, '') 
           .trim()
 
         highlightSchool(selectedSchool);
@@ -412,19 +532,22 @@ d3.csv("../data/season-totals.csv", function(error, data) {
           });
         
 
-      }) // end on
+      }) // end on-mouseover
       .on('mouseout', function() {
         $(this).toggleClass('highlighted');
         
         unhighlightSchool(selectedSchool);
 
-      }) // end on
+      }) // end on-mouseout
       .on('click', function() {
+        // remove any other 'opened' row
         $('.opened').not($(this))
           .toggleClass('opened');
 
+        // open this row
         $(this).toggleClass('opened');
-      })
+
+      }) // end on-click
   } // end updateTable
 
   // return all a team's data for the given team name

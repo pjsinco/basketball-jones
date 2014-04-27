@@ -53,6 +53,7 @@ getGames(teamHighlighted, function(games) {
 
   console.log(yScale.domain());
   console.log(games);
+  console.log(chart);
 
 
   //chart
@@ -60,7 +61,7 @@ getGames(teamHighlighted, function(games) {
     //.text(function() { return null; });
 
   chart
-    .selectAll('bar')
+    .selectAll('.bar')
     .data(games)
     .enter()
       .append('rect')
