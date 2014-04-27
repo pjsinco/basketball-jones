@@ -228,9 +228,27 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         .selectAll('tr')
         .sort(function(a, b) {
           if (curOrder == 'desc') {
-            return d3.ascending(a[d], b[d])
+
+            // if we have a tie, first sort by team name
+            if (d3.ascending(a[d], b[d]) == 0) {
+
+              // return the sorted team names
+              return d3.ascending(a['Team'], b['Team'])
+
+            } else {
+              return d3.ascending(a[d], b[d])
+            }
           } else {
-            return d3.descending(a[d], b[d])
+
+            // if we have a tie, first sort by team name
+            if (d3.descending(a[d], b[d]) == 0) {
+
+              // return the sorted team names
+              return d3.descending(a['Team'], b['Team'])
+
+            } else {
+              return d3.descending(a[d], b[d])
+            }
           }
         });
 
@@ -265,15 +283,15 @@ d3.csv("../data/season-totals.csv", function(error, data) {
    *
    *
   ************************************************/
-  function reorder(rows, order, col) {
-    rows.sort(function(a, b) {
-      if (order == 'asc') {
-        return d3.descending(a[col], b[col]);    
-      } else {
-        return d3.ascending(a[col], b[col]);    
-      }
-    });
-  } // end reorder
+//  function reorder(rows, order, col) {
+//    rows.sort(function(a, b) {
+//      if (order == 'asc') {
+//        return d3.descending(a[col], b[col]);    
+//      } else {
+//        return d3.ascending(a[col], b[col]);    
+//      }
+//    });
+//  } // end reorder
 
   /*
    * Highlight line for school in paracoords
