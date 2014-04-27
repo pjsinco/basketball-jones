@@ -47,24 +47,28 @@ d3.csv("../data/season-totals.csv", function(error, data) {
   //console.log(data);
   totals = data.map(function(d) {
     return {
-      'Team' : d['friendly_school'].replace(/&/g, ''),
-      'FG%'  : +d['FGp'],
-      '2P%'  : +d['2Pp'],
-      '3P%'  : +d['3Pp'],
-      'FT%'  : +d['FTp'],
-      'REB'  : +d['TRB'],
-      'AST'  : +d['AST'],
-      'BLK'  : +d['BLK'],
-      'STL'  : +d['STL'],
-      'TOV'  : +d['TOV'],
-      'PF'   : +d['PF'],
-      'PTS/G' : +d['PTSg']
+      'Team'        : d['friendly_school'].replace(/&/g, ''),
+      'espn_id'     : d['espn_id'],
+      'conf'        : d['conf_friendly'],
+      'conf_abbrev' : d['conf_abbrev'],
+      'FG%'         : +d['FGp'],
+      '2P%'         : +d['2Pp'],
+      '3P%'         : +d['3Pp'],
+      'FT%'         : +d['FTp'],
+      'REB'         : +d['TRB'],
+      'AST'         : +d['AST'],
+      'BLK'         : +d['BLK'],
+      'STL'         : +d['STL'],
+      'TOV'         : +d['TOV'],
+      'PF'          : +d['PF'],
+      'PTS/G'       : +d['PTSg']
     }
   });
 
   // these will be our y axes; exclude 'Team'
   dimensions = d3.keys(totals[0]).filter(function(d) {
-    return d != 'Team';
+    return d != 'Team' && d != 'espn_id' && d != 'conf'
+      && d != 'conf_abbrev';
   });
 
   // set up our yScales
@@ -79,6 +83,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
   // xScale's domain is all our yScale axes
   xScale
     .domain(dimensions)
+
+
 
   // add a line for each team in the background
   background = svg.append('g')
@@ -196,9 +202,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
 
   // add a table
   var table = d3.select('.table_container')
-    .append('table');
-
-  table
+    .append('table')
     .attr('id', 'season_totals');
   
   var thead = table.append('thead').append('tr');
@@ -206,7 +210,9 @@ d3.csv("../data/season-totals.csv", function(error, data) {
 
   thead
     .selectAll('th')
-    .data(d3.keys(totals[0]))
+    .data(d3.keys(totals[0]).filter(function(d) {
+      return d != 'espn_id' && d != 'conf' && d != 'conf_abbrev';
+    }))
     .enter()
       .append('th')
       .text(function(d) {
@@ -215,12 +221,11 @@ d3.csv("../data/season-totals.csv", function(error, data) {
 
   updateTable(); // draw the table
 
-  console.log(totals);
-
   $('#team_search')
     .autocomplete({
       source: totals.map(function(d) {
-        return d.Team;
+        // source is names of all the teams
+        return d.Team; 
       }),
       focus: function(event) {
         unhighlightSchool($(this).val());
@@ -271,7 +276,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       if (selected.indexOf(d['Team']) > -1) {
         return d;
       }
-    })
+    });
 
     var rows = tbody.selectAll('tr')
       .data(selectedTeams, function(d) {
@@ -293,12 +298,22 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         })
 
     // populate the cells;
-    // snippet from HW1
+    // snippet in part from HW1
     var cells = rows.selectAll('td')
       .data(function(d) {
-        return d3.range(Object.keys(d).length)
+        // turn d into team, which has some properties filtered out 
+        // that we don't want to display in the table
+        var team = {};
+        var keys = d3.keys(d).filter(function(d) {
+          return d != 'espn_id' && d != 'conf' && d != 'conf_abbrev';
+        })
+        keys.forEach(function(key) {
+          team[key] = d[key];
+        })
+        
+        return d3.range(Object.keys(team).length)
           .map(function(e, i){
-            return d[Object.keys(d)[i]];
+            return team[Object.keys(team)[i]];
           });
       })
       .enter()
