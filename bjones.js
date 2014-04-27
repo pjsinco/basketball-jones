@@ -17,7 +17,7 @@ var marginBar = {
 }
 
 var width = 960 - margin.right - margin.left;
-var height = 250 - margin.top - margin.bottom;
+var height = 200 - margin.top - margin.bottom;
 
 var widthBar = 670 - marginBar.right - marginBar.left;
 var heightBar = 80 - marginBar.top - marginBar.bottom;
@@ -101,8 +101,6 @@ d3.csv("../data/season-totals.csv", function(error, data) {
   // xScale's domain is all our yScale axes
   xScale
     .domain(dimensions)
-
-
 
   // add a line for each team in the background
   background = svg.append('g')
@@ -528,7 +526,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
 
         d3.select('.team_conf')
           .text(function() {
-            return getTeamByName(selectedSchool)['conf'];
+            return getTeamByName(selectedSchool)['conf'] + ' Conference'
           });
         
 
@@ -546,6 +544,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
 
         // open this row
         $(this).toggleClass('opened');
+        $(this).effect('highlight')
+          
 
       }) // end on-click
   } // end updateTable
