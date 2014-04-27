@@ -219,8 +219,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
     .append('table')
     .attr('id', 'season_totals');
 
-  //var chart = d3.select('.table_container')
-  var chart = d3.select('body')
+  var chart = d3.select('.table_container')
+  //var chart = d3.select('body')
     //.append('div')
     //.attr('class', 'games_bar_chart') 
     .append('svg')
