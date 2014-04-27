@@ -2,12 +2,21 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   color: #5a5b88;
+  position: relative;
 }
 
 div.table_container {
+  float: left;
   /*overflow: auto;*/
   /*width: 700px;*/
   /*height: 200px;*/
+}
+div.details {
+  float: left;
+  height: 300px;
+  width: 217px;
+  border: 1px solid #5a5b88;
+  background-color: ghostwhite;
 }
 
 table#season_totals {
