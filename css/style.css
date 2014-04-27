@@ -122,3 +122,12 @@ tr.highlighted {
 .tooltip {
   
 }
+
+th.asc {
+  cursor: n-resize;
+}
+
+th.desc {
+  cursor: s-resize;
+}
+

@@ -217,10 +217,33 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       .append('th')
       .text(function(d) {
         return d;
-      });
+      })
+      .attr('class', 'asc')
+
+  thead
+    .selectAll('th')
+    .on('click', function(d) {
+      var curOrder = d3.select(this).attr('class');
+      tbody
+        .selectAll('tr')
+        .sort(function(a, b) {
+          if (curOrder == 'desc') {
+            return d3.ascending(a[d], b[d])
+          } else {
+            return d3.descending(a[d], b[d])
+          }
+        });
+
+      d3.select(this)
+        .attr('class', function() {
+          return curOrder == 'asc' ? 'desc' : 'asc';
+        })
+    });
 
   updateTable(); // draw the table
 
+
+  // **NOT CURRENTLY IMPLEMENTEd **
   $('#team_search')
     .autocomplete({
       source: totals.map(function(d) {
@@ -236,8 +259,24 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       }
     });
 
+  /************************************************
+   *
+   *              HELPER FUNCTIONS
+   *
+   *
+  ************************************************/
+  function reorder(rows, order, col) {
+    rows.sort(function(a, b) {
+      if (order == 'asc') {
+        return d3.descending(a[col], b[col]);    
+      } else {
+        return d3.ascending(a[col], b[col]);    
+      }
+    });
+  } // end reorder
+
   /*
-   *HELPER FUNCTIONS
+   * Highlight line for school in paracoords
    */
   function highlightSchool(school) {
     $(".foreground path[class='" + school + "']")
@@ -250,6 +289,9 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       });
   }
 
+  /*
+   * Remove highlight from line in paracoords
+   */
   function unhighlightSchool(school) {
     $(".foreground path[class='" + school + "']")
       .each(function() {
@@ -257,9 +299,11 @@ d3.csv("../data/season-totals.csv", function(error, data) {
           .css('stroke-width', '1')
           .css('stroke', 'darkorange')
       })
-
   }
   
+  /*
+   * Draw and manage the table
+   */
   function updateTable() {
     selected = [];
 
@@ -401,17 +445,6 @@ d3.csv("../data/season-totals.csv", function(error, data) {
 
 
 }); // end d3.csv()
-
-
-
-
-
-
-
-
-
-
-
 
 // get array of selected lines with this selector:
 // d3.selectAll(".foreground path:not([style*='display: none'])")
