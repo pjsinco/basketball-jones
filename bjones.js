@@ -244,9 +244,10 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       })
       .attr('class', 'asc')
 
+  // sort table column when clicked
   thead
     .selectAll('th')
-    .on('click', function(d) {
+    .on('click', function(d) { 
       var curOrder = d3.select(this).attr('class');
       tbody
         .selectAll('tr')
@@ -276,6 +277,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
           }
         });
 
+      // toggle class -- asc, desc
       d3.select(this)
         .attr('class', function() {
           return curOrder == 'asc' ? 'desc' : 'asc';
@@ -283,7 +285,6 @@ d3.csv("../data/season-totals.csv", function(error, data) {
     });
 
   updateTable(); // draw the table
-
 
   // **NOT CURRENTLY IMPLEMENTEd **
   $('#team_search')
@@ -300,60 +301,6 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         highlightSchool(selectedSchool);
       }
     });
-
-  /********************************************/
-  /********************************************/
-  /********************************************/
-
-  var testTeam = 'Army';
-  console.log(getTeamByName('Army').espn_id);
-  getGames(getTeamByName(testTeam).espn_id, function(games) {
-    xScaleBar
-      .domain(d3.range(games.length));
-
-    yScaleBar
-      .domain(d3.extent(games.map(function(d) {
-        return d.details.margin;
-      })));
-
-    console.log(yScaleBar.domain());
-    console.log(games);
-    console.log(chart);
-
-    chart
-      .selectAll('.bar')
-      .data(games)
-      .enter()
-        .append('rect')
-        .attr('class', function(d) {
-          //console.log(d.details.margin < 0);
-          return d.details.margin < 0 ? 'bar negative' : 'bar positive';
-        })
-        .attr('x', function(d, i) {
-          return xScaleBar(i);
-        })
-        .attr('y', function(d) {
-          return heightBar - yScaleBar(Math.max(0, d.details.margin));
-        })
-        .attr('height', function(d) {
-          return Math.abs(yScaleBar(d.details.margin) - yScaleBar(0));
-        })
-        .attr('width', xScaleBar.rangeBand());
-  
-    chart
-      .append('g')
-      .attr('class', 'x axis')
-      .append('line')
-      .attr('y1', heightBar - yScaleBar(0))
-      .attr('y2', heightBar - yScaleBar(0))
-      .attr('x2', widthBar)
-
-  });
-
-  /********************************************/
-  /********************************************/
-  /********************************************/
-
 
 
   /************************************************
@@ -545,9 +492,67 @@ d3.csv("../data/season-totals.csv", function(error, data) {
         // open this row
         $(this).toggleClass('opened');
         $(this).effect('highlight')
-          
 
-      }) // end on-click
+        chart.selectAll('.bar')
+          .data([])
+          .exit()
+          .remove()  
+          
+        // add the bar chart for all the team's games
+        getGames(getTeamByName(selectedSchool).espn_id, function(games) {
+          xScaleBar
+            .domain(d3.range(games.length));
+
+          yScaleBar
+            .domain(d3.extent(games.map(function(d) {
+              return d.details.margin;
+            })));
+
+          // perform an exit() on the bar chart
+
+          d3.select('.zero-axis')
+            .remove()
+
+          var barChart = chart.selectAll('.bar')
+            .data(games)
+
+          barChart
+            .exit()
+            .remove()
+
+          barChart
+            .enter()
+              .append('rect')
+              .attr('class', function(d) {
+                //console.log(d.details.margin < 0);
+                return d.details.margin < 0 ? 'bar negative' 
+                  : 'bar positive';
+              })
+              .attr('x', function(d, i) {
+                return xScaleBar(i);
+              })
+              .attr('y', function(d) {
+                return heightBar 
+                  - yScaleBar(Math.max(0, d.details.margin));
+              })
+              .attr('height', function(d) {
+                return Math.abs(yScaleBar(d.details.margin) 
+                  - yScaleBar(0));
+              })
+              .attr('width', xScaleBar.rangeBand());
+        
+          chart
+            .append('g')
+            .attr('class', 'x axis')
+            .append('line')
+            .attr('class', 'zero-axis')
+            .attr('y1', heightBar - yScaleBar(0))
+            .attr('y2', heightBar - yScaleBar(0))
+            .attr('x2', widthBar)
+
+        }); // end getGames()
+
+      }); // end on-click
   } // end updateTable
 
   // return all a team's data for the given team name

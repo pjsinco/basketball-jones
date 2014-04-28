@@ -58,8 +58,12 @@ table#season_totals thead {
 }
 table#season_totals tbody {
   overflow: auto;
-  height: 300px;
+  max-height: 300px;
   width: 670px;
+}
+
+table#season_totals thead tr {
+  border-bottom: 2px solid #ccc;
 }
 
 table#season_totals tr {
