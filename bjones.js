@@ -135,7 +135,10 @@ d3.csv("../data/season-totals.csv", function(error, data) {
     .data(dimensions)
     .enter()
       .append('g')
-      .attr('class', 'dimension')
+      //.attr('class', 'dimension')
+      .attr('class', function(d) {
+        return d + ' dimension'; // include dimension name in class
+      })
       .attr('transform', function(d) {
         return 'translate(' + xScale(d) + ')';
       })
