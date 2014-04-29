@@ -49,7 +49,7 @@ var selected = []; // will hold the brushed teams
 
 var totals;
 
-var percentFormat = d3.format('%')
+var decimalFormat = d3.format('03d')
 
 var svg = d3.select(".paracoords")
   .append("svg")
@@ -79,7 +79,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       'STL'         : +d['STL'],
       'TOV'         : +d['TOV'],
       'PF'          : +d['PF'],
-      'PTS/G'       : +d['PTSg']
+      'PTS/G'       : parseFloat(+d['PTSg']).toFixed(1)
     }
   });
 
@@ -389,7 +389,7 @@ d3.csv("../data/season-totals.csv", function(error, data) {
   function updateTable() {
     selected = [];
 
-    // get selected teams
+    // get teams selected by brush, add to selected[]
     $.each(
       $(".foreground path:not([style*='display: none'])"), 
         function() { 
@@ -427,8 +427,8 @@ d3.csv("../data/season-totals.csv", function(error, data) {
     // snippet in part from HW1
     var cells = rows.selectAll('td')
       .data(function(d) {
-        // turn d into team, which has some properties filtered out 
-        // that we don't want to display in the table
+        // turn d into team object because d has some properties
+        // that we want to filter out and not display in table
         var team = {};
         var keys = d3.keys(d).filter(function(d) {
           return d != 'espn_id' && d != 'conf' && d != 'conf_abbrev'
@@ -446,7 +446,15 @@ d3.csv("../data/season-totals.csv", function(error, data) {
       .enter()
         .append('td')
         .text(function(d) {
-          return d;
+          if (typeof d !== 'number') {
+            return d;
+          } else {
+            if (d % 1 === 0) {
+              return d;
+              } else {
+              return d.toFixed(3);
+            }
+          }
         });
     
     // interaction: highlight table rows and paracoords 
