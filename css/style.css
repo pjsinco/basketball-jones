@@ -158,3 +158,7 @@ th.desc {
   cursor: s-resize;
 }
 
+.dimmed {
+  pointer-events: none;
+  opacity: 0.4;
+}

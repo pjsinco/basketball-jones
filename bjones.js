@@ -502,7 +502,19 @@ d3.csv("../data/season-totals.csv", function(error, data) {
 
         // open this row
         $(this).toggleClass('opened');
-        $(this).effect('highlight')
+        $(this).effect('highlight');
+
+        // toggle opacity, selectability of other rows 
+        $('tr').not($(this))
+          .toggleClass('dimmed');
+
+        // toggle interactivity of paracoords 
+        if ($('.axis').css('pointer-events') == 'auto' || 
+            $('.axis').css('pointer-events') == 'all') {
+          $('.axis, .brush').css('pointer-events', 'none');
+        } else {
+          $('.axis, .brush').css('pointer-events', 'all');
+        }
 
         chart.selectAll('.bar')
           .data([])
