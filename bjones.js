@@ -227,7 +227,7 @@
         + marginBar.top + ')');
     
     // add a table
-    var table = d3.select('.details')
+    var table = d3.select('.team_details')
       .append('table')
       .attr('id', 'season_totals');
   
@@ -476,8 +476,8 @@
   
           highlightSchool(selectedSchool);
   
-          d3.select('.details')
-            .select('.team_name')
+          d3.select('.team_name')
+            //.select('.team_name')
               .text(function() {
                 return getTeamByName(selectedSchool)['friendly'];
               })
