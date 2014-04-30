@@ -501,11 +501,12 @@
         }) // end on-mouseout
         .on('click', function() {
           // remove any other 'opened' row
-          $('.opened').not($(this))
-            .toggleClass('opened');
+          //$('.opened').not($(this))
+            //.toggleClass('opened');
+
+          $('.team').toggleClass('opened', 500);
   
-          // open this row
-          $(this).toggleClass('opened');
+          // highlight this row
           $(this).effect('highlight');
   
           // toggle opacity, selectability of other rows 
@@ -519,7 +520,7 @@
           } else {
             $('.axis, .brush').css('pointer-events', 'all');
           }
-  
+
           chart.selectAll('.bar')
             .data([])
             .exit()
@@ -567,6 +568,14 @@
                     - yScaleBar(0));
                 })
                 .attr('width', xScaleBar.rangeBand())
+                .attr('visibility', function() {
+                  if (d3.select('.team').attr('class') 
+                    == 'team opened') {
+                      return 'hidden';
+                    } else {
+                      return 'visible';
+                    }
+                })
                 .on('mouseover', function(d, i) {
                   d3.select(this)
                     .transition()
@@ -609,14 +618,14 @@
 
                   // set background color of game details
                   // based on whether game was W or L
-                  d3.select('.game_details')
-                    .style('background-color', function() {
-                      if (d.details.winner == teamObj.espn_id) {
-                        return '#CBE8FF';
-                      } else {
-                        return '#ffc5c5'; 
-                      }
-                    })
+//                  d3.select('.game_details')
+//                    .style('background-color', function() {
+//                      if (d.details.winner == teamObj.espn_id) {
+//                        return '#CBE8FF';
+//                      } else {
+//                        return '#ffc5c5'; 
+//                      }
+//                    })
       
                   // set up radar chart of game data
                   var gameData = [[], []];
@@ -653,6 +662,14 @@
               .attr('y2', heightBar - yScaleBar(0))
               .attr('x2', widthBar)
               .style('stroke', '#ccc')
+              .attr('visibility', function() {
+                if (d3.select('.team').attr('class') 
+                  == 'team opened') {
+                    return 'hidden';
+                  } else {
+                    return 'visible';
+                  }
+              })
   
           }); // end getGames()
   

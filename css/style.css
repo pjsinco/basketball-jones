@@ -37,25 +37,26 @@ p.team_conf {
   letter-spacing: 0.1em;
 }
 div.team_details {
+  margin: 0 0 0 40px;
   /*float: left;*/
   /*height: 150px;*/
-  width: 670px;
-  position: relative;
-  left: 50px;
+  /*width: 670px;*/
+  /*position: relative;*/
+  /*left: 50px;*/
   /*border: 1px solid #5a5b88;*/
   /*background-color: ghostwhite;*/
 }
 div.team {
   width: 800px;
-  height: 150px;
+  height: 60px;
   /*margin-left: 50px;*/
-  position: absolute;
+  /*position: absolute;*/
 }
 div.game_details {
   position: absolute;
   left: 680px;
   top: 0px;
-  background-color: ghostwhite;
+  /*background-color: ghostwhite;*/
   height: 150px;
   width: 180px;
 }
@@ -76,9 +77,9 @@ div.game_details {
 }
 
 table#season_totals {
-  position: absolute;
+  /*position: absolute;*/
   left: -9px;
-  top: 150px;
+  top: 60px;
   /*margin-left: 42px;*/
   line-height: 20px;
   cursor: pointer;
@@ -131,11 +132,12 @@ table#season_totals th, table#season_totals td {
 }
 
 table#season_totals {
+  float: left;
   padding: 3px;
 }
 
-tr.opened {
-  /*height: 100px;*/
+.team.opened {
+  height: 150px;
 }
 
 tr.highlighted {
