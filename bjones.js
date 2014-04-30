@@ -510,6 +510,32 @@
 
           hide = !hide; // toggle hide
 
+          // remove the old stuff from .game_details
+          if (hide) {
+            // hide the div
+            d3.select('.game_details')
+              .transition()
+              .duration(500)
+              .style('visibility', 'hidden')
+
+            // get rid of the chart 
+            d3.select('.game_radar_chart svg')
+              .remove();
+
+            // get rid of the text
+            d3.selectAll('div.meta span')
+              .each(function() {
+                d3.select(this).text('');
+              });
+        
+          } else {
+            d3.select('.game_details')
+              .transition()
+              .duration(500)
+              .style('visibility', 'visible')
+          };
+
+
           $('p.meta').toggleClass('hidden', 500);
 
           $('.team').toggleClass('opened', 500);
@@ -602,7 +628,7 @@
 
                     d3.select('.game_num')
                       .text(function() {
-                        return i + 1;
+                        return 'Game number ' + (i + 1);
                       });
                     d3.select('.game_date')
                       .text(function() {
@@ -660,6 +686,8 @@
                         'value': +d.details.home[stat],
                       }
                     });
+
+                    // draw the game detail
                     RadarChart.draw('.game_radar_chart', gameData);
  
                   }) // end mouseover
@@ -670,7 +698,6 @@
                       .style('opacity', '1.0');
                   })
             
-
               chart
                 .append('g')
                 .attr('class', 'x axis')

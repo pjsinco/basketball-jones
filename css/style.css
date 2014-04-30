@@ -69,11 +69,16 @@ div.team {
 
 div.game_details {
   position: absolute;
-  left: 740px;
-  top: 250px;
-  /*background-color: ghostwhite;*/
-  height: 150px;
-  width: 180px;
+  left: 720px;
+  top: 233px;
+  padding: 10px;
+  background-color: #f7f7f7;
+  height: 300px;
+  width: 170px;
+}
+span.game_num {
+  color: #ccc;
+  text-transform: uppercase;
 }
 
 /*.games_bar_chart {*/
