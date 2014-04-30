@@ -30,6 +30,20 @@ p.team_name {
   /*letter-spacing: 0.1em;*/
 }
 
+p.meta {
+  text-transform: uppercase;
+  color: #0c0c0c;
+  font-weight: 100;
+  letter-spacing: 3px;
+  position: absolute;
+  top: 350px;
+  left: 320px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
 p.team_conf {
   font-weight: 100;
   font-size: 14px;

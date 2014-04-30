@@ -32,7 +32,7 @@
   var xScaleBar = d3.scale.ordinal()
     .rangeRoundBands([0, widthBar], 0.15);
   
-  var hide = true;;
+  var hide = true; // show or hide team details, game details
 
   var yScale = {};
   
@@ -509,6 +509,8 @@
             //.toggleClass('opened');
 
           hide = !hide; // toggle hide
+
+          $('p.meta').toggleClass('hidden', 500);
 
           $('.team').toggleClass('opened', 500);
   
