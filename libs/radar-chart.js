@@ -11,7 +11,8 @@ var RadarChart = {
      maxValue: 0,
      radians: 2 * Math.PI,
      opacityArea: 0.5,
-     color: d3.scale.category10(),
+     color: d3.scale.ordinal()
+       .range(['#a6451d', '#4682b4']),
      fontSize: 10
     };
     if('undefined' !== typeof options){
