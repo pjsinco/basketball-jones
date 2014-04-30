@@ -10,19 +10,31 @@ h1, h2, h3 {
 p {
   margin: 0;
 }
+.paracoords {
+  width: 960px;
+}
 .paracoords h1 {
-  margin-left: 20px;
+  margin: 0 51px 0 20px;
+  opacity: 0.6;
+  text-transform: uppercase;
+  font-size: 1.7em;
+  letter-spacing: 0.1em;
+  text-align: right;
 }
 
 p.team_name {
   font-size: 30px;
   width: 500px;
   font-weight: 100;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
+  /*letter-spacing: 0.1em;*/
 }
 
 p.team_conf {
   font-weight: 100;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 div.table_container {
   float: left;
