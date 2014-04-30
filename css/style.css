@@ -49,13 +49,13 @@ div.team_details {
 div.team {
   width: 800px;
   height: 60px;
-  /*margin-left: 50px;*/
+  margin-left: 10px;
   /*position: absolute;*/
 }
 div.game_details {
   position: absolute;
-  left: 680px;
-  top: 0px;
+  left: 740px;
+  top: 250px;
   /*background-color: ghostwhite;*/
   height: 150px;
   width: 180px;
