@@ -66,7 +66,7 @@
       .attr("transform", "translate(" + margin.left + "," 
         + margin.top + ")");
   
-  d3.csv("/data/season-totals.csv", function(error, data) {
+  d3.csv("./data/season-totals.csv", function(error, data) {
   
     //console.log(data);
     totals = data.map(function(d) {
@@ -320,7 +320,7 @@
      * Returns stats for all season's games for the given team
      */
     function getGames(team, callback) {
-      d3.json('../data/box-scores-all.json', function(error, data) {
+      d3.json('./data/box-scores-all.json', function(error, data) {
         
         var games = [];
     
