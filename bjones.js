@@ -606,6 +606,17 @@
                       return d.details.side === 'home' ?
                         'vs. ' : 'at';
                     });
+
+                  // set background color of game details
+                  // based on whether game was W or L
+                  d3.select('.game_details')
+                    .style('background-color', function() {
+                      if (d.details.winner == teamObj.espn_id) {
+                        return '#CBE8FF';
+                      } else {
+                        return '#ffc5c5'; 
+                      }
+                    })
       
                   // set up radar chart of game data
                   var gameData = [[], []];
