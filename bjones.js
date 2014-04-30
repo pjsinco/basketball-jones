@@ -49,6 +49,8 @@
   
   var background, foreground, dimensions;
   var selected = []; // will hold the brushed teams
+  // stats tracked in radar chart
+  var trackedStats = ['ast', 'blk', 'to', 'stl'];
   
   var totals;
   
@@ -487,11 +489,9 @@
   
           d3.select('.team_conf')
             .text(function() {
-              return getTeamByName(selectedSchool)['conf'] + ' Conference'
+              return getTeamByName(selectedSchool)['conf'] 
+                + ' Conference';
             });
-          
-  
-          
         }) // end on-mouseover
         .on('mouseout', function() {
           $(this).toggleClass('highlighted');
@@ -606,8 +606,25 @@
                       return d.details.side === 'home' ?
                         'vs. ' : 'at';
                     });
-          
-                })
+      
+                  // set up radar chart of game data
+                  var gameData = [[], []];
+                  gameData[0] = trackedStats.map(function(stat) {
+                    return {
+                      'axis' : stat,
+                      'value': +d.details.away[stat],
+                    }
+                  });
+
+                  gameData[1] = trackedStats.map(function(stat) {
+                    return {
+                      'axis' : stat,
+                      'value': +d.details.home[stat],
+                    }
+                  });
+                  RadarChart.draw('.game_radar_chart', gameData);
+ 
+                }) // end mouseover
                 .on('mouseout', function(d) {
                   d3.select(this)
                     .transition()
