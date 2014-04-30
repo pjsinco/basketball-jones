@@ -53,6 +53,8 @@
   var totals;
   
   var decimalFormat = d3.format('03d')
+  var dateParse = d3.time.format('%Y-%m-%d').parse;
+  var dateFormat = d3.time.format('%b. %d, %Y');
   
   var svg = d3.select(".paracoords")
     .append("svg")
@@ -368,7 +370,8 @@
         .each(function(d) {
           $(this)
             .css('stroke-width', '5')
-            .css('stroke', '#5654bf')
+            //.css('stroke', '#5654bf')
+            .css('stroke', 'darkorange')
             .css('stroke-linecap', 'round')
             .appendTo($(this).parent()) // bring to front
         });
@@ -382,7 +385,7 @@
         .each(function() {
           $(this)
             .css('stroke-width', '1')
-            .css('stroke', 'darkorange')
+            .css('stroke', '#4682B4')
         })
     }
     
@@ -522,8 +525,9 @@
             .exit()
             .remove()  
             
+          var teamObj = getTeamByName(selectedSchool);
           // add the bar chart for all the team's games
-          getGames(getTeamByName(selectedSchool).espn_id, function(games) {
+          getGames(teamObj.espn_id, function(games) {
             xScaleBar
               .domain(d3.range(games.length));
   
@@ -533,7 +537,6 @@
               })));
   
             // perform an exit() on the bar chart
-  
             d3.select('.zero-axis')
               .remove()
   
@@ -563,8 +566,56 @@
                   return Math.abs(yScaleBar(d.details.margin) 
                     - yScaleBar(0));
                 })
-                .attr('width', xScaleBar.rangeBand());
+                .attr('width', xScaleBar.rangeBand())
+                .on('mouseover', function(d, i) {
+                  d3.select(this)
+                    .transition()
+                    .duration(250)
+                    .style('opacity', '0.5');
+
+                  d3.select('.game_num')
+                    .text(function() {
+                      return i + 1;
+                    });
+                  d3.select('.game_date')
+                    .text(function() {
+                      return dateFormat(dateParse(d.details.date));
+                    });
+                  d3.select('.opponent')
+                    .text(function() {
+                      var opp;
+                      if (typeof getTeamByEspnId(d.details.away.id) !==
+                        'undefined') {
+                        if (d.details.side == 'home') {
+                          opp = 
+                            getTeamByEspnId(d.details.away.id)['Team'];
+                        } else {
+                          opp = 
+                            getTeamByEspnId(d.details.home.id)['Team'];
+                        }
+                      } else {
+                        // we don't have data on games against Div. II 
+                        //   and Div. III schools
+                        opp = 'Lower Division Opponent'; 
+                      }
+                      return opp;
+                    })
+                  // determine whether game was home or away
+                  d3.select('.side')
+                    .text(function() {
+                      return d.details.side === 'home' ?
+                        'vs. ' : 'at';
+                    });
           
+                })
+                .on('mouseout', function(d) {
+                  d3.select(this)
+                    .transition()
+                    .duration(250)
+                    .style('opacity', '1.0');
+                })
+          
+
             chart
               .append('g')
               .attr('class', 'x axis')
@@ -591,6 +642,16 @@
       return team;
     } // end getTeamByName
   
+    function getTeamByEspnId(espnId) {
+      var team;
+      totals.forEach(function(d) {
+        if (d['espn_id'] == espnId) {
+          team = d;
+        }
+      });
+      return team;
+    }
+
     function position(d) {
       var v = dragging[d];
       return v == null ? xScale(d) : v;
