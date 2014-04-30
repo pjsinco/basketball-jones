@@ -32,6 +32,8 @@
   var xScaleBar = d3.scale.ordinal()
     .rangeRoundBands([0, widthBar], 0.15);
   
+  var hide = true;;
+
   var yScale = {};
   
   var yScaleBar = d3.scale.linear()
@@ -65,6 +67,16 @@
     .append("g")
       .attr("transform", "translate(" + margin.left + "," 
         + margin.top + ")");
+
+  var chart = d3.select('.bar_chart')
+    .append('svg')
+    .attr('width', widthBar + marginBar.left + marginBar.right)
+    .attr('height', 0) // so it doesn't get it in the way at first
+    .append('g')
+    .attr('transform', 'translate(' + marginBar.left + ','
+      + marginBar.top + ')');
+  
+
   
   d3.csv("./data/season-totals.csv", function(error, data) {
   
@@ -222,14 +234,6 @@
       .attr('x', -8)
       .attr('width', 16)
   
-    var chart = d3.select('.bar_chart')
-      .append('svg')
-      .attr('width', widthBar + marginBar.left + marginBar.right)
-      .attr('height', heightBar + marginBar.top + marginBar.bottom)
-      .append('g')
-      .attr('transform', 'translate(' + marginBar.left + ','
-        + marginBar.top + ')');
-    
     // add a table
     var table = d3.select('.team_details')
       .append('table')
@@ -504,6 +508,8 @@
           //$('.opened').not($(this))
             //.toggleClass('opened');
 
+          hide = !hide; // toggle hide
+
           $('.team').toggleClass('opened', 500);
   
           // highlight this row
@@ -526,48 +532,152 @@
             .exit()
             .remove()  
             
+          d3.select('.bar_chart svg')
+            .attr('height', function() {
+              return hide ? 0 : 
+                heightBar + marginBar.top + marginBar.bottom;
+            });
+
           var teamObj = getTeamByName(selectedSchool);
           // add the bar chart for all the team's games
-          getGames(teamObj.espn_id, function(games) {
-            xScaleBar
-              .domain(d3.range(games.length));
+          if (!hide) {
+            // resize our svg 
+
+
+            getGames(teamObj.espn_id, function(games) {
+              xScaleBar
+                .domain(d3.range(games.length));
   
-            yScaleBar
-              .domain(d3.extent(games.map(function(d) {
-                return d.details.margin;
-              })));
+              yScaleBar
+                .domain(d3.extent(games.map(function(d) {
+                  return d.details.margin;
+                })));
   
-            // perform an exit() on the bar chart
-            d3.select('.zero-axis')
-              .remove()
+              // perform an exit() on the bar chart
+              d3.select('.zero-axis')
+                .remove()
   
-            var barChart = chart.selectAll('.bar')
-              .data(games)
+              var barChart = chart.selectAll('.bar')
+                .data(games)
   
-            barChart
-              .exit()
-              .remove()
+              barChart
+                .exit()
+                .remove()
   
-            barChart
-              .enter()
-                .append('rect')
-                .attr('class', function(d) {
-                  //console.log(d.details.margin < 0);
-                  return d.details.margin < 0 ? 'bar negative' 
-                    : 'bar positive';
-                })
-                .attr('x', function(d, i) {
-                  return xScaleBar(i);
-                })
-                .attr('y', function(d) {
-                  return heightBar 
-                    - yScaleBar(Math.max(0, d.details.margin));
-                })
-                .attr('height', function(d) {
-                  return Math.abs(yScaleBar(d.details.margin) 
-                    - yScaleBar(0));
-                })
-                .attr('width', xScaleBar.rangeBand())
+              barChart
+                .enter()
+                  .append('rect')
+                  .attr('class', function(d) {
+                    //console.log(d.details.margin < 0);
+                    return d.details.margin < 0 ? 'bar negative' 
+                      : 'bar positive';
+                  })
+                  .attr('x', function(d, i) {
+                    return xScaleBar(i);
+                  })
+                  .attr('y', function(d) {
+                    return heightBar 
+                      - yScaleBar(Math.max(0, d.details.margin));
+                  })
+                  .attr('height', function(d) {
+                    return Math.abs(yScaleBar(d.details.margin) 
+                      - yScaleBar(0));
+                  })
+                  .attr('width', xScaleBar.rangeBand())
+//                  .attr('visibility', function() {
+//                    if (d3.select('.team').attr('class') 
+//                      == 'team opened') {
+//                        return 'hidden';
+//                      } else {
+//                        return 'visible';
+//                      }
+//                  })
+                  .on('mouseover', function(d, i) {
+                    d3.select(this)
+                      .transition()
+                      .duration(250)
+                      .style('opacity', '0.5');
+
+                    d3.select('.game_num')
+                      .text(function() {
+                        return i + 1;
+                      });
+                    d3.select('.game_date')
+                      .text(function() {
+                        return dateFormat(dateParse(d.details.date));
+                      });
+                    d3.select('.opponent')
+                      .text(function() {
+                        var opp;
+                        if (typeof getTeamByEspnId(d.details.away.id) !==
+                          'undefined') {
+                          if (d.details.side == 'home') {
+                            opp = 
+                              getTeamByEspnId(d.details.away.id)['Team'];
+                          } else {
+                            opp = 
+                              getTeamByEspnId(d.details.home.id)['Team'];
+                          }
+                        } else {
+                          // we don't have data on games against Div. II 
+                          //   and Div. III schools
+                          opp = 'Lower Division Opponent'; 
+                        }
+                        return opp;
+                      })
+                    // determine whether game was home or away
+                    d3.select('.side')
+                      .text(function() {
+                        return d.details.side === 'home' ?
+                          'vs. ' : 'at';
+                      });
+
+                    // set background color of game details
+                    // based on whether game was W or L
+//                    d3.select('.game_details')
+//                      .style('background-color', function() {
+//                        if (d.details.winner == teamObj.espn_id) {
+//                          return '#CBE8FF';
+//                        } else {
+//                          return '#ffc5c5'; 
+//                        }
+//                      })
+      
+                    // set up radar chart of game data
+                    var gameData = [[], []];
+                    gameData[0] = trackedStats.map(function(stat) {
+                      return {
+                        'axis' : stat,
+                        'value': +d.details.away[stat],
+                      }
+                    });
+
+                    gameData[1] = trackedStats.map(function(stat) {
+                      return {
+                        'axis' : stat,
+                        'value': +d.details.home[stat],
+                      }
+                    });
+                    RadarChart.draw('.game_radar_chart', gameData);
+ 
+                  }) // end mouseover
+                  .on('mouseout', function(d) {
+                    d3.select(this)
+                      .transition()
+                      .duration(250)
+                      .style('opacity', '1.0');
+                  })
+            
+
+              chart
+                .append('g')
+                .attr('class', 'x axis')
+                .append('line')
+                .attr('class', 'zero-axis')
+                .attr('y1', heightBar - yScaleBar(0))
+                .attr('y2', heightBar - yScaleBar(0))
+                .attr('x2', widthBar)
+                .style('stroke', '#ccc')
                 .attr('visibility', function() {
                   if (d3.select('.team').attr('class') 
                     == 'team opened') {
@@ -576,103 +686,10 @@
                       return 'visible';
                     }
                 })
-                .on('mouseover', function(d, i) {
-                  d3.select(this)
-                    .transition()
-                    .duration(250)
-                    .style('opacity', '0.5');
-
-                  d3.select('.game_num')
-                    .text(function() {
-                      return i + 1;
-                    });
-                  d3.select('.game_date')
-                    .text(function() {
-                      return dateFormat(dateParse(d.details.date));
-                    });
-                  d3.select('.opponent')
-                    .text(function() {
-                      var opp;
-                      if (typeof getTeamByEspnId(d.details.away.id) !==
-                        'undefined') {
-                        if (d.details.side == 'home') {
-                          opp = 
-                            getTeamByEspnId(d.details.away.id)['Team'];
-                        } else {
-                          opp = 
-                            getTeamByEspnId(d.details.home.id)['Team'];
-                        }
-                      } else {
-                        // we don't have data on games against Div. II 
-                        //   and Div. III schools
-                        opp = 'Lower Division Opponent'; 
-                      }
-                      return opp;
-                    })
-                  // determine whether game was home or away
-                  d3.select('.side')
-                    .text(function() {
-                      return d.details.side === 'home' ?
-                        'vs. ' : 'at';
-                    });
-
-                  // set background color of game details
-                  // based on whether game was W or L
-//                  d3.select('.game_details')
-//                    .style('background-color', function() {
-//                      if (d.details.winner == teamObj.espn_id) {
-//                        return '#CBE8FF';
-//                      } else {
-//                        return '#ffc5c5'; 
-//                      }
-//                    })
-      
-                  // set up radar chart of game data
-                  var gameData = [[], []];
-                  gameData[0] = trackedStats.map(function(stat) {
-                    return {
-                      'axis' : stat,
-                      'value': +d.details.away[stat],
-                    }
-                  });
-
-                  gameData[1] = trackedStats.map(function(stat) {
-                    return {
-                      'axis' : stat,
-                      'value': +d.details.home[stat],
-                    }
-                  });
-                  RadarChart.draw('.game_radar_chart', gameData);
- 
-                }) // end mouseover
-                .on('mouseout', function(d) {
-                  d3.select(this)
-                    .transition()
-                    .duration(250)
-                    .style('opacity', '1.0');
-                })
-          
-
-            chart
-              .append('g')
-              .attr('class', 'x axis')
-              .append('line')
-              .attr('class', 'zero-axis')
-              .attr('y1', heightBar - yScaleBar(0))
-              .attr('y2', heightBar - yScaleBar(0))
-              .attr('x2', widthBar)
-              .style('stroke', '#ccc')
-              .attr('visibility', function() {
-                if (d3.select('.team').attr('class') 
-                  == 'team opened') {
-                    return 'hidden';
-                  } else {
-                    return 'visible';
-                  }
-              })
   
-          }); // end getGames()
+            }); // end getGames()
   
+          }
         }); // end on-click
     } // end updateTable
   

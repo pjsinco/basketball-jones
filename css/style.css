@@ -52,6 +52,7 @@ div.team {
   margin-left: 10px;
   /*position: absolute;*/
 }
+
 div.game_details {
   position: absolute;
   left: 740px;
@@ -163,6 +164,10 @@ tr.highlighted {
   stroke: #fff;
   shape-rendering: crispEdges;
 }
+
+/*svg .full_size {*/
+  /*height: */
+/*}*/
 
 .axis line, .axis path {
   fill: none;
