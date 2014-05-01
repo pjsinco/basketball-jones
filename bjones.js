@@ -646,15 +646,8 @@
                       - yScaleBar(0));
                   })
                   .attr('width', xScaleBar.rangeBand())
-//                  .attr('visibility', function() {
-//                    if (d3.select('.team').attr('class') 
-//                      == 'team opened') {
-//                        return 'hidden';
-//                      } else {
-//                        return 'visible';
-//                      }
-//                  })
                   .on('mouseover', function(d, i) {
+                    console.log(d);
                     d3.select(this)
                       .transition()
                       .duration(250)
@@ -709,9 +702,17 @@
 
                       });
 
+                    d3.select('.game_score')
+                      .text(function() {
+                        if (d.details.winner == teamObj.espn_id) {
+    
+                        } else {
+
+                        }
+                      });
+
                     d3.select('.game_result')
                       .style('color', function() {
-                        console.log(d);
                         if (d.details.winner == teamObj.espn_id) {
                           return '#4682B4';
                         } else {
@@ -749,7 +750,6 @@
                       result = 'loss'; 
                     }
                     //console.log(result);
-                    console.log(result, d.details.side);
                     RadarChart.draw('.game_radar_chart', gameData, 
                       result, d.details.side);
  
