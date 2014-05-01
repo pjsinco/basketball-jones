@@ -3,40 +3,59 @@
 ### Background and motivation
 I like college basketball. I follow it on TV, on the Web and in newspapers. I read game summaries and analysis, pore over box scores, fret over the standings and chew on statistics. 
 
-The season has just ended. So we now have an entire season to look back on and try to make sense of. As a fan, I'm interested in performance--of players, teams, conferences. And I'm interested in comparing performance.
+After a season has ended, we have thousands of games to look back on and try to make sense of. As a fan, I'm interested in performance--of players, teams, conferences. And I'm interested in comparing performance.
 
 
 ### Project objectives
-College basketball junkies love statistics. But data, as found on popular sites like ESPN.com, Yahoo! Sports and Sports-Reference.com, as well as in newspapers, have one thing in common: They're tabular. Apparently, that's by convention. I'd like to reinvent descriptive statistics for college basketball as visualizations.
+College basketball junkies love statistics. But data, as found on popular sites like ESPN.com, Yahoo! Sports and Sports-Reference.com, as well as in newspapers, have one thing in common: They're tabular. Apparently, that's by convention. With this project, I've tried to reinvent descriptive statistics for college basketball as visualizations.
 
-For this project, I'd like visually contextualize the week-to-week performance of all 351 Division-1 teams, 32 conferences, and more than 4,000 players in the 2013-14 season. 
+This project visually contextualizes the performance of all 342 Division I teams in the 2012-13 season. 
 
-For player entities, attributes include routine statistical categories like points per game, rebounds, assists. For team and conference entities, the attributes can include those as well as, across the course of the season, winning percentage and average position in polls. 
+This visualization tracks several statistical categories, like points per game, rebounds, assists, for each time in the season. 
 
-The question I want to answer: How does the performance of this team, this player, this conference measure up?
+The question I want to answer: How does the performance of this team measure up?
 
 
 ### Data
-For player, team, conference and game data, I can scrape ESPN.com and Sports-Reference.com. The [latter](http://www.sports-reference.com/cbb/schools/) looks especially promising because it makes many tables available as csv files. I anticipate getting a good portion of my player, team and conference data there. 
+For team and game data, I scraped ESPN.com and Sports-Reference.com. 
 
-I found and tested some Python scripts on Github for scraping Sports-Reference.com. I may fork [the repo](https://github.com/yankovai/College-Basketball-Prediction) and adapt the scripts to my project's needs.
+I found and used some Python scripts on Github for scraping Sports-Reference.com. I adapted those scripts to grab the season totals for each team.
 
-Because the season is not yet over, I may use 2012-13 season data so I don't have to worry about rescraping as this season plays out.
+Because the 2013-14 season was not over when I started collecting data, I used the 2012-13 season data so I didn't have to worry about rescraping as the season played out.
+
+Although I myself ended up scraping all the data that I used in the project, I used some techniques I'm grateful to have learned from my former project partner, Juancarlos Aponte.
+
+The data scraping was a huge job. In particular, scraping summary data for every game was a large project. Although I'm not very fluent in Python, it seemed the best tool for the job. So I learned as I went along. With more than 5,000 games, and needing to pause the script a few seconds between every call to a new page, the scraping process itself took a long time.
+
+My data folder is full of data that I didn't end up using. I did spend a lot of time gathering that data. I don't see that spent time as a loss because I learned a lot about scraping. It's good to practice those skills, and it's fun to go out and grab data. 
+
 
 ### Data processing
-I don't expect to need to clean the data substantially. From my initial tests, my data sources appear to be structured consistently. I expect to spend more time writing scripts to scrape the data than cleaning it. Although if the need arises, I will look to Excel, [csvkit](http://csvkit.readthedocs.org/en/latest/) and regular-expression find-change operations in a text editor.
+Besides Python, I also wrote scripts in PHP, some of which involved MySQL queries, to process the data. I found Bash helpful for small tasks, like comparing files, checking for duplicates and other QC work. In particular, I used wc, uniq, curl, awk and grep.
 
-I believe all of the data--the player, team and conference statistics we're interested in--will be available on ESPN.com, Sports-Reference.com and TeamRankings.com, as described above. 
+Bringing all the data together--matching up team conference IDs from ESPN and sportsreference.com, and matching those IDs to full team and conference names--was also a chore. I relied heavily on a MySQL database I created.
+
+One problem I had was when one of the 342 Division I schools played a team from a lower division. I didn't gather data on those non-Division I teams. So I punted and used a generic identifier for those teams: 'Lower Division Opponent.' 
+
 
 ### Visualization
+![Basketball Jones](images/bjones.png)
+The main visualization is based on parallel coordinates, with all 342 teams represented across several statistical categories. The attributes are season totals for stats, such as field-goal percentage, points-per-game, assists, turnovers, steals, three-point percentage and free-throw percentage. 
 
-I expect to build the main visualization to be styled as parallel coordinates, with all ~350 Division 1 teams shown. The attributes will be season totals for stats like field-goal percentage, points-per-game, assists, turnovers, steals, winning-percentage, three-point percentage and free-throw percentage.
+From the second I got it up and running, I was hooked on the parallel coordinates as the driving visualization. It is a very efficient way to compare team performance. Each category is filterable by brushing along the axis. It's fun to play with.
 
-The user will be able to select a team by mousing over the parallel coordinates vis or typing a team name into an ajaxified search box. In addition, multiple teams will be selectable by brushing the main vis or selecting a conference from a dropdown, which will highlight all the teams in the at conference.
+![Filter](images/bjones-filter.png)
 
-Below, the selected team or teams will appear in a table. The table will have the precise numbers for statistics tracked on the main parallel coordinates vis. 
+Below the parallel coordinates is a table reflecting details of all the teams filtered in the parallel coordinates. Mousing over a table row highlights that team in the main vis, so it's easy to see how that team stacks up. Clicking on a table header sorts that column of data, either ascending or descending. 
 
-Each team in the table will have a bar graph beneath, with a bar for each game. The bars will be encoded by color, length and position to indicate the game's result (win or loss) and margin of result. Mousing over a bar will activate a tooltip with a visual representation of that game. The main vis on the tooltip will be a star plot showing both teams' performance across several categories (field-goal percentage, assists, turnovers, etc.), as well as text showing opponent, game date, and other game particulars.
+Clicking on a table row, each of which represents a team, introduces another visualization. A bar chart appears, with a bar for every game of the season. The alignment and color of each bar indicates whether the game was a win or a loss, and height encodes the margin of the game result.
+
+Finally, mousing over a bar reveals a visualized summary for that game, with a radar chart showing a comparison of several statistics for both teams. 
+
+![Game view](images/bjones-game-view.png)
+
+### Sketches
+I stuck fairly closely to the sketch I liked best (labeled 'Latest working sketch'). I was happy with it. Also, in the beginning of the project I had flailed a bit in gathering the data and spent more time scraping than I had planned. So I was determined to be more focused in working on the actual vis. 
 
 ![Sketch](images/10-sketch.jpg)
 ![Sketch](images/01-sketch.jpg)
@@ -50,26 +69,6 @@ Each team in the table will have a bar graph beneath, with a bar for each game. 
 ![Sketch](images/09-sketch.jpg)
 
 
-### Must-have features
-The project must be able to display season totals and game totals for every Division 1 college basketball team during the season. That covers around 350 teams and some 5,000 games.
-
-### Optional features
-An optional feature is drilling down to individual players. 
-
-### Project schedule
-A tentative schedule (subject to change) is as follows:
-* April 6 - Most data downloaded 
-
-* April 9 - Main visualization created
-
-* April 10 - Functional prototype working
-
-* April 17
-
-* April 24
-
-* May 1
-
 ### Inspiration
 ![Inspiration - exposedata.com](images/01-inspiration.png)
 
@@ -81,5 +80,3 @@ A tentative schedule (subject to change) is as follows:
 
 
 ![Inspiration - Wall Street Journal](images/04-inspiration.jpg)
-
-
