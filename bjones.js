@@ -322,6 +322,23 @@
      *
     ************************************************/
     /*
+     * Calcuate a team's record on the season
+     */
+    function getRecord(team, callback) {
+      var record = [0, 0];
+      getGames(team, function(games) {
+        games.forEach(function(game) {
+          if (game.details.winner == team) {
+            record[0]++;
+          } else {
+            record[1]++;
+          }
+        });
+        callback(record)
+      });
+    }
+
+    /*
      * Returns stats for all season's games for the given team
      */
     function getGames(team, callback) {
@@ -475,7 +492,10 @@
       var selectedSchool; 
       d3.selectAll('#season_totals tbody tr')
         .on('mouseover', function() {
+          // remove highlight of any other school in paracoords
           unhighlightSchool(selectedSchool);
+
+          // highlight this table row
           $(this).toggleClass('highlighted');
           
           // get school name from class
@@ -484,20 +504,37 @@
             .replace(/highlighted|opened/g, '') 
             .trim()
   
+          // highlight this school in paracoords
           highlightSchool(selectedSchool);
   
+          var teamObj = getTeamByName(selectedSchool);
+          // display team name ... 
           d3.select('.team_name')
-            //.select('.team_name')
-              .text(function() {
-                return getTeamByName(selectedSchool)['friendly'];
-              })
+            .text(function() {
+              return teamObj.friendly;
+            })
   
+          // ... and conference ..
           d3.select('.team_conf')
             .text(function() {
-              return getTeamByName(selectedSchool)['conf'] 
-                + ' Conference';
+              var conf = teamObj.conf;
+              if (conf != 'Conference USA') {
+                return conf + ' Conference';
+              } else {
+                return conf;
+              }
             });
+
+          // ... and record 
+          getRecord(teamObj.espn_id, function(rec) {
+            d3.select('.team_record')
+              .text(function() {
+                return rec[0] + '-' + rec[1]  ;
+              })
+          }); // end getRecord()
+
         }) // end on-mouseover
+
         .on('mouseout', function() {
           $(this).toggleClass('highlighted');
           
@@ -505,9 +542,6 @@
   
         }) // end on-mouseout
         .on('click', function() {
-          // remove any other 'opened' row
-          //$('.opened').not($(this))
-            //.toggleClass('opened');
 
           hide = !hide; // toggle hide
 
@@ -529,7 +563,6 @@
               .each(function() {
                 d3.select(this).text('');
               });
-
         
           } else {
             d3.select('.game_details')
@@ -538,8 +571,7 @@
               .style('visibility', 'visible')
           };
 
-
-          $('p.meta').toggleClass('hidden', 500);
+          $('p.meta').toggleClass('hidden', 1000);
 
           $('.team').toggleClass('opened', 500);
   
@@ -573,7 +605,6 @@
           // add the bar chart for all the team's games
           if (!hide) {
             // resize our svg 
-
 
             getGames(teamObj.espn_id, function(games) {
               xScaleBar
@@ -821,8 +852,6 @@
         });
   
     } // end brush
-  
-  
   
   }); // end d3.csv()
   
