@@ -72,7 +72,7 @@ div.game_details {
   left: 720px;
   top: 233px;
   padding: 10px;
-  background-color: #f7f7f7;
+  /*background-color: #f7f7f7;*/
   height: 300px;
   width: 170px;
 }
@@ -83,6 +83,9 @@ span.game_num {
   text-transform: uppercase;
 }
 
+.game_radar_chart text {
+
+}
 /*.games_bar_chart {*/
   /*height: 80px;*/
   /*width: 670px;*/

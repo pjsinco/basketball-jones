@@ -53,7 +53,7 @@
   var background, foreground, dimensions;
   var selected = []; // will hold the brushed teams
   // stats tracked in radar chart
-  var trackedStats = ['ast', 'blk', 'to', 'stl'];
+  var trackedStats = ['ast', 'blk', 'to', 'stl', 'pf'];
   
   var totals;
   
@@ -517,6 +517,7 @@
             d3.select('.game_details')
               .transition()
               .duration(500)
+              .style('border', 'none')
               .style('visibility', 'hidden')
 
             // get rid of the chart 
@@ -528,6 +529,7 @@
               .each(function() {
                 d3.select(this).text('');
               });
+
         
           } else {
             d3.select('.game_details')
@@ -537,7 +539,7 @@
           };
 
 
-          //$('p.meta').toggleClass('hidden', 500);
+          $('p.meta').toggleClass('hidden', 500);
 
           $('.team').toggleClass('opened', 500);
   
@@ -667,11 +669,11 @@
                     // set colors in game_details
                     // based on whether game was W or L
                     d3.select('.game_details')
-                      .style('background-color', function() {
+                      .style('border', function() {
                         if (d.details.winner == teamObj.espn_id) {
-                          return 'ghostwhite';
+                          return '1px solid #4682b4';
                         } else {
-                          return '#ffe4e4'; 
+                          return '1px solid #A6451D'; 
                         }
 
                       });
@@ -697,15 +699,15 @@
                     var gameData = [[], []];
                     gameData[0] = trackedStats.map(function(stat) {
                       return {
-                        'axis' : stat,
-                        'value': +d.details.away[stat],
+                        'axis' : stat.toUpperCase(),
+                        'value': +d.details.away[stat]
                       }
                     });
 
                     gameData[1] = trackedStats.map(function(stat) {
                       return {
-                        'axis' : stat,
-                        'value': +d.details.home[stat],
+                        'axis' : stat.toUpperCase(),
+                        'value': +d.details.home[stat]
                       }
                     });
 
