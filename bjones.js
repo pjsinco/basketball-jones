@@ -378,8 +378,8 @@
               data[d].details.margin = margin;
     
               games.push(data[d])
-            }
-          });
+          }
+        });
     
         callback(games);
     
@@ -559,7 +559,7 @@
               .remove();
 
             // get rid of the text
-            d3.selectAll('div.meta span')
+            d3.selectAll('div.meta div')
               .each(function() {
                 d3.select(this).text('');
               });
@@ -661,9 +661,9 @@
                       .text(function() {
                         return dateFormat(dateParse(d.details.date));
                       });
-                    d3.select('.opponent')
+                    d3.select('.game_opponent')
                       .text(function() {
-                        var opp;
+                        var side, opp;
                         if ((typeof getTeamByEspnId(d.details.away.id) 
                           !== 'undefined') &&     
                             (typeof getTeamByEspnId(d.details.home.id) 
@@ -680,15 +680,11 @@
                           //   and Div. III schools
                           opp = 'Lower Division Opponent'; 
                         }
-                        return opp;
-                      });
 
-                    // determine whether game was home or away
-                    d3.select('.side')
-                      .text(function() {
-                        return d.details.side === 'home' ?
-                          'vs. ' : 'at';
-                      });
+                        // determine whether game was home or away
+                        side = (d.details.side === 'home') ?  'vs. ' : 'at';
+                        return side + ' ' + opp;
+                    });
 
                     // set colors in game_details
                     // based on whether game was W or L
@@ -704,11 +700,20 @@
 
                     d3.select('.game_score')
                       .text(function() {
-                        if (d.details.winner == teamObj.espn_id) {
-    
+                        var homeScore = d.details.home.pts;
+                        var awayScore = d.details.away.pts;
+                        if (homeScore > awayScore) {
+                          return homeScore + '-' + awayScore;
                         } else {
-
+                          return awayScore + '-' + homeScore;
                         }
+                      })
+                      .style('color', function() {
+                        if (d.details.winner == teamObj.espn_id) {
+                          return '#4682b4';
+                        } else {
+                          return '#A6451D';
+                        } 
                       });
 
                     d3.select('.game_result')
