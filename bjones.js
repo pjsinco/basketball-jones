@@ -32,7 +32,8 @@
   var xScaleBar = d3.scale.ordinal()
     .rangeRoundBands([0, widthBar], 0.15);
   
-  var hide = true; // show or hide team details, game details
+  var hide = true; // boolean to show or hide team details, game details
+  var result, side; // track game result 
 
   var yScale = {};
   
@@ -536,7 +537,7 @@
           };
 
 
-          $('p.meta').toggleClass('hidden', 500);
+          //$('p.meta').toggleClass('hidden', 500);
 
           $('.team').toggleClass('opened', 500);
   
@@ -637,8 +638,10 @@
                     d3.select('.opponent')
                       .text(function() {
                         var opp;
-                        if (typeof getTeamByEspnId(d.details.away.id) !==
-                          'undefined') {
+                        if ((typeof getTeamByEspnId(d.details.away.id) 
+                          !== 'undefined') &&     
+                            (typeof getTeamByEspnId(d.details.home.id) 
+                              !== 'undefined')) {
                           if (d.details.side == 'home') {
                             opp = 
                               getTeamByEspnId(d.details.away.id)['Team'];
@@ -652,7 +655,8 @@
                           opp = 'Lower Division Opponent'; 
                         }
                         return opp;
-                      })
+                      });
+
                     // determine whether game was home or away
                     d3.select('.side')
                       .text(function() {
@@ -660,16 +664,34 @@
                           'vs. ' : 'at';
                       });
 
-                    // set background color of game details
+                    // set colors in game_details
                     // based on whether game was W or L
-//                    d3.select('.game_details')
-//                      .style('background-color', function() {
-//                        if (d.details.winner == teamObj.espn_id) {
-//                          return '#CBE8FF';
-//                        } else {
-//                          return '#ffc5c5'; 
-//                        }
-//                      })
+                    d3.select('.game_details')
+                      .style('background-color', function() {
+                        if (d.details.winner == teamObj.espn_id) {
+                          return 'ghostwhite';
+                        } else {
+                          return '#ffe4e4'; 
+                        }
+
+                      });
+
+                    d3.select('.game_result')
+                      .style('color', function() {
+                        console.log(d);
+                        if (d.details.winner == teamObj.espn_id) {
+                          return '#4682B4';
+                        } else {
+                          return '#a6451d'; 
+                        }
+                      })
+                      .text(function() {
+                        if (d.details.winner == teamObj.espn_id) {
+                          return 'Win'; 
+                        } else {
+                          return 'Loss';
+                        }
+                      });
       
                     // set up radar chart of game data
                     var gameData = [[], []];
@@ -688,7 +710,15 @@
                     });
 
                     // draw the game detail
-                    RadarChart.draw('.game_radar_chart', gameData);
+                    if (d.details.winner == teamObj.espn_id) {
+                      result = 'win';
+                    } else {
+                      result = 'loss'; 
+                    }
+                    //console.log(result);
+                    console.log(result, d.details.side);
+                    RadarChart.draw('.game_radar_chart', gameData, 
+                      result, d.details.side);
  
                   }) // end mouseover
                   .on('mouseout', function(d) {

@@ -1,8 +1,9 @@
 // from https://github.com/alangrafu/radar-chart-d3
 var RadarChart = {
-  draw: function(id, d, options){
+  draw: function(id, d, result, side){
+    var options = undefined;
     var cfg = {
-     radius: 0,
+     radius: 1,
      w: 160,
      h: 180,
      factor: .95,
@@ -11,10 +12,32 @@ var RadarChart = {
      maxValue: 0,
      radians: 2 * Math.PI,
      opacityArea: 0.5,
-     color: d3.scale.ordinal()
-       .range(['#a6451d', '#4682b4']),
+     color: d3.scale.ordinal(),
      fontSize: 10
     };
+
+    if (side == 'away') {
+      if (result == 'loss') {
+        cfg.color
+         //.range(['#a6451d', '#4682b4']); // ['red', 'blue']
+         .range(['#a6451d', '#979797']); // ['red', 'gray']
+      } else {
+        cfg.color
+         //.range(['#4682b4', '#a6451d']); // ['blue', 'red']
+         .range(['#4682b4', '#979797']); // ['blue', 'gray']
+      }
+    } else if (side == 'home') {
+      if (result == 'loss') {
+        cfg.color
+         //.range(['#4682b4', '#a6451d']); // ['blue', 'gray']
+         .range(['#979797', '#a6451d']); // ['gray', 'red']
+      } else {
+        cfg.color
+         //.range(['#a6451d', '#4682b4']); // ['red', 'blue']
+         .range(['#979797', '#4682b4']); // ['gray', 'blue']
+      }
+    }
+
     if('undefined' !== typeof options){
       for(var i in options){
         if('undefined' !== typeof options[i]){
@@ -105,6 +128,7 @@ var RadarChart = {
                      .style("fill", function(j, i){return cfg.color(series)})
                      .style("fill-opacity", cfg.opacityArea)
                      .on('mouseover', function (d){
+                                        console.log(d3.select(this).attr('class'));
                                         z = "polygon."+d3.select(this).attr("class");
                                         g.selectAll("polygon").transition(200).style("fill-opacity", 0.1); 
                                         g.selectAll(z).transition(200).style("fill-opacity", .7);

@@ -36,8 +36,8 @@ p.meta {
   font-weight: 100;
   letter-spacing: 3px;
   position: absolute;
-  top: 350px;
-  left: 320px;
+  top: 355px;
+  left: 240px;
 }
 
 .hidden {
@@ -77,7 +77,9 @@ div.game_details {
   width: 170px;
 }
 span.game_num {
-  color: #ccc;
+  color: #8d8d8d;
+  font-weight: 200;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
@@ -95,7 +97,11 @@ span.game_num {
 .bar.negative {
   fill: #a6451d;
 }
-
+span.game_result {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 20px;
+}
 table#season_totals {
   /*position: absolute;*/
   left: -9px;
