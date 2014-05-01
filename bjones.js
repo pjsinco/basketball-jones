@@ -527,7 +527,7 @@
 
           // ... and record 
           getRecord(teamObj.espn_id, function(rec) {
-            d3.select('.team_record')
+            d3.select('.record')
               .text(function() {
                 return rec[0] + '-' + rec[1]  ;
               })

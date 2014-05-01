@@ -13,6 +13,10 @@ p {
 .paracoords {
   width: 960px;
 }
+.paracoords span {
+  position: absolute;
+  left: 52px;
+}
 .paracoords h1 {
   margin: 0 51px 0 20px;
   opacity: 0.6;
@@ -65,6 +69,13 @@ div.team {
   height: 60px;
   margin-left: 10px;
   /*position: absolute;*/
+}
+p.record {
+  position: absolute;
+  left: 596px;
+  top: 224px;
+  font-size: 36px;
+  font-weight: 100;
 }
 
 div.game_details {
