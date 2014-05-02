@@ -1,4 +1,4 @@
-// re: para coords--lots of inspiration, ideas from:
+// re: para coords--lots of code, inspiration, ideas from:
 // http://bl.ocks.org/mbostock/7586334
 // http://exposedata.com/parallel/
 
@@ -77,11 +77,9 @@ $(document).ready(function() {
     .attr('transform', 'translate(' + marginBar.left + ','
       + marginBar.top + ')');
   
-
-  
   d3.csv("./data/season-totals.csv", function(error, data) {
   
-    //console.log(data);
+    // wrangle our data
     totals = data.map(function(d) {
       return {
         'Team'        : d['friendly_school'].replace(/&/g, ''),
@@ -103,7 +101,8 @@ $(document).ready(function() {
       }
     });
   
-    // these will be our y axes; exclude 'Team'
+    // these will be our paracoords y axes; 
+    // exclude 'Team' and several others
     dimensions = d3.keys(totals[0]).filter(function(d) {
       return d != 'Team' && d != 'espn_id' && d != 'conf'
         && d != 'conf_abbrev' && d != 'friendly';
@@ -298,27 +297,9 @@ $(document).ready(function() {
   
     updateTable(); // draw the table
   
-    // **NOT CURRENTLY IMPLEMENTEd **
-    $('#team_search')
-      .autocomplete({
-        source: totals.map(function(d) {
-          // source is names of all the teams
-          return d.Team; 
-        }),
-        focus: function(event) {
-          unhighlightSchool($(this).val());
-        },
-        close: function(event) {
-          selectedSchool = $(this).val();
-          highlightSchool(selectedSchool);
-        }
-      });
-  
-  
+
     /************************************************
-     *
      *              HELPER FUNCTIONS
-     *
      *
     ************************************************/
     /*
@@ -538,10 +519,16 @@ $(document).ready(function() {
         .on('mouseout', function() {
           $(this).toggleClass('highlighted');
           
-          unhighlightSchool(selectedSchool);
+          if (hide) {
+            unhighlightSchool(selectedSchool);
+          } else {
+            highlightSchool(selectedSchool);
+          }
   
         }) // end on-mouseout
         .on('click', function() {
+
+          console.log(selectedSchool);
 
           hide = !hide; // toggle hide
 
