@@ -309,7 +309,8 @@ $(document).ready(function() {
       var record = [0, 0];
       getGames(team, function(games) {
         games.forEach(function(game) {
-          if (game.details.winner == team) {
+          //if (game.details.winner == team) {
+          if (game.details.margin > 0) {
             record[0]++;
           } else {
             record[1]++;
@@ -634,7 +635,36 @@ $(document).ready(function() {
                   })
                   .attr('width', xScaleBar.rangeBand())
                   .on('mouseover', function(d, i) {
-                    console.log(d);
+                    var side; // home or away
+                    var opp;  // opponent
+                    var gameWin;
+
+                    if (d.details.margin > 0) {
+                      gameWin = true;
+                    } else {
+                      gameWin = false;
+                    }
+
+                    if ((typeof getTeamByEspnId(d.details.away.id) 
+                      !== 'undefined') &&     
+                        (typeof getTeamByEspnId(d.details.home.id) 
+                          !== 'undefined')) {
+                      if (d.details.side == 'home') {
+                        opp = 
+                          getTeamByEspnId(d.details.away.id)['Team'];
+                      } else {
+                        opp = 
+                          getTeamByEspnId(d.details.home.id)['Team'];
+                      }
+                    } else {
+                      // we don't have data on games against Div. II 
+                      // and Div. III schools
+                      opp = 'Lower Division Opponent'; 
+                    }
+                    
+                    // determine whether game was home or away
+                    side = (d.details.side === 'home') ?  'vs. ' : 'at';
+
                     d3.select(this)
                       .transition()
                       .duration(250)
@@ -650,26 +680,6 @@ $(document).ready(function() {
                       });
                     d3.select('.game_opponent')
                       .text(function() {
-                        var side, opp;
-                        if ((typeof getTeamByEspnId(d.details.away.id) 
-                          !== 'undefined') &&     
-                            (typeof getTeamByEspnId(d.details.home.id) 
-                              !== 'undefined')) {
-                          if (d.details.side == 'home') {
-                            opp = 
-                              getTeamByEspnId(d.details.away.id)['Team'];
-                          } else {
-                            opp = 
-                              getTeamByEspnId(d.details.home.id)['Team'];
-                          }
-                        } else {
-                          // we don't have data on games against Div. II 
-                          // and Div. III schools
-                          opp = 'Lower Division Opponent'; 
-                        }
-
-                        // determine whether game was home or away
-                        side = (d.details.side === 'home') ?  'vs. ' : 'at';
                         return side + ' ' + opp;
                     });
 
@@ -677,7 +687,7 @@ $(document).ready(function() {
                     // based on whether game was W or L
                     d3.select('.game_details')
                       .style('border', function() {
-                        if (d.details.winner == teamObj.espn_id) {
+                        if (gameWin) {
                           return '1px solid #4682b4';
                         } else {
                           return '1px solid #A6451D'; 
@@ -687,8 +697,8 @@ $(document).ready(function() {
 
                     d3.select('.game_score')
                       .text(function() {
-                        var homeScore = d.details.home.pts;
-                        var awayScore = d.details.away.pts;
+                        var homeScore = +d.details.home.pts;
+                        var awayScore = +d.details.away.pts;
                         if (homeScore > awayScore) {
                           return homeScore + '-' + awayScore;
                         } else {
@@ -696,7 +706,7 @@ $(document).ready(function() {
                         }
                       })
                       .style('color', function() {
-                        if (d.details.winner == teamObj.espn_id) {
+                        if (gameWin) {
                           return '#4682b4';
                         } else {
                           return '#A6451D';
@@ -705,14 +715,14 @@ $(document).ready(function() {
 
                     d3.select('.game_result')
                       .style('color', function() {
-                        if (d.details.winner == teamObj.espn_id) {
+                        if (gameWin) {
                           return '#4682B4';
                         } else {
                           return '#a6451d'; 
                         }
                       })
                       .text(function() {
-                        if (d.details.winner == teamObj.espn_id) {
+                        if (gameWin) {
                           return 'Win'; 
                         } else {
                           return 'Loss';
