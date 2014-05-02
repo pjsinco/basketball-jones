@@ -50,9 +50,11 @@ Below the parallel coordinates is a table reflecting details of all the teams fi
 
 Clicking on a table row, each of which represents a team, introduces another visualization. A bar chart appears, with a bar for every game of the season. The alignment and color of each bar indicates whether the game was a win or a loss, and height encodes the margin of the game result.
 
+Also, subtle but helpful, after clicking on a table row, the team stays highlighted in the parallel coordinates, maintaining a view of the team's performance compared with the other teams.
+
 Finally, mousing over a bar reveals a visualized summary for that game, with a radar chart showing a comparison of several statistics for both teams. 
 
-![Game view](images/bjones-game-view.png)
+![Layered view](images/bjones-game-view.png)
 
 ### Sketches
 I stuck fairly closely to the sketch I liked best (labeled 'Latest working sketch'). I was happy with it. Also, in the beginning of the project I had flailed a bit in gathering the data and spent more time scraping than I had planned. So I was determined to be more focused in working on the actual vis. 

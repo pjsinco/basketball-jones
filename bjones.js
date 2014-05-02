@@ -664,7 +664,7 @@ $(document).ready(function() {
                           }
                         } else {
                           // we don't have data on games against Div. II 
-                          //   and Div. III schools
+                          // and Div. III schools
                           opp = 'Lower Division Opponent'; 
                         }
 
@@ -788,7 +788,7 @@ $(document).ready(function() {
         }
       });
       return team;
-    } // end getTeamByName
+    } 
   
     function getTeamByEspnId(espnId) {
       var team;
