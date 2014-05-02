@@ -2,7 +2,7 @@
 // http://bl.ocks.org/mbostock/7586334
 // http://exposedata.com/parallel/
 
-//$(document).ready(function() {
+$(document).ready(function() {
   var margin = {
       top: 30, 
       right: 10, 
@@ -754,7 +754,9 @@
                     } else {
                       result = 'loss'; 
                     }
-                    //console.log(result);
+
+
+                    // https://github.com/alangrafu/radar-chart-d3
                     RadarChart.draw('.game_radar_chart', gameData, 
                       result, d.details.side);
  
@@ -860,13 +862,4 @@
   
   }); // end d3.csv()
   
-  // get array of selected lines with this selector:
-  // d3.selectAll(".foreground path:not([style*='display: none'])")
-  
-  // get length of that selection
-  // d3.selectAll(".foreground path:not([style*='display: none'])")[0].length
-  
-  // get class name in jquery:
-  //$(".foreground path:not([style*='display: none'])").attr('class')
-
-//}); // end $(document).ready
+}); // end $(document).ready
